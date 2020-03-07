@@ -1,11 +1,11 @@
 # IMDbApiLib
-The IMDb-API is a web service for receiving movie, serial and cast informations. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more. [see more »](https://imdb-api.com)
+The IMDb-API is a web service for receiving movie, serial and cast informations. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more. [IMDb API](https://imdb-api.com)
 
 ## Nuget
 Install from Nuget using the command: **Install-Package IMDbApiLib** View more about that here:  https://nuget.org/packages/IMDbApiLib
 
 ## API Documentation
-[https://imdb-api.com/api](https://imdb-api.com/api)
+[IMDb API Documentation](https://imdb-api.com/api)
 
 ## Usage
 Usage Examples
