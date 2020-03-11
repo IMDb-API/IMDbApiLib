@@ -42,17 +42,17 @@ var data = await apiLib.TrailerAsync("tt0110413");
 // ExternalSites (Get Movie or Series TV in all external sites with Identifier and URL)
 var data = await apiLib.ExternalSitesAsync("tt0110413");
 
-// Ratings (Get ratings of Movie or Series TV in: IMDb, Metacritic, RottenTommatoes, TheMovieDb and TV.com)
+// Ratings (Get ratings of Movie or Series TV in: IMDb, Metacritic, RottenTommatoes, TheMovieDb, TV.com and FilmAffinity)
 var data = await apiLib.RatingsAsync("tt0110413");
 
 // Wikipedia (PlainText and Html)
 var data = await apiLib.WikipediaAsync("tt0110413");
 
-// Youtube
-var data = await apiLib.YoutubeAsync("8hP9D6kZseM");
+// YouTube
+var data = await apiLib.YouTubeAsync("8hP9D6kZseM");
 
-// Youtube Playlist
-var data = await apiLib.WikipediaAsync("PLReL099Y5nRd28Yv6c-Am9qURCrLMxBmK");
+// YouTube Playlist
+var data = await apiLib.YouTubePlaylistAsync("PLReL099Y5nRd28Yv6c-Am9qURCrLMxBmK");
 ```
 
 ----
