@@ -1,5 +1,5 @@
 # IMDbApiLib
-The IMDb-API is a web service for receiving movie, serial and cast informations. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more. [IMDb API](https://imdb-api.com)
+The IMDb-API is a web service for receiving movie, serial and cast information. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more. [IMDb API](https://imdb-api.com)
 
 ## Nuget
 Install from Nuget using the command: **Install-Package IMDbApiLib** View more about that here:  https://nuget.org/packages/IMDbApiLib
@@ -53,6 +53,9 @@ var data = await apiLib.YouTubeAsync("8hP9D6kZseM");
 
 // YouTube Playlist
 var data = await apiLib.YouTubePlaylistAsync("PLReL099Y5nRd28Yv6c-Am9qURCrLMxBmK");
+
+// IMDb List
+var data = await apiLib.IMDbListAsync("ls004285275");
 ```
 
 ----
@@ -80,6 +83,7 @@ var data = await apiLib.YouTubePlaylistAsync("PLReL099Y5nRd28Yv6c-Am9qURCrLMxBmK
 * **SeasonEpisodes** (id, seasonNumber)
 * **ExternalSites** (id)
 * **Wikipedia** (id)
+* **IMDbList** (id)
 
 ### Other APIs
 * **Top250Movies** ()
