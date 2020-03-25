@@ -56,12 +56,12 @@ namespace IMDbApiLib
             }
         }
 
-        public async Task<SubtitleData> SubtitleDataAsync(string id, SubtitleLanguage language, string seasonNumber = null)
+        public async Task<SubtitleData> SubtitleDataAsync(string id, SubtitleLanguage language, int? seasonNumber = null)
         {
             try
             {
                 string initUrl = $"{language.ToString()}/API/Subtitles/{_apiKey}/{id}";
-                if (!string.IsNullOrEmpty(seasonNumber))
+                if (seasonNumber.HasValue)
                     initUrl = $"{language.ToString()}/API/Subtitles/{_apiKey}/{id}/{seasonNumber}";
 
                 string url = $"{BaseUrl}/{initUrl}";
@@ -78,7 +78,7 @@ namespace IMDbApiLib
             }
         }
 
-        public async Task<SubtitleData> SubtitleDataAsync(string id, string seasonNumber = null)
+        public async Task<SubtitleData> SubtitleDataAsync(string id, int? seasonNumber = null)
         {
             return await SubtitleDataAsync(id, SubtitleLanguage.Fa, seasonNumber);
         }

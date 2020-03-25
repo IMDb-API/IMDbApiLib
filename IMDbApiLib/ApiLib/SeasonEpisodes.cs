@@ -6,11 +6,11 @@ namespace IMDbApiLib
 {
     public partial class ApiLib
     {
-        public async Task<SeasonEpisodeData> SeasonEpisodesAsync(string id)
+        public async Task<SeasonEpisodeData> SeasonEpisodesAsync(string id, int seasonNumber)
         {
             try
             {
-                string url = $"{BaseUrl}/en/API/SeasonEpisodes/{_apiKey}/{id}";
+                string url = $"{BaseUrl}/en/API/SeasonEpisodes/{_apiKey}/{id}/{seasonNumber}";
                 return await Utils.DownloadObjectAsync<SeasonEpisodeData>(url);
             }
             catch (Exception ex)
