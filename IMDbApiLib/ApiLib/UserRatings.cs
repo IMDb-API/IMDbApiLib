@@ -10,7 +10,7 @@ namespace IMDbApiLib
         {
             try
             {
-                string url = $"{BaseUrl}/en/API/UserRating/{_apiKey}/{id}";
+                string url = $"{BaseUrl}/en/API/UserRatings/{_apiKey}/{id}";
                 return await Utils.DownloadObjectAsync<UserRatingData>(url);
             }
             catch (Exception ex)

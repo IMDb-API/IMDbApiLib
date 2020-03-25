@@ -6,12 +6,12 @@ namespace IMDbApiLib
 {
     public partial class ApiLib
     {
-        public async Task<SearchData> SearchEpisodeAsync(string expression)
+        public async Task<SearchData> SearchEpisodesAsync(string expression)
         {
             try
             {
                 expression = PrepareExpression(expression);
-                string url = $"{BaseUrl}/en/API/SearchEpisode/{_apiKey}/{expression}";
+                string url = $"{BaseUrl}/en/API/SearchEpisodes/{_apiKey}/{expression}";
                 return await Utils.DownloadObjectAsync<SearchData>(url);
             }
             catch (Exception ex)
