@@ -8,14 +8,14 @@
     <PackageIcon>IMDbApiLib_Icon.png</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/IMDb-API/IMDbApiLib</RepositoryUrl>
-    <PackageTags>imdb api,tmdb api,movie tools,wikipedia api,imdb,tmdb,themoviedb,subscene,subscene api,movie</PackageTags>
-    <Description>The IMDb-API is a web service for receiving movie, serial and cast informations. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more.</Description>
+    <PackageTags>imdb,imdb-api,tmdb,movie,wikipedia,themoviedb,subscene,rottentomatoes,metacritics,thetvdb</PackageTags>
+    <Description>The IMDb-API is a web service for receiving movie, serial and cast information. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more.</Description>
     <Copyright>https://imdb-api.com</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>IMDb-API</Company>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.3.0.0</FileVersion>
-    <Version>1.3.0</Version>
+    <AssemblyVersion>1.4.0.0</AssemblyVersion>
+    <FileVersion>1.4.0.0</FileVersion>
+    <Version>1.4.0</Version>
   </PropertyGroup>
   
   <ItemGroup>
