@@ -245,12 +245,14 @@ namespace IMDbApiLib
         }
         #endregion
 
-        public static async Task<string> DownloadJsonAsync(string url)
+        public static async Task<string> DownloadJsonAsync(string url, WebProxy webProxy = null)
         {
             try
             {
                 string json = string.Empty;
                 var client = new WebClient();
+                if (webProxy != null)
+                    client.Proxy = webProxy;
                 client.Headers["Content-Type"] = "application/json;charset=UTF-8";
                 client.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 70.0.3538.77 Safari / 537.36");
                 json = await client.DownloadStringTaskAsync(url);
@@ -280,11 +282,13 @@ namespace IMDbApiLib
             }
         }
 
-        public static async Task<T> DownloadObjectAsync<T>(string url)
+        public static async Task<T> DownloadObjectAsync<T>(string url, WebProxy webProxy = null)
         {
             try
             {
                 var client = new WebClient();
+                if (webProxy != null)
+                    client.Proxy = webProxy;
                 client.Headers["Content-Type"] = "application/json;charset=UTF-8";
                 client.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 70.0.3538.77 Safari / 537.36");
                 string json = await client.DownloadStringTaskAsync(url);
@@ -310,32 +314,38 @@ namespace IMDbApiLib
             return Convert.ToInt32(((decimal)current / maximum) * 100);
         }
 
-        public static async Task DownloadFileAsync(string filePath, string url)
+        public static async Task DownloadFileAsync(string filePath, string url, WebProxy webProxy = null)
         {
             try
             {
-                using (var wc = new WebClient())
+                using (var client = new WebClient())
                 {
-                    await wc.DownloadFileTaskAsync(url, filePath);
+                    if (webProxy != null)
+                        client.Proxy = webProxy;
+
+                    await client.DownloadFileTaskAsync(url, filePath);
                 }
             }
             catch
             { }
         }
 
-        public static async Task DownloadImageAsync(string filePath, string url)
+        public static async Task DownloadImageAsync(string filePath, string url, WebProxy webProxy = null)
         {
             try
             {
-                using (var wc = new WebClient())
+                using (var client = new WebClient())
                 {
+                    if (webProxy != null)
+                        client.Proxy = webProxy;
+
                     if (!File.Exists(filePath))
                     {
-                        await wc.DownloadFileTaskAsync(url, filePath);
+                        await client.DownloadFileTaskAsync(url, filePath);
                     }
                     else // Check equal
                     {
-                        var bytes = await wc.DownloadDataTaskAsync(url);
+                        var bytes = await client.DownloadDataTaskAsync(url);
                         var img = BytesToImage(bytes);
                         var fi = new FileInfo(filePath);
                         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
@@ -393,7 +403,7 @@ namespace IMDbApiLib
             }
         }
 
-        public static async Task<string> GetUrlFilenameAsync(string url)
+        public static async Task<string> GetUrlFilenameAsync(string url, WebProxy webProxy = null)
         {
             try
             {
@@ -401,6 +411,8 @@ namespace IMDbApiLib
 
                 var req = WebRequest.Create(url);
                 req.Method = "HEAD";
+                if (webProxy != null)
+                    req.Proxy = webProxy;
 
                 using (var response = await req.GetResponseAsync())
                 {
@@ -542,15 +554,18 @@ namespace IMDbApiLib
             }
         }
 
-        public static async Task<byte[]> DownloadDataAsync(string url, ProgressData progress = null, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task<byte[]> DownloadDataAsync(string url, ProgressData progress = null, CancellationToken cancellationToken = default(CancellationToken), WebProxy webProxy = null)
         {
             try
             {
                 byte[] bytes = null;
-                using (var wc = new WebClient())
+                using (var client = new WebClient())
                 {
-                    wc.DownloadProgressChanged += (s, e) => progress?.Report(e.BytesReceived, e.TotalBytesToReceive);
-                    wc.DownloadDataCompleted += (s, e) =>
+                    if (webProxy != null)
+                        client.Proxy = webProxy;
+
+                    client.DownloadProgressChanged += (s, e) => progress?.Report(e.BytesReceived, e.TotalBytesToReceive);
+                    client.DownloadDataCompleted += (s, e) =>
                     {
                         if (e.Error != null || e.Cancelled)
                             bytes = null;
@@ -558,9 +573,9 @@ namespace IMDbApiLib
                         bytes = e.Result;
                     };
 
-                    wc.DownloadDataAsync(new Uri(url));
+                    client.DownloadDataAsync(new Uri(url));
 
-                    while (wc.IsBusy)
+                    while (client.IsBusy)
                     {
                         if (cancellationToken.IsCancellationRequested)
                             throw new TaskCanceledException("Operation canceled by user.");

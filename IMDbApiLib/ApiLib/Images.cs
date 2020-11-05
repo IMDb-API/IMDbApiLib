@@ -22,7 +22,7 @@ namespace IMDbApiLib
                     options = "/" + options;
 
                 string url = $"{BaseUrl}/en/API/Images/{_apiKey}/{id}{options}";
-                return await Utils.DownloadObjectAsync<ImageData>(url);
+                return await Utils.DownloadObjectAsync<ImageData>(url, _webProxy);
             }
             catch (Exception ex)
             {

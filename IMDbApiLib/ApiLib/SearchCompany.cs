@@ -12,7 +12,7 @@ namespace IMDbApiLib
             {
                 expression = PrepareExpression(expression);
                 string url = $"{BaseUrl}/en/API/SearchCompany/{_apiKey}/{expression}";
-                return await Utils.DownloadObjectAsync<SearchData>(url);
+                return await Utils.DownloadObjectAsync<SearchData>(url, _webProxy);
             }
             catch (Exception ex)
             {

@@ -11,7 +11,7 @@ namespace IMDbApiLib
             try
             {
                 string url = $"{BaseUrl}/en/API/Ratings/{_apiKey}/{id}";
-                return await Utils.DownloadObjectAsync<RatingData>(url);
+                return await Utils.DownloadObjectAsync<RatingData>(url, _webProxy);
             }
             catch (Exception ex)
             {

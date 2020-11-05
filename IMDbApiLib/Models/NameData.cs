@@ -13,7 +13,7 @@ namespace IMDbApiLib.Models
         public string DeathDate { get; set; }
         public string Awards { get; set; }
         public string Height { get; set; }
-        public List<KnownFor> KnownFors { get; set; }
+        public List<KnownFor> KnownFor { get; set; }
         public List<CastMovie> CastMovies { get; set; }
         public string ErrorMessage { get; set; }
     }

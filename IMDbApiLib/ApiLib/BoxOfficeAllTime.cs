@@ -11,7 +11,7 @@ namespace IMDbApiLib
             try
             {
                 string url = $"{BaseUrl}/en/API/BoxOfficeAllTime/{_apiKey}";
-                return await Utils.DownloadObjectAsync<BoxOfficeAllTimeData>(url);
+                return await Utils.DownloadObjectAsync<BoxOfficeAllTimeData>(url, _webProxy);
             }
             catch (Exception ex)
             {

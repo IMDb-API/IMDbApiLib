@@ -11,7 +11,7 @@ namespace IMDbApiLib.Models
         public string Year { set; get; }
 
         public List<PosterDataItem> Posters { get; set; }
-        public List<PosterDataItem> Backdors { get; set; }
+        public List<PosterDataItem> Backdrops { get; set; }
 
         public string ErrorMessage { get; set; }
     }

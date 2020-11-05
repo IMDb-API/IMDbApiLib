@@ -5,7 +5,7 @@
         private string PrepareExpression(string expression)
         {
             expression = expression.Replace(" - ", " ");
-            expression = expression.Replace("Mistress of Evil", ""); // Filter in Iran!!
+            expression = expression.Replace("Mistress of Evil", ""); // Filter in some Countries!!
 
             return expression;
         }

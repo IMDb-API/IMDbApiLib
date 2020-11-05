@@ -11,7 +11,7 @@ namespace IMDbApiLib
             try
             {
                 string url = $"{BaseUrl}/en/API/SeasonEpisodes/{_apiKey}/{id}/{seasonNumber}";
-                return await Utils.DownloadObjectAsync<SeasonEpisodeData>(url);
+                return await Utils.DownloadObjectAsync<SeasonEpisodeData>(url, _webProxy);
             }
             catch (Exception ex)
             {
