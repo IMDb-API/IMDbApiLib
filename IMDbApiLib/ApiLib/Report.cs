@@ -30,8 +30,8 @@ namespace IMDbApiLib
                 string url = $"{BaseUrl}/{language}/API/Report/{_apiKey}/{id}{options}";
                 using (var client = new WebClient())
                 {
-                    if (_webProxy != null)
-                        client.Proxy = _webProxy;
+                    if (WebProxy != null)
+                        client.Proxy = WebProxy;
                     await client.DownloadFileTaskAsync(url, filePath);
                 }
             }
@@ -73,8 +73,8 @@ namespace IMDbApiLib
                 string url = $"{BaseUrl}/{language}/API/Report/{_apiKey}/{id}{options}";
                 using (var client = new WebClient())
                 {
-                    if (_webProxy != null)
-                        client.Proxy = _webProxy;
+                    if (WebProxy != null)
+                        client.Proxy = WebProxy;
 
                     var bytes = await client.DownloadDataTaskAsync(url);
                     return bytes;
@@ -107,7 +107,7 @@ namespace IMDbApiLib
                 options = "/" + options;
 
             string url = $"{BaseUrl}/{language.ToString()}/API/Report/{_apiKey}/{id}{options}";
-            var bytes = await Utils.DownloadDataAsync(url, progress, cancellationToken, _webProxy);
+            var bytes = await Utils.DownloadDataAsync(url, progress, cancellationToken, WebProxy);
 
             if (bytes != null)
             {

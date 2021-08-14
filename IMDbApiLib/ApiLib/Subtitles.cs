@@ -43,7 +43,7 @@ namespace IMDbApiLib
 
                         fileName = Path.Combine(fileDir, fileName);
                         sub.Link = await GetRedirectUrl(sub.Link);
-                        await Utils.DownloadFileAsync(fileName, sub.Link, _webProxy);
+                        await Utils.DownloadFileAsync(fileName, sub.Link, WebProxy);
                     }
                 }
 
@@ -67,7 +67,7 @@ namespace IMDbApiLib
                     initUrl = $"{language}/API/Subtitles/{_apiKey}/{id}/{seasonNumber}";
 
                 string url = $"{BaseUrl}/{initUrl}";
-                string json = await Utils.DownloadJsonAsync(url, _webProxy);
+                string json = await Utils.DownloadJsonAsync(url, WebProxy);
                 if (string.IsNullOrEmpty(json))
                     return new SubtitleData() { ErrorMessage = "Server Not Founded" };
 

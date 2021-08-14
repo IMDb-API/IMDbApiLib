@@ -11,7 +11,7 @@ namespace IMDbApiLib
             try
             {
                 string url = $"{BaseUrl}/en/API/YouTube/{_apiKey}/{v}";
-                return await Utils.DownloadObjectAsync<YouTubeData>(url, _webProxy);
+                return await Utils.DownloadObjectAsync<YouTubeData>(url, WebProxy);
             }
             catch (Exception ex)
             {

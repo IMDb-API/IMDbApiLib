@@ -8,7 +8,7 @@ namespace IMDbApiLib
         public string BaseUrl => "https://imdb-api.com";
 
         private readonly string _apiKey;
-        private readonly WebProxy _webProxy = null;
+        public WebProxy WebProxy { get; }
 
         public ApiLib(string apiKey)
         {
@@ -31,7 +31,7 @@ namespace IMDbApiLib
                 }
                 webProxy.BypassProxyOnLocal = false;
 
-                _webProxy = webProxy;
+                WebProxy = webProxy;
             }
         }
     }

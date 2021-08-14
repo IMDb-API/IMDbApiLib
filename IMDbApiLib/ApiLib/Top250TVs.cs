@@ -11,7 +11,7 @@ namespace IMDbApiLib
             try
             {
                 string url = $"{BaseUrl}/en/API/Top250TVs/{_apiKey}";
-                return await Utils.DownloadObjectAsync<Top250Data>(url, _webProxy);
+                return await Utils.DownloadObjectAsync<Top250Data>(url, WebProxy);
             }
             catch (Exception ex)
             {
