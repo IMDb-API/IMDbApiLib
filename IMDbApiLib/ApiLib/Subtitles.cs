@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,6 +42,7 @@ namespace IMDbApiLib
                             fileDir = Path.Combine(fileDir, $"Season {sub.SeasonNumber.Value}");
 
                         fileName = Path.Combine(fileDir, fileName);
+                        sub.Link = await GetRedirectUrl(sub.Link);
                         await Utils.DownloadFileAsync(fileName, sub.Link, _webProxy);
                     }
                 }
@@ -83,5 +85,19 @@ namespace IMDbApiLib
             return await SubtitleDataAsync(id, SubtitleLanguage.Fa, seasonNumber);
         }
 
+        private static async Task<string> GetRedirectUrl(string url)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                var response = (HttpWebResponse)await request.GetResponseAsync();
+
+                return response.ResponseUri.ToString();
+            }
+            catch (WebException ex)
+            {
+                return ex.Response.Headers["Location"];
+            }
+        }
     }
 }
