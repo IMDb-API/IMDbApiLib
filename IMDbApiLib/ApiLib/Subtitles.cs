@@ -43,7 +43,7 @@ namespace IMDbApiLib
 
                         fileName = Path.Combine(fileDir, fileName);
                         sub.Link = await GetRedirectUrl(sub.Link);
-                        await Utils.DownloadFileAsync(fileName, sub.Link, WebProxy);
+                        await Utils.DownloadFileAsync(fileName, sub.Link, null, WebProxy);
                     }
                 }
 

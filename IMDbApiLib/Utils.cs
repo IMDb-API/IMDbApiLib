@@ -2,8 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -314,12 +312,17 @@ namespace IMDbApiLib
             return Convert.ToInt32(((decimal)current / maximum) * 100);
         }
 
-        public static async Task DownloadFileAsync(string filePath, string url, WebProxy webProxy = null)
+        public static async Task DownloadFileAsync(string filePath, string url, ProgressData progress = null, WebProxy webProxy = null)
         {
             try
             {
                 using (var client = new WebClient())
                 {
+                    client.DownloadProgressChanged += (s, e) =>
+                    {
+                        progress?.Report(e.BytesReceived, e.TotalBytesToReceive);
+                    };
+                    
                     if (webProxy != null)
                         client.Proxy = webProxy;
 
@@ -343,37 +346,10 @@ namespace IMDbApiLib
                     {
                         await client.DownloadFileTaskAsync(url, filePath);
                     }
-                    else // Check equal
-                    {
-                        var bytes = await client.DownloadDataTaskAsync(url);
-                        var img = BytesToImage(bytes);
-                        var fi = new FileInfo(filePath);
-                        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-                        var sameFileNames = new DirectoryInfo(fi.DirectoryName).GetFiles($"{fileNameWithoutExtension}*.jpg").ToList();
-                        bool isDupplicate = false;
-                        foreach (var s in sameFileNames)
-                        {
-                            if (s.Length + 1024 > bytes.Length && s.Length - 1024 < bytes.Length)
-                            {
-                                isDupplicate = true;
-                                break;
-                            }
-                        }
-
-                        if (!isDupplicate)
-                        {
-                            string newFilePath = $"{fi.DirectoryName}\\{fileNameWithoutExtension}-{GenerateRandom(6)}{fi.Extension}";
-                            img.Save(newFilePath, ImageFormat.Jpeg);
-                        }
-                    }
-
                 }
-
             }
             catch
-            {
-
-            }
+            { }
         }
 
         public static void RemoveDuplicatedFiles(string dir)
@@ -436,72 +412,6 @@ namespace IMDbApiLib
                 return null;
             }
         }
-
-        public static byte[] ImageToBytes(Image img)
-        {
-            return ImageToBytes(img, ImageFormat.Png);
-        }
-
-        public static byte[] ImageToBytes(Image img, Size size)
-        {
-            if (img == null)
-                return null;
-
-            if (img.Width > size.Width || img.Height > size.Height)
-                img = ResizeImage(img, size);
-
-            return ImageToBytes(img, ImageFormat.Png);
-        }
-
-        public static byte[] ImageToBytes(Image img, ImageFormat imgFormat)
-        {
-            if (img == null)
-                return null;
-
-            var ms = new MemoryStream();
-            img.Save(ms, imgFormat);
-            return ms.ToArray();
-        }
-
-        public static Image BytesToImage(byte[] bytes)
-        {
-            if (bytes == null)
-                return null;
-
-            var ms = new MemoryStream(bytes);
-            var returnImage = Image.FromStream(ms);
-            return returnImage;
-        }
-
-        public static Image BytesToImage(byte[] bytes, Size size)
-        {
-            if (bytes == null)
-                return null;
-
-            var img = BytesToImage(bytes);
-            if (img.Width > size.Width || img.Height > size.Height)
-                return ResizeImage(img, size);
-
-            return img;
-        }
-
-        public static Image ResizeImage(Image img, Size size)
-        {
-            var ratioX = (double)size.Width / img.Width;
-            var ratioY = (double)size.Height / img.Height;
-            var ratio = Math.Min(ratioX, ratioY);
-
-            var newWidth = (int)(img.Width * ratio);
-            var newHeight = (int)(img.Height * ratio);
-
-            var newImage = new Bitmap(newWidth, newHeight);
-
-            using (var graphics = Graphics.FromImage(newImage))
-                graphics.DrawImage(img, 0, 0, newWidth, newHeight);
-
-            return newImage;
-        }
-
         public static string RenameToPhisicalName(string originalName)
         {
             originalName = originalName.Replace(":", " -");
@@ -522,7 +432,7 @@ namespace IMDbApiLib
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(removeSiteNames))
                 return name;
 
-            var dlSiteNames = removeSiteNames.Trim().Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var dlSiteNames = removeSiteNames.Trim().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
             foreach (var dx in dlSiteNames)
             {
                 if (!string.IsNullOrEmpty(dx))

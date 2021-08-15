@@ -13,20 +13,14 @@
     <Copyright>https://imdb-api.com</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>IMDb-API</Company>
-    <AssemblyVersion>1.6.2.0</AssemblyVersion>
-    <FileVersion>1.6.2.0</FileVersion>
-    <Version>1.6.2</Version>
+    <AssemblyVersion>1.6.3.1</AssemblyVersion>
+    <FileVersion>1.6.3.1</FileVersion>
+    <Version>1.6.3.1</Version>
     <ApplicationIcon />
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Drawing.Common">
-      <Version>5.0.2</Version>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

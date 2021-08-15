@@ -1,6 +1,5 @@
 ﻿using IMDbApiLib.Models;
 using System;
-using System.Drawing.Imaging;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -107,6 +106,8 @@ namespace IMDbApiLib
                 options = "/" + options;
 
             string url = $"{BaseUrl}/{language.ToString()}/API/Report/{_apiKey}/{id}{options}";
+            await Utils.DownloadFileAsync(filePath, url, progress, WebProxy);
+            /*
             var bytes = await Utils.DownloadDataAsync(url, progress, cancellationToken, WebProxy);
 
             if (bytes != null)
@@ -114,6 +115,7 @@ namespace IMDbApiLib
                 var img = Utils.BytesToImage(bytes);
                 img.Save(filePath, ImageFormat.Png);
             }
+            */
         }
 
         // Todo dl Full=fal....
