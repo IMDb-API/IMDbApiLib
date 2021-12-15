@@ -136,12 +136,12 @@ namespace IMDbApiLib.Models
             if (!string.IsNullOrEmpty(CountriesStr))
                 queries.Add($"countries={CountriesStr}");
             else
-                EnumToQueryString(queries, "countries", Countries);
+                EnumSingleValueToQueryString(queries, "countries", Countries);
             SingleValueToQueryString(queries, "keywords", Keyword);
             if (!string.IsNullOrEmpty(LanguagesStr))
                 queries.Add($"languages={LanguagesStr}");
             else
-                EnumToQueryString(queries, "languages", Languages);
+                EnumSingleValueToQueryString(queries, "languages", Languages);
             SingleValueToQueryString(queries, "locations", FilmingLocations);
             TwoValuesToQueryString(queries, "moviemeter", PopularityFrom, PopularityTo);
             SingleValueToQueryString(queries, "plot", Plot);
@@ -203,6 +203,14 @@ namespace IMDbApiLib.Models
 
             if (qs.Count() > 0)
                 queries.Add($"{fieldName}={string.Join(",", qs)}");
+        }
+
+        public void EnumSingleValueToQueryString(List<string> queries, string fieldName, Enum fieldValue)
+        {
+            if (fieldValue is null)
+                return;
+
+            queries.Add($"{fieldName}={fieldValue.GetDescription()}");
         }
 
         private void TwoValuesToQueryString(List<string> queries, string fieldName, string fieldValueFrom, string fieldValueTo)

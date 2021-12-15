@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IMDbApiLib.Models
 {
-    [Flags]
     public enum AdvancedSearchLanguage
     {
         [Display(Name = "Abkhazian")]
