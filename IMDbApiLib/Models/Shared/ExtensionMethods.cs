@@ -1,4 +1,10 @@
-﻿namespace IMDbApiLib
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
+
+namespace IMDbApiLib
 {
     public static class ExtensionMethods
     {
@@ -26,6 +32,30 @@
                 tmp += s.ToPascalCasting() + " ";
 
             return tmp.Trim();
+        }
+
+        public static string GetDescription(this Enum enumValue)
+        {
+            if (enumValue is null)
+                return string.Empty;
+
+            return enumValue.GetType()
+                .GetMember(enumValue.ToString())
+                .First()
+                .GetCustomAttribute<DescriptionAttribute>()?
+                .Description ?? string.Empty;
+        }
+
+        public static string GetDisplayName(this Enum enumValue)
+        {
+            if (enumValue is null)
+                return string.Empty;
+
+            return enumValue.GetType()
+                .GetMember(enumValue.ToString())
+                .First()
+                .GetCustomAttribute<DisplayAttribute>()
+                .GetName();
         }
     }
 }

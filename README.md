@@ -50,6 +50,18 @@ var data = await apiLib.YoutubeAsync("8hP9D6kZseM");
 
 // Youtube Playlist
 var data = await apiLib.WikipediaAsync("PLReL099Y5nRd28Yv6c-Am9qURCrLMxBmK");
+
+// AdvancedSearch
+var input = new AdvancedSearchInput();
+input.Genres = AdvancedSearchGenre.Action | AdvancedSearchGenre.Adventure;
+input.Countries = AdvancedSearchCountry.Afghanistan | AdvancedSearchCountry.Aland_Islands;
+input.Sort = AdvancedSearchSort.User_Rating_Descending;
+input.ReleaseDateFrom = "2010-01-01";
+input.NumberOfVotesFrom = 5000;
+input.Countries = AdvancedSearchCountry.United_States;
+
+string queryString = input.ToString();
+var advancedSearchdata = await apiLib.AdvancedSearchAsync(input);
 ```
 
 ----
