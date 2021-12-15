@@ -75,6 +75,7 @@ var advancedSearchdata = await apiLib.AdvancedSearchAsync(input);
 * **SearchEpisode** (expression)
 * **SearchCompany** (expression)
 * **SearchKeyword** (expression)
+* **AdvancedSearch** (params)
 
 ### Title APIs
 * **Title** (id, options?)
