@@ -98,6 +98,7 @@ var advancedSearchdata = await apiLib.AdvancedSearchAsync(input);
 * **Reviews** (id)
 * **MetacriticReviews** (id)
 * **FAQ** (id)
+* **Awards** (id)
 
 ### Other APIs
 * **Top250Movies** ()
@@ -109,6 +110,7 @@ var advancedSearchdata = await apiLib.AdvancedSearchAsync(input);
 * **BoxOffice** ()
 * **BoxOfficeAllTime** ()
 * **Name** (nmId)
+* **NameAwards** (nmId)
 * **Company** (coId)
 * **Keyword** (kwId)
 * **YouTube** (v)

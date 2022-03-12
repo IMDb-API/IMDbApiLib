@@ -46,7 +46,7 @@ namespace IMDbApiLib.Models
         [Display(Name = "Title Data")]
         public AdvancedSearchTitleData? TitleData { get; set; }
 
-        // Companies
+        // companies
         [Display(Name = "Companies")]
         public AdvancedSearchCompany? Companies { get; set; }
 
