@@ -12,7 +12,6 @@
         public string Metacritic { get; set; }
         public string TheMovieDb { get; set; }
         public string RottenTomatoes { get; set; }
-        public string TV_com { get; set; }
         public string FilmAffinity { get; set; }
 
         public string ErrorMessage { get; set; }

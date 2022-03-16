@@ -25,5 +25,18 @@ namespace IMDbApiLib.Models
         public string Votes { get; set; }
     }
 
+    public class UserRatingDataDemographicDetail
+    {
+        public string Rating { get; set; }
+        public string Votes { get; set; }
+    }
 
+    public class UserRatingDataDemographic
+    {
+        public UserRatingDataDemographicDetail AllAges { get; set; }
+        public UserRatingDataDemographicDetail AgesUnder18 { get; set; }
+        public UserRatingDataDemographicDetail Ages18To29 { get; set; }
+        public UserRatingDataDemographicDetail Ages30To44 { get; set; }
+        public UserRatingDataDemographicDetail AgesOver45 { get; set; }
+    }
 }

@@ -13,9 +13,9 @@
     <Copyright>https://imdb-api.com</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>IMDb-API</Company>
-    <AssemblyVersion>1.8.0.0</AssemblyVersion>
-    <FileVersion>1.8.0.0</FileVersion>
-    <Version>1.8.0.0</Version>
+    <AssemblyVersion>1.8.1.0</AssemblyVersion>
+    <FileVersion>1.8.1.0</FileVersion>
+    <Version>1.8.1.0</Version>
     <ApplicationIcon />
   </PropertyGroup>
   
