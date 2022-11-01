@@ -26,8 +26,8 @@ namespace IMDbApiLib.Models
         public string Year { set; get; }
         public string Released { set; get; }
         public string Plot { set; get; }
-        public string RatingValue { get; set; }
-        public string RatingCount { get; set; }
+        public string IMDbRating { get; set; }
+        public string IMDbRatingCount { get; set; }
 
     }
 }
