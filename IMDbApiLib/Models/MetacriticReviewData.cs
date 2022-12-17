@@ -6,7 +6,7 @@ namespace IMDbApiLib.Models
     {
         public MetacriticReviewData()
         {
-            ErrorMessage = "";
+            ErrorMessage = string.Empty;
             Items = new List<MetacriticReviewDetail>();
         }
 
@@ -28,9 +28,7 @@ namespace IMDbApiLib.Models
         public string FullTitle { get; set; }
         public string Type { get; set; }
         public string Year { get; set; }
-
         public List<MetacriticReviewDetail> Items { get; set; }
-
         public string ErrorMessage { get; set; }
     }
 

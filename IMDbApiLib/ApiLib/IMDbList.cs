@@ -11,7 +11,6 @@ namespace IMDbApiLib
             try
             {
                 string url = $"{BaseUrl}/en/API/IMDbList/{_apiKey}/{id}";
-                string json = await Utils.DownloadJsonAsync(url, WebProxy);
                 return await Utils.DownloadObjectAsync<IMDbListData>(url);
             }
             catch (Exception ex)

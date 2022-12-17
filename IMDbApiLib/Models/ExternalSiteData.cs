@@ -4,6 +4,18 @@ namespace IMDbApiLib.Models
 {
     public class ExternalSiteData
     {
+        public ExternalSiteData()
+        {
+            ErrorMessage = string.Empty;
+            WikipediaUrls = new List<LanguageUrl>();
+        }
+
+        public ExternalSiteData(string id, string errorMessage)
+        {
+            IMDbId = id;
+            ErrorMessage = errorMessage;
+        }
+
         public string IMDbId { get; set; }
         public string Title { get; set; }
         public string FullTitle { get; set; }
@@ -48,7 +60,6 @@ namespace IMDbApiLib.Models
         public ExternalSiteItem MovieWalker { get; set; }
         public ExternalSiteItem TVGuide { get; set; }
         public ExternalSiteItem Filmweb_pl { get; set; }
-        public ExternalSiteItem TV_com { get; set; }
         public ExternalSiteItem ISAN { get; set; }
         public ExternalSiteItem EIDR { get; set; }
         public ExternalSiteItem AFICatalogOfFeature { get; set; }
@@ -83,14 +94,9 @@ namespace IMDbApiLib.Models
         public ExternalSiteItem TheEncyclopediaOfScienceFiction { get; set; }
         public ExternalSiteItem Letterboxd { get; set; }
         public ExternalSiteItem ComicVine { get; set; }
-
-        // TV
         public ExternalSiteItem TheTVDB { get; set; }
         public ExternalSiteItem TVSpielfilmSeries { get; set; }
-
-        // Wikipedia LanguageUrls
         public List<LanguageUrl> WikipediaUrls { set; get; }
-
         public string ErrorMessage { get; set; }
     }
 

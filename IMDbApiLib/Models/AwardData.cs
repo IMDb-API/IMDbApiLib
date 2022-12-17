@@ -4,6 +4,25 @@ namespace IMDbApiLib.Models
 {
     public class AwardData
     {
+        public AwardData()
+        {
+            ErrorMessage = string.Empty;
+            Items = new List<AwardEvent>();
+        }
+
+        public AwardData(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Items = null;
+        }
+
+        public AwardData(string id, string errorMessage)
+        {
+            IMDbId = id;
+            ErrorMessage = errorMessage;
+            Items = null;
+        }
+
         public string IMDbId { get; set; }
         public string Title { get; set; }
         public string FullTitle { get; set; }
@@ -19,6 +38,11 @@ namespace IMDbApiLib.Models
 
     public class AwardEvent
     {
+        public AwardEvent()
+        {
+            OutcomeItems = new List<AwardOutcome>();
+        }
+
         public string EventTitle { get; set; }
         public string EventYear { get; set; }
 
@@ -27,6 +51,11 @@ namespace IMDbApiLib.Models
 
     public class AwardOutcome
     {
+        public AwardOutcome()
+        {
+            OutcomeDetails = new List<AwardOutcomeDetail>();
+        }
+
         public string OutcomeTitle { get; set; }
         public string OutcomeCategory { get; set; }
 

@@ -208,17 +208,6 @@ namespace IMDbApiLib
                 return languages;
             }
         }
-
-        public static Dictionary<string, string> SubtitleLanguages
-        {
-            get
-            {
-                var languages = new Dictionary<string, string>();
-                languages.Add("farsi_persian", "fa");
-
-                return languages;
-            }
-        }
         #endregion
 
         #region GenerateRandom
@@ -251,8 +240,6 @@ namespace IMDbApiLib
                 var client = new WebClient();
                 if (webProxy != null)
                     client.Proxy = webProxy;
-                client.Headers["Content-Type"] = "application/json;charset=UTF-8";
-                client.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 70.0.3538.77 Safari / 537.36");
                 json = await client.DownloadStringTaskAsync(url);
 
                 return json;
@@ -287,8 +274,6 @@ namespace IMDbApiLib
                 var client = new WebClient();
                 if (webProxy != null)
                     client.Proxy = webProxy;
-                client.Headers["Content-Type"] = "application/json;charset=UTF-8";
-                client.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 70.0.3538.77 Safari / 537.36");
                 string json = await client.DownloadStringTaskAsync(url);
 
                 if (string.IsNullOrEmpty(json))
@@ -412,6 +397,7 @@ namespace IMDbApiLib
                 return null;
             }
         }
+       
         public static string RenameToPhisicalName(string originalName)
         {
             originalName = originalName.Replace(":", " -");
@@ -499,43 +485,6 @@ namespace IMDbApiLib
             catch
             {
                 return null;
-            }
-        }
-
-        public static List<string> GetSubtitleDataDirectoris(string movieRootDir, SubtitleData subtitleData)
-        {
-            var dirs = new List<string>();
-            if (subtitleData is null || !string.IsNullOrEmpty(subtitleData.ErrorMessage))
-                return dirs;
-
-            movieRootDir = Path.Combine(movieRootDir, "Subtitles");
-            dirs.Add(movieRootDir);
-
-            bool hasFa = subtitleData.Subtitles != null && subtitleData.Subtitles.Count > 0;
-
-            var seasons = new List<int?>();
-
-            if (hasFa)
-            {
-                dirs.Add(Path.Combine(movieRootDir, SubtitleLanguage.Fa.ToString()));
-                seasons.AddRange(subtitleData.Subtitles.Where(sx => sx.SeasonNumber.HasValue).Select(sx => sx.SeasonNumber).Distinct());
-            }
-
-            seasons = seasons.Distinct().ToList();
-            if (hasFa)
-                seasons.ForEach(sx => dirs.Add(Path.Combine(movieRootDir, Language.fa.ToString(), $"Season {sx.Value}")));
-
-            return dirs;
-        }
-
-        public static void CreateSubtitleDataDirectoris(string movieRootDir, SubtitleData subtitleData)
-        {
-            var dirs = GetSubtitleDataDirectoris(movieRootDir, subtitleData);
-
-            foreach (var d in dirs)
-            {
-                if (!Directory.Exists(d))
-                    Directory.CreateDirectory(d);
             }
         }
 

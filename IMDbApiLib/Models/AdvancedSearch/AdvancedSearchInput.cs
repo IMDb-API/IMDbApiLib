@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
+
 namespace IMDbApiLib.Models
 {
     public class AdvancedSearchInput
@@ -133,12 +134,12 @@ namespace IMDbApiLib.Models
             EnumToQueryString(queries, "online_availability", InstantWatchOptions);
             EnumToQueryString(queries, "certificates", USCertificates);
             EnumToQueryString(queries, "colors", ColorInfo);
-            if (!string.IsNullOrEmpty(CountriesStr))
+            if (!CountriesStr.IsNull())
                 queries.Add($"countries={CountriesStr}");
             else
                 EnumSingleValueToQueryString(queries, "countries", Countries);
             SingleValueToQueryString(queries, "keywords", Keyword);
-            if (!string.IsNullOrEmpty(LanguagesStr))
+            if (!LanguagesStr.IsNull())
                 queries.Add($"languages={LanguagesStr}");
             else
                 EnumSingleValueToQueryString(queries, "languages", Languages);
@@ -149,6 +150,7 @@ namespace IMDbApiLib.Models
             EnumToQueryString(queries, "sound_mixes", SoundMix);
             EnumToQueryString(queries, "count", Count);
             EnumToQueryString(queries, "sort", Sort);
+
 
             if (queries.Count > 0)
                 return $"?{string.Join("&", queries)}";
@@ -162,7 +164,7 @@ namespace IMDbApiLib.Models
             var result = new List<EnumDisplayNameDescription<T>>();
             foreach (T sx in Enum.GetValues(typeof(T)))
             {
-                if (string.IsNullOrEmpty(sx.GetDescription()))
+                if (sx.GetDescription().IsNull())
                     continue;
                 result.Add(new EnumDisplayNameDescription<T>(sx, sx.GetDisplayName(), sx.GetDescription()));
             }
@@ -172,7 +174,7 @@ namespace IMDbApiLib.Models
 
         private string CheckDate(string date)
         {
-            if (string.IsNullOrEmpty(date))
+            if (date.IsNull())
                 return string.Empty;
 
             if (DateTime.TryParse(date, out DateTime dt))
@@ -183,7 +185,7 @@ namespace IMDbApiLib.Models
 
         private void SingleValueToQueryString(List<string> queries, string fieldName, string fieldValue)
         {
-            if (!string.IsNullOrEmpty(fieldValue))
+            if (!fieldValue.IsNull())
                 queries.Add($"{fieldName}={fieldValue}");
         }
 
@@ -215,13 +217,13 @@ namespace IMDbApiLib.Models
 
         private void TwoValuesToQueryString(List<string> queries, string fieldName, string fieldValueFrom, string fieldValueTo)
         {
-            if (!string.IsNullOrEmpty(fieldValueFrom) || !string.IsNullOrEmpty(fieldValueTo))
+            if (!fieldValueFrom.IsNull() || !fieldValueTo.IsNull())
             {
                 string v1 = "";
                 string v2 = "";
-                if (!string.IsNullOrEmpty(fieldValueFrom))
+                if (!fieldValueFrom.IsNull())
                     v1 = fieldValueFrom;
-                if (!string.IsNullOrEmpty(fieldValueTo))
+                if (!fieldValueTo.IsNull())
                     v2 = fieldValueTo;
                 queries.Add($"{fieldName}={v1},{v2}");
             }

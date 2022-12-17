@@ -4,8 +4,19 @@ namespace IMDbApiLib.Models
 {
     public class MostPopularData
     {
-        public List<MostPopularDataDetail> Items { get; set; }
+        public MostPopularData()
+        {
+            ErrorMessage = string.Empty;
+            Items = new List<MostPopularDataDetail>();
+        }
 
+        public MostPopularData(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Items = new List<MostPopularDataDetail>();
+        }
+
+        public List<MostPopularDataDetail> Items { get; set; }
         public string ErrorMessage { get; set; }
     }
 
@@ -22,5 +33,4 @@ namespace IMDbApiLib.Models
         public string IMDbRating { get; set; }
         public string IMDbRatingCount { get; set; }
     }
-
 }

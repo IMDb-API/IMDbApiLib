@@ -17,7 +17,6 @@ namespace IMDbApiLib.Models
                 options = options.ToLower();
             }
 
-
             FullCast = options.Contains("fullcast");
             FullActor = options.Contains("fullactor") || options.Contains("fullcast");
             Wikipedia = options.Contains("wikipedia");
@@ -26,12 +25,23 @@ namespace IMDbApiLib.Models
             Trailer = options.Contains("trailers") || options.Contains("trailer");
             Ratings = options.Contains("ratings") || options.Contains("rating");
 
-            int indexOf = originalOptions.IndexOf("k_");
+
+            int indexOf = originalOptions.IndexOf("pk_");
             if (indexOf != -1)
             {
-                string key = originalOptions.Substring(indexOf, 10); // 10 chars
-                if (!string.IsNullOrEmpty(key) && key.Length == 10)
+                string key = originalOptions.Substring(indexOf, 20); // 20 chars
+                if (!string.IsNullOrEmpty(key) && key.Length == 20)
                     ApiKey = key;
+            }
+            else
+            {
+                indexOf = originalOptions.IndexOf("k_");
+                if (indexOf != -1)
+                {
+                    string key = originalOptions.Substring(indexOf, 10); // 10 chars
+                    if (!string.IsNullOrEmpty(key) && key.Length == 10)
+                        ApiKey = key;
+                }
             }
         }
 

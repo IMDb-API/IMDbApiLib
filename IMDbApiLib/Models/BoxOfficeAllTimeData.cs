@@ -4,6 +4,18 @@ namespace IMDbApiLib.Models
 {
     public class BoxOfficeAllTimeData
     {
+        public BoxOfficeAllTimeData()
+        {
+            ErrorMessage = string.Empty;
+            Items = new List<BoxOfficeAllTimeDataDetail>();
+        }
+
+        public BoxOfficeAllTimeData(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Items = new List<BoxOfficeAllTimeDataDetail>();
+        }
+
         public List<BoxOfficeAllTimeDataDetail> Items { get; set; }
 
         public string ErrorMessage { get; set; }

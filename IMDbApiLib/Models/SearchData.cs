@@ -4,12 +4,21 @@ namespace IMDbApiLib.Models
 {
     public class SearchData
     {
+        public SearchData()
+        {
+            ErrorMessage = string.Empty;
+            Results = new List<SearchResult>();
+        }
+
+        public SearchData(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Results = null;
+        }
+
         public string SearchType { get; set; }
-
         public string Expression { get; set; }
-
         public List<SearchResult> Results { get; set; }
-
         public string ErrorMessage { get; set; }
     }
 
@@ -20,7 +29,6 @@ namespace IMDbApiLib.Models
         public string Image { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-
     }
 
     public enum SearchType

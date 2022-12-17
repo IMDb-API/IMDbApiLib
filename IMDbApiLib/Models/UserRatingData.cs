@@ -4,17 +4,40 @@ namespace IMDbApiLib.Models
 {
     public class UserRatingData
     {
+        public UserRatingData()
+        {
+            ErrorMessage = string.Empty;
+            Ratings = new List<UserRatingDataDetail>();
+        }
+
+        public UserRatingData(string id, string errorMessage)
+        {
+            IMDbId = id;
+            ErrorMessage = errorMessage;
+            Ratings = null;
+            DemographicAll = null;
+            DemographicMales = null;
+            DemographicFemales = null;
+            Top1000Voters = null;
+            USUsers = null;
+            NonUSUsers = null;
+        }
+
         public string IMDbId { get; set; }
         public string Title { get; set; }
         public string FullTitle { get; set; }
         public string Type { get; set; }
         public string Year { get; set; }
-
         public string TotalRating { get; set; }
         public string TotalRatingVotes { get; set; }
-
         public List<UserRatingDataDetail> Ratings { get; set; }
 
+        public UserRatingDataDemographic DemographicAll { get; set; }
+        public UserRatingDataDemographic DemographicMales { get; set; }
+        public UserRatingDataDemographic DemographicFemales { get; set; }
+        public UserRatingDataDemographicDetail Top1000Voters { get; set; }
+        public UserRatingDataDemographicDetail USUsers { get; set; }
+        public UserRatingDataDemographicDetail NonUSUsers { get; set; }
         public string ErrorMessage { get; set; }
     }
 

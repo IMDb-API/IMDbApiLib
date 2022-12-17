@@ -4,6 +4,29 @@ namespace IMDbApiLib.Models
 {
     public class FullCastData
     {
+        public FullCastData()
+        {
+            ErrorMessage = string.Empty;
+            Actors = new List<ActorShort>();
+            Directors = new CastShort("Director");
+            Writers = new CastShort("Writer");
+            Others = new List<CastShort>();
+        }
+
+        public FullCastData(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Actors = new List<ActorShort>();
+            Directors = new CastShort("Director");
+            Writers = new CastShort("Writer");
+            Others = new List<CastShort>();
+        }
+
+        public FullCastData(string id, string errorMessage) : this(errorMessage)
+        {
+            IMDbId = id;
+        }
+
         public string IMDbId { get; set; }
         public string Title { set; get; }
         public string FullTitle { set; get; }
@@ -18,6 +41,12 @@ namespace IMDbApiLib.Models
 
     public class CastShort
     {
+        public CastShort(string job)
+        {
+            Job = job;
+            Items = new List<CastShortItem>();
+        }
+
         public string Job { get; set; }
         public List<CastShortItem> Items { get; set; }
     }
@@ -34,6 +63,6 @@ namespace IMDbApiLib.Models
         public string Id { get; set; }
         public string Image { get; set; }
         public string Name { get; set; }
-        public string AsCharacter { get; set; }
+        public string AsCharacter { get; set; } = "";
     }
 }

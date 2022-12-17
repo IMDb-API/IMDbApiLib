@@ -4,8 +4,19 @@ namespace IMDbApiLib.Models
 {
     public class Top250Data
     {
-        public List<Top250DataDetail> Items { get; set; }
+        public Top250Data()
+        {
+            ErrorMessage = string.Empty;
+            Items = new List<Top250DataDetail>();
+        }
 
+        public Top250Data(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Items = new List<Top250DataDetail>();
+        }
+
+        public List<Top250DataDetail> Items { get; set; }
         public string ErrorMessage { get; set; }
     }
 
@@ -21,5 +32,4 @@ namespace IMDbApiLib.Models
         public string IMDbRating { get; set; }
         public string IMDbRatingCount { get; set; }
     }
-
 }

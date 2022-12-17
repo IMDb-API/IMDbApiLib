@@ -4,13 +4,31 @@ namespace IMDbApiLib.Models
 {
     public class NewMovieData
     {
-        public List<NewMovieDataDetail> Items { get; set; }
+        public NewMovieData()
+        {
+            ErrorMessage = string.Empty;
+            Items = new List<NewMovieDataDetail>();
+        }
 
+        public NewMovieData(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Items = new List<NewMovieDataDetail>();
+        }
+
+        public List<NewMovieDataDetail> Items { get; set; }
         public string ErrorMessage { get; set; }
     }
 
     public class NewMovieDataDetail
     {
+        public NewMovieDataDetail()
+        {
+            GenreList = new List<KeyValueItem>();
+            DirectorList = new List<StarShort>();
+            StarList = new List<StarShort>();
+        }
+
         public string Id { get; set; }
         public string Title { set; get; }
         public string FullTitle { set; get; }
@@ -31,5 +49,4 @@ namespace IMDbApiLib.Models
         public string Stars { set; get; }
         public List<StarShort> StarList { get; set; }
     }
-
 }

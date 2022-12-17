@@ -4,14 +4,24 @@ namespace IMDbApiLib.Models
 {
     public class IMDbListData
     {
+        public IMDbListData()
+        {
+            ErrorMessage = string.Empty;
+            Items = new List<IMDbListDataDetail>();
+        }
+
+        public IMDbListData(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Items = new List<IMDbListDataDetail>();
+        }
+
         public string Title { get; set; }
         public string By { get; set; }
         public string Created { get; set; }
         public string Updated { get; set; }
         public string Description { get; set; }
-
         public List<IMDbListDataDetail> Items { get; set; }
-
         public string ErrorMessage { get; set; }
     }
 

@@ -1,10 +1,5 @@
 ﻿namespace IMDbApiLib.Models
 {
-    public enum SubtitleLanguage
-    {
-        Fa
-    }
-
     public enum Language
     {
         af,

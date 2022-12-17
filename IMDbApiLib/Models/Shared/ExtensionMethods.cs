@@ -8,6 +8,11 @@ namespace IMDbApiLib
 {
     public static class ExtensionMethods
     {
+        public static bool IsNull(this string str)
+        {
+            return string.IsNullOrEmpty(str);
+        }
+
         public static string ToPascalCasting(this string str)
         {
             if (string.IsNullOrEmpty(str))

@@ -45,12 +45,6 @@ var data = await apiLib.RatingsAsync("tt0110413");
 // Wikipedia (PlainText and Html)
 var data = await apiLib.WikipediaAsync("tt0110413");
 
-// Youtube
-var data = await apiLib.YoutubeAsync("8hP9D6kZseM");
-
-// Youtube Playlist
-var data = await apiLib.WikipediaAsync("PLReL099Y5nRd28Yv6c-Am9qURCrLMxBmK");
-
 // AdvancedSearch
 var input = new AdvancedSearchInput();
 input.Genres = AdvancedSearchGenre.Action | AdvancedSearchGenre.Adventure;
@@ -113,5 +107,9 @@ var advancedSearchdata = await apiLib.AdvancedSearchAsync(input);
 * **NameAwards** (nmId)
 * **Company** (coId)
 * **Keyword** (kwId)
-* **YouTube** (v)
-* **YouTubePlaylist** (list)
+* **YouTubeTrailer** (id)
+
+### Tools APIs
+* **Usage** ()
+* **ResizeImage** (WxH, url)
+* **ResizePoster** (WxH, url)

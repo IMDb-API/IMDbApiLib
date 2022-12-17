@@ -4,8 +4,19 @@ namespace IMDbApiLib.Models
 {
     public class BoxOfficeWeekendData
     {
-        public List<BoxOfficeWeekendDataDetail> Items { get; set; }
+        public BoxOfficeWeekendData()
+        {
+            ErrorMessage = string.Empty;
+            Items = new List<BoxOfficeWeekendDataDetail>();
+        }
 
+        public BoxOfficeWeekendData(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Items = new List<BoxOfficeWeekendDataDetail>();
+        }
+
+        public List<BoxOfficeWeekendDataDetail> Items { get; set; }
         public string ErrorMessage { get; set; }
     }
 

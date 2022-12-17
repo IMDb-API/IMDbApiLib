@@ -98,7 +98,7 @@ namespace IMDbApiLib
             }
         }
 
-        public async Task DownloadReportAsync(string id, string filePath, Language language, string options, ProgressData progress = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task DownloadReportAsync(string id, string filePath, Language language, string options, ProgressData progress = null, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrEmpty(options))
                 options = string.Empty;
@@ -107,17 +107,6 @@ namespace IMDbApiLib
 
             string url = $"{BaseUrl}/{language.ToString()}/API/Report/{_apiKey}/{id}{options}";
             await Utils.DownloadFileAsync(filePath, url, progress, WebProxy);
-            /*
-            var bytes = await Utils.DownloadDataAsync(url, progress, cancellationToken, WebProxy);
-
-            if (bytes != null)
-            {
-                var img = Utils.BytesToImage(bytes);
-                img.Save(filePath, ImageFormat.Png);
-            }
-            */
         }
-
-        // Todo dl Full=fal....
     }
 }

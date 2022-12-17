@@ -4,6 +4,18 @@ namespace IMDbApiLib.Models
 {
     public class YouTubePlaylistData
     {
+        public YouTubePlaylistData()
+        {
+            ErrorMessage = string.Empty;
+            Videos = new List<YouTubePlaylistDataItem>();
+        }
+
+        public YouTubePlaylistData(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Videos = new List<YouTubePlaylistDataItem>();
+        }
+
         public string Title { get; set; }
         public string Auhtor { get; set; }
         public List<YouTubePlaylistDataItem> Videos { get; set; }

@@ -6,7 +6,7 @@ namespace IMDbApiLib.Models
     {
         public FAQData()
         {
-            ErrorMessage = "";
+            ErrorMessage = string.Empty;
             Items = new List<FAQDetail>();
             SpoilerItems = new List<FAQDetail>();
         }
@@ -31,10 +31,8 @@ namespace IMDbApiLib.Models
         public string FullTitle { get; set; }
         public string Type { get; set; }
         public string Year { get; set; }
-
         public List<FAQDetail> Items { get; set; }
         public List<FAQDetail> SpoilerItems { get; set; }
-
         public string ErrorMessage { get; set; }
     }
 

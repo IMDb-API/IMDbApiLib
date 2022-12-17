@@ -1,23 +1,61 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace IMDbApiLib.Models
 {
-    public class TitleData
+    public class TitleData : ICloneable
     {
+        public TitleData()
+        {
+            ErrorMessage = string.Empty;
+            DirectorList = new List<StarShort>();
+            WriterList = new List<StarShort>();
+            StarList = new List<StarShort>();
+            ActorList = new List<ActorShort>();
+            FullCast = new FullCastData();
+
+            GenreList = new List<KeyValueItem>();
+            CompanyList = new List<CompanyShort>();
+            CountryList = new List<KeyValueItem>();
+            LanguageList = new List<KeyValueItem>();
+
+            Posters = new PosterData();
+            Images = new ImageData();
+
+            KeywordList = new List<string>();
+
+            BoxOffice = new BoxOfficeShort();
+            Similars = new List<SimilarShort>();
+
+            TvSeriesInfo = new TvSeriesInfo();
+            TvEpisodeInfo = new TvEpisodeInfo();
+
+            Ratings = new RatingData();
+            Wikipedia = new WikipediaData();
+
+            Writers = Directors = Stars = Companies = Countries = Genres = Keywords = Languages = string.Empty;
+        }
+
+        public TitleData(string id, string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Id = id;
+        }
+
         public string Id { get; set; }
         public string Title { set; get; }
         public string OriginalTitle { get; set; }
         public string FullTitle { set; get; }
+        public string Type { set; get; }
         public string Year { set; get; }
+        public string Image { get; set; }
         public string ReleaseDate { set; get; }
         public string RuntimeMins { set; get; }
         public string RuntimeStr { set; get; }
-        public string Plot { set; get; } // IMDb Plot allways en, TMDb Plot translate
+        public string Plot { set; get; }
         public string PlotLocal { set; get; }
         public bool PlotLocalIsRtl { set; get; }
         public string Awards { set; get; }
-        public string Image { get; set; }
-        public string Type { set; get; }
         public string Directors { set; get; }
         public List<StarShort> DirectorList { get; set; }
         public string Writers { set; get; }
@@ -51,8 +89,11 @@ namespace IMDbApiLib.Models
         public TvSeriesInfo TvSeriesInfo { get; set; }
         public TvEpisodeInfo TvEpisodeInfo { get; set; }
         public string ErrorMessage { get; set; }
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
-
 
 
     public class PosterDataItem
@@ -67,6 +108,13 @@ namespace IMDbApiLib.Models
 
     public class TvSeriesInfo
     {
+        public TvSeriesInfo()
+        {
+            CreatorList = new List<StarShort>();
+            Seasons = new List<string>();
+            Creators = YearEnd = string.Empty;
+        }
+
         public string YearEnd { set; get; }
         public string Creators { set; get; }
         public List<StarShort> CreatorList { get; set; }
@@ -80,16 +128,19 @@ namespace IMDbApiLib.Models
         public string SeriesFullTitle { get; set; }
         public string SeriesYear { get; set; }
         public string SeriesYearEnd { get; set; }
-
         public string SeasonNumber { get; set; }
         public string EpisodeNumber { get; set; }
-
         public string PreviousEpisodeId { get; set; }
         public string NextEpisodeId { get; set; }
     }
 
     public class SimilarShort
     {
+        public SimilarShort()
+        {
+            Id = Title = Image = IMDbRating = string.Empty;
+        }
+
         public string Id { get; set; }
         public string Title { get; set; }
         public string Image { get; set; }
@@ -104,6 +155,11 @@ namespace IMDbApiLib.Models
 
     public class BoxOfficeShort
     {
+        public BoxOfficeShort()
+        {
+            Budget = OpeningWeekendUSA = GrossUSA = CumulativeWorldwideGross = string.Empty;
+        }
+
         public string Budget { get; set; }
         public string OpeningWeekendUSA { get; set; }
         public string GrossUSA { get; set; }
