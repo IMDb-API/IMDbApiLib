@@ -15,7 +15,7 @@ namespace IMDbApiLib
                     throw new Exception("It is mandatory to enter at least one filter.");
 
                 string url = $"{BaseUrl}/en/API/AdvancedSearch/{_apiKey}/{queryString}";
-                return await Utils.DownloadObjectAsync<AdvancedSearchData>(url, WebProxy);
+                return await ApiUtils.GetObjectAsync<AdvancedSearchData>(url, WebProxy);
             }
             catch (Exception ex)
             {

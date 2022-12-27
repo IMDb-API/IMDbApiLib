@@ -11,7 +11,7 @@ namespace IMDbApiLib
             try
             {
                 string url = $"{BaseUrl}/en/API/FullCast/{_apiKey}/{id}";
-                return await Utils.DownloadObjectAsync<FullCastData>(url, WebProxy);
+                return await ApiUtils.GetObjectAsync<FullCastData>(url, WebProxy);
             }
             catch (Exception ex)
             {

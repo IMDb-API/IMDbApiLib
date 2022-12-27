@@ -15,6 +15,12 @@ namespace IMDbApiLib
             _apiKey = apiKey;
         }
 
+        public ApiLib(string apiKey, WebProxy webProxy)
+        {
+            _apiKey = apiKey;
+            WebProxy = webProxy;
+        }
+
         public ApiLib(string apiKey, string proxyAddress, string proxyUsername = null, string proxyPassword = null)
         {
             _apiKey = apiKey;

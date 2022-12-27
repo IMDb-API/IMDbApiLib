@@ -29,6 +29,19 @@ namespace IMDbApiLib.Models
             var progressData = new ProgressData(current, total);
             base.OnReport(progressData);
         }
+
+        public int Percentage
+        {
+            get
+            {
+                if (Current < 0)
+                    Current = 0;
+                if (Total < 1)
+                    Total = 1;
+
+                return Convert.ToInt32(((decimal)Current / Total) * 100);
+            }
+        }
     }
 
 }

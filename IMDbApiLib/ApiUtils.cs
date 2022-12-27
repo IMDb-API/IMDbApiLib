@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace IMDbApiLib
 {
-    public abstract class Utils
+    public abstract class ApiUtils
     {
         #region Ordinal Numbers
         public static Dictionary<int, string> GetOrdinalDic()
@@ -232,109 +232,15 @@ namespace IMDbApiLib
         }
         #endregion
 
-        public static async Task<string> DownloadJsonAsync(string url, WebProxy webProxy = null)
-        {
-            try
-            {
-                string json = string.Empty;
-                var client = new WebClient();
-                if (webProxy != null)
-                    client.Proxy = webProxy;
-                json = await client.DownloadStringTaskAsync(url);
-
-                return json;
-            }
-            catch (WebException ex)
-            {
-                if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
-                {
-                    var resp = (HttpWebResponse)ex.Response;
-                    if (resp.StatusCode == HttpStatusCode.NotFound) // HTTP 404
-                    {
-                        //Handle it
-                    }
-                    else if (resp.StatusCode == HttpStatusCode.BadRequest) // HTTP 400
-                    {
-                        //Handle it
-                    }
-                }
-
-                return null;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public static async Task<T> DownloadObjectAsync<T>(string url, WebProxy webProxy = null)
-        {
-            try
-            {
-                var client = new WebClient();
-                if (webProxy != null)
-                    client.Proxy = webProxy;
-                string json = await client.DownloadStringTaskAsync(url);
-
-                if (string.IsNullOrEmpty(json))
-                    throw new Exception("Server Not Founded");
-
-                return JsonConvert.DeserializeObject<T>(json);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public static int Percentage(long current, long maximum)
+        #region Others
+        public static int Percentage(long current, long total)
         {
             if (current < 0)
                 current = 0;
-            if (maximum < 1)
-                maximum = 1;
+            if (total < 1)
+                total = 1;
 
-            return Convert.ToInt32(((decimal)current / maximum) * 100);
-        }
-
-        public static async Task DownloadFileAsync(string filePath, string url, ProgressData progress = null, WebProxy webProxy = null)
-        {
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    client.DownloadProgressChanged += (s, e) =>
-                    {
-                        progress?.Report(e.BytesReceived, e.TotalBytesToReceive);
-                    };
-                    
-                    if (webProxy != null)
-                        client.Proxy = webProxy;
-
-                    await client.DownloadFileTaskAsync(url, filePath);
-                }
-            }
-            catch
-            { }
-        }
-
-        public static async Task DownloadImageAsync(string filePath, string url, WebProxy webProxy = null)
-        {
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    if (webProxy != null)
-                        client.Proxy = webProxy;
-
-                    if (!File.Exists(filePath))
-                    {
-                        await client.DownloadFileTaskAsync(url, filePath);
-                    }
-                }
-            }
-            catch
-            { }
+            return Convert.ToInt32(((decimal)current / total) * 100);
         }
 
         public static void RemoveDuplicatedFiles(string dir)
@@ -364,40 +270,6 @@ namespace IMDbApiLib
             }
         }
 
-        public static async Task<string> GetUrlFilenameAsync(string url, WebProxy webProxy = null)
-        {
-            try
-            {
-                string result = "";
-
-                var req = WebRequest.Create(url);
-                req.Method = "HEAD";
-                if (webProxy != null)
-                    req.Proxy = webProxy;
-
-                using (var response = await req.GetResponseAsync())
-                {
-                    if (!string.IsNullOrEmpty(response.Headers["Content-Disposition"]))
-                    {
-                        result = response.Headers["Content-Disposition"].Substring(response.Headers["Content-Disposition"].IndexOf("filename=") + 9).Replace("\"", "");
-                        result = Encoding.UTF8.GetString(Array.ConvertAll(System.Text.RegularExpressions.Regex.Unescape(result).ToCharArray(), c => (byte)c));
-                        result = Path.GetInvalidFileNameChars().Aggregate(result, (current, c) => current.Replace(c.ToString(), string.Empty));
-                        if (!string.IsNullOrEmpty(result) && result.Contains(";"))
-                        {
-                            int indexOf = result.IndexOf(";");
-                            result = result.Substring(0, indexOf);
-                        }
-                    }
-                }
-
-                return result;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-       
         public static string RenameToPhisicalName(string originalName)
         {
             originalName = originalName.Replace(":", " -");
@@ -450,7 +322,105 @@ namespace IMDbApiLib
             }
         }
 
-        public static async Task<byte[]> DownloadDataAsync(string url, ProgressData progress = null, CancellationToken cancellationToken = default(CancellationToken), WebProxy webProxy = null)
+        public static void CreateUrlShortcut(string dir, string fileName, string url)
+        {
+            if (string.IsNullOrEmpty(dir) || string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(url))
+                return;
+
+            string filePath = Path.Combine(dir, fileName);
+            string content = $"[InternetShortcut]";
+            content += Environment.NewLine;
+            content += $"URL={url}";
+            File.WriteAllText(filePath, content);
+        }
+
+        public static async Task<bool> PingAsync(string host)
+        {
+            try
+            {
+                var ping = new System.Net.NetworkInformation.Ping();
+                var reply = await ping.SendPingAsync(host, 1000);
+
+                return (reply.Status == System.Net.NetworkInformation.IPStatus.Success);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region Download
+        public static async Task<string> GetStringAsync(string url, WebProxy webProxy = null)
+        {
+            try
+            {
+                string json = null;
+                using (var webClient = new WebClient())
+                {
+                    if (webProxy != null)
+                    {
+                        webClient.Proxy = webProxy;
+                    }
+
+                    json = await webClient.DownloadStringTaskAsync(url);
+                }
+
+                return json;
+
+                //var handler = new HttpClientHandler();
+                //if (webProxy != null)
+                //{
+                //    handler.Proxy = webProxy;
+                //    handler.UseProxy = true;
+                //}
+
+                //var httpClient = new HttpClient(handler);
+                //return await httpClient.GetStringAsync(url);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static async Task<T> GetObjectAsync<T>(string url, WebProxy webProxy = null)
+        {
+            try
+            {
+                string json = await GetStringAsync(url, webProxy);
+                return JsonConvert.DeserializeObject<T>(json);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static async Task<byte[]> GetBytesAsync(string url, WebProxy webProxy = null)
+        {
+            try
+            {
+                byte[] bytes = null;
+                using (var webClient = new WebClient())
+                {
+                    if (webProxy != null)
+                    {
+                        webClient.Proxy = webProxy;
+                    }
+
+                    bytes = await webClient.DownloadDataTaskAsync(new Uri(url));
+                }
+
+                return bytes;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static async Task<byte[]> GetBytesAsync(string url, ProgressData progress, CancellationToken cancellationToken = default, WebProxy webProxy = null)
         {
             try
             {
@@ -458,7 +428,9 @@ namespace IMDbApiLib
                 using (var client = new WebClient())
                 {
                     if (webProxy != null)
+                    {
                         client.Proxy = webProxy;
+                    }
 
                     client.DownloadProgressChanged += (s, e) => progress?.Report(e.BytesReceived, e.TotalBytesToReceive);
                     client.DownloadDataCompleted += (s, e) =>
@@ -482,34 +454,37 @@ namespace IMDbApiLib
 
                 return bytes;
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
-        public static void CreateUrlShortcut(string dir, string fileName, string url)
-        {
-            if (string.IsNullOrEmpty(dir) || string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(url))
-                return;
-
-            string filePath = Path.Combine(dir, fileName);
-            string content = $"[InternetShortcut]";
-            content += Environment.NewLine;
-            content += $"URL={url}";
-            File.WriteAllText(filePath, content);
-        }
-
-        public static async Task<bool> PingAsync(string host)
+        public static async Task SaveFileAsync(string url, string filePath, WebProxy webProxy = null)
         {
             try
             {
-                var ping = new System.Net.NetworkInformation.Ping();
-                var reply = await ping.SendPingAsync(host, 1000);
-
-                return (reply.Status == System.Net.NetworkInformation.IPStatus.Success);
+                byte[] bytes = await GetBytesAsync(url, webProxy);
+                File.WriteAllBytes(filePath, bytes);
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+
+        public static async Task SaveFileAsync(string url, string filePath, ProgressData progress, CancellationToken cancellationToken = default, WebProxy webProxy = null)
+        {
+            try
+            {
+                byte[] bytes = await GetBytesAsync(url, progress, cancellationToken, webProxy);
+                File.WriteAllBytes(filePath, bytes);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
     }
 }
