@@ -40,31 +40,19 @@ namespace IMDbApiLib.Models
     {
         public AwardEvent()
         {
-            OutcomeItems = new List<AwardOutcome>();
+            AwardEventDetails = new List<AwardEventDetail>();
         }
 
         public string EventTitle { get; set; }
-        public string EventYear { get; set; }
 
-        public List<AwardOutcome> OutcomeItems { get; set; }
+        public List<AwardEventDetail> AwardEventDetails { get; set; }
     }
 
-    public class AwardOutcome
+    public class AwardEventDetail
     {
-        public AwardOutcome()
-        {
-            OutcomeDetails = new List<AwardOutcomeDetail>();
-        }
-
-        public string OutcomeTitle { get; set; }
-        public string OutcomeCategory { get; set; }
-
-        public List<AwardOutcomeDetail> OutcomeDetails { get; set; }
-    }
-
-    public class AwardOutcomeDetail
-    {
-        public string PlainText { get; set; }
-        public string Html { get; set; }
+        public string Image { get; set; }
+        public string Title { get; set; }
+        public string For { get; set; }
+        public string Description { get; set; }
     }
 }
