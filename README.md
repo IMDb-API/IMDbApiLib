@@ -43,7 +43,7 @@ var data = await apiLib.ExternalSitesAsync("tt0110413");
 var data = await apiLib.RatingsAsync("tt0110413");
 
 // Wikipedia (PlainText and Html)
-var data = await apiLib.WikipediaAsync("tt0110413");
+var data = await apiLib.WikipediaAsync("tt0110413", , IMDbApiLib.Models.Language.en);
 
 // AdvancedSearch
 var input = new AdvancedSearchInput();

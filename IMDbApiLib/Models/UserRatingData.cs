@@ -15,12 +15,6 @@ namespace IMDbApiLib.Models
             IMDbId = id;
             ErrorMessage = errorMessage;
             Ratings = null;
-            DemographicAll = null;
-            DemographicMales = null;
-            DemographicFemales = null;
-            Top1000Voters = null;
-            USUsers = null;
-            NonUSUsers = null;
         }
 
         public string IMDbId { get; set; }
@@ -32,12 +26,6 @@ namespace IMDbApiLib.Models
         public string TotalRatingVotes { get; set; }
         public List<UserRatingDataDetail> Ratings { get; set; }
 
-        public UserRatingDataDemographic DemographicAll { get; set; }
-        public UserRatingDataDemographic DemographicMales { get; set; }
-        public UserRatingDataDemographic DemographicFemales { get; set; }
-        public UserRatingDataDemographicDetail Top1000Voters { get; set; }
-        public UserRatingDataDemographicDetail USUsers { get; set; }
-        public UserRatingDataDemographicDetail NonUSUsers { get; set; }
         public string ErrorMessage { get; set; }
     }
 
@@ -46,20 +34,5 @@ namespace IMDbApiLib.Models
         public string Rating { get; set; }
         public string Percent { get; set; }
         public string Votes { get; set; }
-    }
-
-    public class UserRatingDataDemographicDetail
-    {
-        public string Rating { get; set; }
-        public string Votes { get; set; }
-    }
-
-    public class UserRatingDataDemographic
-    {
-        public UserRatingDataDemographicDetail AllAges { get; set; }
-        public UserRatingDataDemographicDetail AgesUnder18 { get; set; }
-        public UserRatingDataDemographicDetail Ages18To29 { get; set; }
-        public UserRatingDataDemographicDetail Ages30To44 { get; set; }
-        public UserRatingDataDemographicDetail AgesOver45 { get; set; }
     }
 }
