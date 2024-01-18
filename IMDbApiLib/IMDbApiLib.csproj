@@ -2,20 +2,20 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
-    <Authors>IMDb-API</Authors>
+    <Authors>TV-API</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://imdb-api.com</PackageProjectUrl>
+    <PackageProjectUrl>https://tv-api.com</PackageProjectUrl>
     <PackageIcon>IMDbApiLib_Icon.png</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/IMDb-API/IMDbApiLib</RepositoryUrl>
     <PackageTags>imdb,imdb-api,tmdb,movie,wikipedia,themoviedb,subscene,rottentomatoes,metacritics,thetvdb</PackageTags>
-    <Description>The IMDb-API is a web service for receiving movie, serial and cast information. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more.</Description>
-    <Copyright>https://imdb-api.com</Copyright>
+    <Description>The TV-API is a web service for receiving movie, serial and cast information. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more.</Description>
+    <Copyright>https://yv-api.com</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Company>IMDb-API</Company>
-    <AssemblyVersion>1.9.4.0</AssemblyVersion>
-    <FileVersion>1.9.4.0</FileVersion>
-    <Version>1.9.4.0</Version>
+    <Company>TV-API</Company>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0.0</Version>
     <ApplicationIcon />
   </PropertyGroup>
   

@@ -5,7 +5,7 @@ namespace IMDbApiLib
 {
     public partial class ApiLib
     {
-        public string BaseUrl => "https://imdb-api.com";
+        public string BaseUrl => "https://tv-api.com";
 
         private readonly string _apiKey;
         public WebProxy WebProxy { get; }
