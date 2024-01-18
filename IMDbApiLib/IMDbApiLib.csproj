@@ -10,7 +10,7 @@
     <RepositoryUrl>https://github.com/IMDb-API/IMDbApiLib</RepositoryUrl>
     <PackageTags>imdb,imdb-api,tmdb,movie,wikipedia,themoviedb,subscene,rottentomatoes,metacritics,thetvdb</PackageTags>
     <Description>The TV-API is a web service for receiving movie, serial and cast information. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more.</Description>
-    <Copyright>https://yv-api.com</Copyright>
+    <Copyright>https://tv-api.com</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>TV-API</Company>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
