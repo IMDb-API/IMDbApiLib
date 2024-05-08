@@ -38,7 +38,7 @@ namespace IMDbApiLib.Models
         [Description("fantasy")]
         Fantasy = 512,
         [Display(Name = "Film-Noir")]
-        [Description("noir")]
+        [Description("film-noir")]
         Film_Noir = 1024,
         [Display(Name = "Game-Show")]
         [Description("show")]
@@ -62,19 +62,19 @@ namespace IMDbApiLib.Models
         [Description("news")]
         News = 131072,
         [Display(Name = "Reality-TV")]
-        [Description("tv")]
+        [Description("reality-tv")]
         Reality_TV = 262144,
         [Display(Name = "Romance")]
         [Description("romance")]
         Romance = 524288,
         [Display(Name = "Sci-Fi")]
-        [Description("fi")]
+        [Description("sci-fi")]
         Sci_Fi = 1048576,
         [Display(Name = "Sport")]
         [Description("sport")]
         Sport = 2097152,
         [Display(Name = "Talk-Show")]
-        [Description("show")]
+        [Description("talk-show")]
         Talk_Show = 4194304,
         [Display(Name = "Thriller")]
         [Description("thriller")]

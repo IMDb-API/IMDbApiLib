@@ -122,7 +122,6 @@ namespace IMDbApiLib.Models
             var queries = new List<string>();
             SingleValueToQueryString(queries, "title", Title);
             EnumToQueryString(queries, "title_type", TitleType);
-            EnumToQueryString(queries, "title_type", TitleType);
             ReleaseDateFrom = CheckDate(ReleaseDateFrom);
             ReleaseDateTo = CheckDate(ReleaseDateTo);
             TwoValuesToQueryString(queries, "release_date", ReleaseDateFrom, ReleaseDateTo);
@@ -135,14 +134,22 @@ namespace IMDbApiLib.Models
             EnumToQueryString(queries, "certificates", USCertificates);
             EnumToQueryString(queries, "colors", ColorInfo);
             if (!CountriesStr.IsNull())
+            {
                 queries.Add($"countries={CountriesStr}");
+            }
             else
+            {
                 EnumSingleValueToQueryString(queries, "countries", Countries);
+            }
             SingleValueToQueryString(queries, "keywords", Keyword);
             if (!LanguagesStr.IsNull())
+            {
                 queries.Add($"languages={LanguagesStr}");
+            }
             else
+            {
                 EnumSingleValueToQueryString(queries, "languages", Languages);
+            }
             SingleValueToQueryString(queries, "locations", FilmingLocations);
             TwoValuesToQueryString(queries, "moviemeter", PopularityFrom, PopularityTo);
             SingleValueToQueryString(queries, "plot", Plot);
@@ -153,7 +160,9 @@ namespace IMDbApiLib.Models
 
 
             if (queries.Count > 0)
+            {
                 return $"?{string.Join("&", queries)}";
+            }
 
             return string.Empty;
         }
