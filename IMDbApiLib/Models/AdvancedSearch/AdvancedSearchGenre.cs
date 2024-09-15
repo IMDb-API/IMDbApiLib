@@ -41,7 +41,7 @@ namespace IMDbApiLib.Models
         [Description("film-noir")]
         Film_Noir = 1024,
         [Display(Name = "Game-Show")]
-        [Description("show")]
+        [Description("game-show")]
         Game_Show = 2048,
         [Display(Name = "History")]
         [Description("history")]
@@ -83,7 +83,7 @@ namespace IMDbApiLib.Models
         [Description("war")]
         War = 16777216,
         [Display(Name = "Western")]
-        [Description("wester")]
+        [Description("western")]
         Western = 33554432
     }
 }
