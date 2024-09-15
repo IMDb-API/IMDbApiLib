@@ -13,9 +13,9 @@
     <Copyright>https://tv-api.com</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>TV-API</Company>
-    <AssemblyVersion>2.0.1.0</AssemblyVersion>
-    <FileVersion>2.0.1.0</FileVersion>
-    <Version>2.0.1.0</Version>
+    <AssemblyVersion>2.0.2.0</AssemblyVersion>
+    <FileVersion>2.0.2.0</FileVersion>
+    <Version>2.0.2.0</Version>
     <ApplicationIcon />
 	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
