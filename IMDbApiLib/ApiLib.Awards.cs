@@ -1,4 +1,4 @@
-﻿using IMDbApiLib.Models;
+using IMDbApiLib.Models;
 
 namespace IMDbApiLib;
 
@@ -14,7 +14,7 @@ public partial class ApiLib
     {
         try
         {
-            string url = $"{BaseUrl}/api/awards?apiKey={_apiKey}&id={id}&lang={lang}".ToLower();
+            string url = $"{BaseUrl}/api/awards?apiKey={Encode(_apiKey)}&id={Encode(id)}&lang={EnumValue(lang)}";
             return await GetObjectAsync<AwardData>(url);
         }
         catch (Exception ex)

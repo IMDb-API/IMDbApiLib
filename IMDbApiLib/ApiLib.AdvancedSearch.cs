@@ -1,4 +1,4 @@
-﻿using IMDbApiLib.Models;
+using IMDbApiLib.Models;
 
 namespace IMDbApiLib;
 
@@ -20,8 +20,8 @@ public partial class ApiLib
                 throw new Exception("It is mandatory to enter at least one filter.");
             }
 
-            queryString += $"apiKey={_apiKey}&lang={lang}";
-            string url = $"{BaseUrl}/api/advanced-search{queryString}".ToLower();
+            queryString += $"apiKey={Encode(_apiKey)}&lang={EnumValue(lang)}";
+            string url = $"{BaseUrl}/api/advanced-search{queryString}";
             return await GetObjectAsync<AdvancedSearchData>(url);
         }
         catch (Exception ex)

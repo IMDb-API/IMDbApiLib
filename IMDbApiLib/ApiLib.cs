@@ -1,159 +1,150 @@
-﻿using System.Net;
+using System.Net;
+using System.Text.Json;
 
 namespace IMDbApiLib;
 
-public partial class ApiLib
+public partial class ApiLib : IDisposable
 {
-    #region Init
-
     public string BaseUrl => "https://tv-api.com";
 
-    /// <summary>
-    /// Gets the base URL used for API requests.
-    /// </summary>
+    private static readonly JsonSerializerOptions _jsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
 
     private readonly string _apiKey;
 
-    public readonly WebProxy? _webProxy = null;
+    private readonly HttpClient _httpClient;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ApiLib"/> class with the specified API key.
-    /// </summary>
-    /// <param name="apiKey">The API key to use for requests.</param>
+    private bool _disposed;
+
+    private readonly WebProxy? _webProxy;
+
     public ApiLib(string apiKey)
     {
-        _apiKey = apiKey;
+        _apiKey = ValidateApiKey(apiKey);
+        _httpClient = CreateHttpClient(null);
     }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ApiLib"/> class with the specified API key and proxy.
-    /// </summary>
-    /// <param name="apiKey">The API key to use for requests.</param>
-    /// <param name="webProxy">A <see cref="WebProxy"/> to use for HTTP requests.</param>
     public ApiLib(string apiKey, WebProxy webProxy)
     {
-        _apiKey = apiKey;
-        _webProxy = webProxy;
+        _apiKey = ValidateApiKey(apiKey);
+        _webProxy = webProxy ?? throw new ArgumentNullException(nameof(webProxy));
+        _httpClient = CreateHttpClient(_webProxy);
     }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ApiLib"/> class with the specified API key and proxy settings.
-    /// </summary>
-    /// <param name="apiKey">The API key to use for requests.</param>
-    /// <param name="proxyAddress">The proxy address (optional).</param>
-    /// <param name="proxyUsername">The proxy username (optional).</param>
-    /// <param name="proxyPassword">The proxy password (optional).</param>
     public ApiLib(string apiKey, string? proxyAddress, string? proxyUsername = null, string? proxyPassword = null)
     {
-        _apiKey = apiKey;
-        if (!string.IsNullOrEmpty(proxyAddress))
+        _apiKey = ValidateApiKey(apiKey);
+
+        if (!string.IsNullOrWhiteSpace(proxyAddress))
         {
             var webProxy = new WebProxy
             {
-                Address = new Uri(proxyAddress),
+                Address = new Uri(proxyAddress, UriKind.Absolute),
+                BypassProxyOnLocal = false
             };
 
-            if (!string.IsNullOrEmpty(proxyUsername) && !string.IsNullOrEmpty(proxyPassword))
+            if (!string.IsNullOrWhiteSpace(proxyUsername) && !string.IsNullOrWhiteSpace(proxyPassword))
             {
-                webProxy.Credentials = new NetworkCredential(
-                    proxyUsername,
-                    proxyPassword);
+                webProxy.Credentials = new NetworkCredential(proxyUsername, proxyPassword);
                 webProxy.UseDefaultCredentials = false;
             }
 
-            webProxy.BypassProxyOnLocal = false;
             _webProxy = webProxy;
         }
+
+        _httpClient = CreateHttpClient(_webProxy);
     }
 
-    #endregion Init
+    private static string ValidateApiKey(string apiKey)
+    {
+        if (string.IsNullOrWhiteSpace(apiKey))
+        {
+            throw new ArgumentException("API key cannot be null, empty, or whitespace.", nameof(apiKey));
+        }
 
-    #region Get Data
+        return apiKey.Trim();
+    }
 
-    /// <summary>
-    /// Sends an HTTP GET request to the specified URL and returns the response content as a string.
-    /// </summary>
-    /// <param name="url">The request URL.</param>
-    /// <returns>The response body as a string, or null if none.</returns>
+    private static HttpClient CreateHttpClient(WebProxy? proxy)
+    {
+        var handler = new HttpClientHandler();
+        if (proxy != null)
+        {
+            handler.Proxy = proxy;
+            handler.UseProxy = true;
+        }
+
+        return new HttpClient(handler, disposeHandler: true);
+    }
+
+    private static string Encode(string? value) => Uri.EscapeDataString(value ?? string.Empty);
+
+    private static string EnumValue(Enum value) => value.ToString().ToLowerInvariant();
+
+    private static void EnsureNotNullOrWhiteSpace(string value, string parameterName)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            throw new ArgumentException("Value cannot be null, empty, or whitespace.", parameterName);
+        }
+    }
+
     public async Task<string?> GetStringAsync(string url)
     {
-        try
-        {
-            var handler = new HttpClientHandler();
-            if (_webProxy != null)
-            {
-                handler.Proxy = _webProxy;
-                handler.UseProxy = true;
-            }
+        ThrowIfDisposed();
+        EnsureNotNullOrWhiteSpace(url, nameof(url));
 
-            using var client = new HttpClient(handler);
-            return await client.GetStringAsync(url);
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
+        using var response = await _httpClient.GetAsync(url).ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Sends an HTTP GET request to the specified URL and deserializes the JSON response to <typeparamref name="T"/>.
-    /// </summary>
-    /// <typeparam name="T">The type to deserialize the response into.</typeparam>
-    /// <param name="url">The request URL.</param>
-    /// <returns>An instance of <typeparamref name="T"/> or null if deserialization fails.</returns>
     public async Task<T?> GetObjectAsync<T>(string url)
     {
-        try
-        {
-            string json = await GetStringAsync(url) ?? throw new NullReferenceException();
-            return System.Text.Json.JsonSerializer.Deserialize<T>(json);
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
+        string json = await GetStringAsync(url).ConfigureAwait(false)
+            ?? throw new InvalidOperationException("The API returned an empty response.");
+
+        return JsonSerializer.Deserialize<T>(json, _jsonOptions)
+            ?? throw new JsonException($"The API response could not be deserialized as {typeof(T).Name}.");
     }
 
-    /// <summary>
-    /// Downloads raw bytes from the specified URL.
-    /// </summary>
-    /// <param name="url">The resource URL.</param>
-    /// <returns>The downloaded bytes, or null if the download fails.</returns>
     public async Task<byte[]?> GetBytesAsync(string url)
     {
-        try
-        {
-            using var webClient = new WebClient();
-            if (_webProxy != null)
-            {
-                webClient.Proxy = _webProxy;
-            }
+        ThrowIfDisposed();
+        EnsureNotNullOrWhiteSpace(url, nameof(url));
 
-            return await webClient.DownloadDataTaskAsync(new Uri(url));
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
+        using var response = await _httpClient.GetAsync(url).ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Downloads the content from the specified URL and saves it to the given file path.
-    /// </summary>
-    /// <param name="url">The URL to download.</param>
-    /// <param name="filePath">The path where the file will be saved.</param>
     public async Task SaveFileAsync(string url, string filePath)
     {
-        try
+        EnsureNotNullOrWhiteSpace(filePath, nameof(filePath));
+        byte[] bytes = await GetBytesAsync(url).ConfigureAwait(false)
+            ?? throw new InvalidOperationException("The API returned an empty file.");
+        File.WriteAllBytes(filePath, bytes);
+    }
+
+    private void ThrowIfDisposed()
+    {
+        if (_disposed)
         {
-            byte[]? bytes = await GetBytesAsync(url) ?? throw new NullReferenceException();
-            File.WriteAllBytes(filePath, bytes);
-        }
-        catch (Exception ex)
-        {
-            throw ex;
+            throw new ObjectDisposedException(nameof(ApiLib));
         }
     }
 
-    #endregion Get Data
+    public void Dispose()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _httpClient.Dispose();
+        _disposed = true;
+        GC.SuppressFinalize(this);
+    }
 }

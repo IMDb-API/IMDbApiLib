@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace IMDbApiLib.Models;
 
@@ -93,20 +94,21 @@ public class AdvancedSearchInput
         var queries = new List<string>();
         SingleValueToQueryString(queries, "title", Title);
         EnumToQueryString(queries, "title_type", TitleType);
-        ReleaseDateFrom = CheckDate(ReleaseDateFrom);
-        ReleaseDateTo = CheckDate(ReleaseDateTo);
-        TwoValuesToQueryString(queries, "release_date", ReleaseDateFrom, ReleaseDateTo);
+        string releaseDateFrom = CheckDate(ReleaseDateFrom);
+        string releaseDateTo = CheckDate(ReleaseDateTo);
+        TwoValuesToQueryString(queries, "release_date", releaseDateFrom, releaseDateTo);
         TwoValuesToQueryString(queries, "user_rating", UserRatingFrom, UserRatingTo);
         TwoValuesToQueryString(queries, "num_votes", NumberOfVotesFrom, NumberOfVotesTo);
         EnumToQueryString(queries, "genres", Genres);
         EnumToQueryString(queries, "groups", Awards);
+        EnumToQueryString(queries, "has", PageTopics);
         EnumToQueryString(queries, "companies", Companies);
         EnumToQueryString(queries, "online_availability", InstantWatchOptions);
         EnumToQueryString(queries, "certificates", USCertificates);
         EnumToQueryString(queries, "colors", ColorInfo);
         if (!string.IsNullOrEmpty(CountriesStr))
         {
-            queries.Add($"countries={CountriesStr}");
+            queries.Add($"countries={EncodeQueryValue(CountriesStr)}");
         }
         else
         {
@@ -115,7 +117,7 @@ public class AdvancedSearchInput
         SingleValueToQueryString(queries, "keywords", Keywords);
         if (!string.IsNullOrEmpty(LanguagesStr))
         {
-            queries.Add($"languages={LanguagesStr}");
+            queries.Add($"languages={EncodeQueryValue(LanguagesStr)}");
         }
         else
         {
@@ -154,14 +156,14 @@ public class AdvancedSearchInput
         return result;
     }
 
-    private string CheckDate(string? date)
+    private static string CheckDate(string? date)
     {
         if (string.IsNullOrEmpty(date))
         {
             return string.Empty;
         }
 
-        if (DateTime.TryParse(date, out DateTime dt))
+        if (DateTime.TryParse(date, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dt))
         {
             return dt.ToString("yyyy-MM-dd");
         }
@@ -173,7 +175,7 @@ public class AdvancedSearchInput
     {
         if (!string.IsNullOrEmpty(fieldValue))
         {
-            queries.Add($"{fieldName}={fieldValue}");
+            queries.Add($"{fieldName}={EncodeQueryValue(fieldValue)}");
         }
     }
 
@@ -198,7 +200,7 @@ public class AdvancedSearchInput
         var qs = GetFlags(fieldValue);
         if (qs.Any())
         {
-            queries.Add($"{fieldName}={string.Join(",", qs)}");
+            queries.Add($"{fieldName}={EncodeQueryValue(string.Join(",", qs))}");
         }
     }
 
@@ -209,7 +211,7 @@ public class AdvancedSearchInput
             return;
         }
 
-        queries.Add($"{fieldName}={fieldValue.GetDescription()}");
+        queries.Add($"{fieldName}={EncodeQueryValue(fieldValue.GetDescription())}");
     }
 
     private void TwoValuesToQueryString(List<string> queries, string fieldName, string? fieldValueFrom, string? fieldValueTo)
@@ -239,11 +241,11 @@ public class AdvancedSearchInput
             string v2 = string.Empty;
             if (fieldValueFrom.HasValue)
             {
-                v1 = fieldValueFrom.Value.ToString("N2");
+                v1 = fieldValueFrom.Value.ToString("0.##", CultureInfo.InvariantCulture);
             }
             if (fieldValueTo.HasValue)
             {
-                v2 = fieldValueTo.Value.ToString("N2");
+                v2 = fieldValueTo.Value.ToString("0.##", CultureInfo.InvariantCulture);
             }
 
             queries.Add($"{fieldName}={v1},{v2}");
@@ -258,16 +260,18 @@ public class AdvancedSearchInput
             string v2 = string.Empty;
             if (fieldValueFrom.HasValue)
             {
-                v1 = fieldValueFrom.Value.ToString();
+                v1 = fieldValueFrom.Value.ToString(CultureInfo.InvariantCulture);
             }
             if (fieldValueTo.HasValue)
             {
-                v2 = fieldValueTo.Value.ToString();
+                v2 = fieldValueTo.Value.ToString(CultureInfo.InvariantCulture);
             }
 
             queries.Add($"{fieldName}={v1},{v2}");
         }
     }
+
+    private static string EncodeQueryValue(string? value) => Uri.EscapeDataString(value ?? string.Empty);
 
     #endregion
 }
