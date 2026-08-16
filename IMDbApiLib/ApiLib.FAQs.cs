@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves frequently asked questions for the specified title or person identifier.
+    /// Get frequently asked questions and answers related to the API. This endpoint provides FAQ information and allows searching through available questions and answers.
     /// </summary>
-    /// <param name="id">The IMDb identifier for the title or person.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>An <see cref="FAQData"/> object containing FAQ items or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="FAQData"/> response containing the requested data or an error message.</returns>
     public async Task<FAQData?> FAQAsync(string id, Language lang = Language.EN)
     {
         try

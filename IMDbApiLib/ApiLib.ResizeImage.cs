@@ -2,6 +2,12 @@ namespace IMDbApiLib;
 
 public partial class ApiLib
 {
+    /// <summary>
+    /// Resize and optimize images using the provided image URL. This endpoint allows changing image dimensions while maintaining the original image quality and returns the resized image URL.
+    /// </summary>
+    /// <param name="size">Size of the image in "Width x Height" format. Examples: "8x11", "16x22", "32x44", "64x88"</param>
+    /// <param name="url">The image URL that you want to resize. The URL must point to a valid image file.</param>
+    /// <returns>The resized binary image data.</returns>
     public async Task<byte[]?> ResizeImageAsync(string size, string url)
     {
         return await GetBytesAsync(ResizeImageUrl(size, url)).ConfigureAwait(false);

@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves Wikipedia content for the specified title or person identifier.
+    /// Get Wikipedia information for a movie, or TV seriesusing its IMDb ID. This endpoint returns available Wikipedia details including summaries and related information in the selected language.
     /// </summary>
-    /// <param name="id">The IMDb identifier for the title or person.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="WikipediaData"/> object containing Wikipedia content or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English).</param>
+    /// <returns>The <see cref="WikipediaData"/> response containing the requested data or an error message.</returns>
     public async Task<WikipediaData?> WikipediaAsync(string id, Language lang = Language.EN)
     {
         try

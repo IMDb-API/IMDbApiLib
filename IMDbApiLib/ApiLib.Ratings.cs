@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves ratings information for the specified title identifier.
+    /// Get rating information for a movie or TV series using its IMDb ID. This endpoint returns available ratings from IMDb and other supported rating sources.
     /// </summary>
-    /// <param name="id">The IMDb identifier for the title.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="RatingData"/> object containing rating details or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="RatingData"/> response containing the requested data or an error message.</returns>
     public async Task<RatingData?> RatingsAsync(string id, Language lang = Language.EN)
     {
         try

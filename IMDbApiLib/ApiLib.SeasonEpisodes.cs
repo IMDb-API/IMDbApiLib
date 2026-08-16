@@ -5,12 +5,12 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves episodes for a specific season of a title.
+    /// Get all episodes of a specific season for a TV series using its IMDb ID. This endpoint returns episode information including episode titles, numbers, release dates, ratings, and other available details.
     /// </summary>
-    /// <param name="id">The IMDb identifier for the title.</param>
-    /// <param name="seasonNumber">The season number to retrieve episodes for.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="SeasonEpisodeData"/> object containing episode details or an error message.</returns>
+    /// <param name="id">IMDb title ID of the TV series. The ID must be a valid IMDb identifier starting with "tt". Example: "tt0411008"</param>
+    /// <param name="seasonNumber">The season number to retrieve episodes from. Example: "1"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="SeasonEpisodeData"/> response containing the requested data or an error message.</returns>
     public async Task<SeasonEpisodeData?> SeasonEpisodesAsync(string id, int seasonNumber, Language lang = Language.EN)
     {
         try

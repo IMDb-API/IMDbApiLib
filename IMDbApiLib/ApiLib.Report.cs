@@ -5,12 +5,12 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves the API report for a specific title or resource.
+    /// Generate report from Movie or Series TV as "HTML" file.
     /// </summary>
-    /// <param name="id">The IMDb identifier of the title or resource to report on (for example, "tt0111161").</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <param name="options">A comma-separated list of optional data sections to include.</param>
-    /// <returns>A <see cref="ReportData"/> object containing report information or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <param name="options">Options to include additional information in the response. You can select extra data sections such as "FullActor", "FullCast", "Posters", "Images", "Trailer", "Ratings", and "Wikipedia". Multiple options can be selected to customize the returned data.</param>
+    /// <returns>The <see cref="ReportData"/> response containing the requested data or an error message.</returns>
     public async Task<ReportData?> ReportAsync(string id, Language lang = Language.EN, string? options = null)
     {
         try

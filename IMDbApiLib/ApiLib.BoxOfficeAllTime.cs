@@ -5,10 +5,10 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves all-time box office data.
+    /// Get all-time box office results. This endpoint returns the highest-grossing movies of all time with related information such as rankings, worldwide earnings, and movie details.
     /// </summary>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="BoxOfficeAllTimeData"/> object with all-time box office information or an error message.</returns>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="BoxOfficeAllTimeData"/> response containing the requested data or an error message.</returns>
     public async Task<BoxOfficeAllTimeData?> BoxOfficeAllTimeAsync(Language lang = Language.EN)
     {
         try

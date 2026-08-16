@@ -5,10 +5,10 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves the top 250 TV shows.
+    /// Get the top 250 TV series ranked by IMDb users. This endpoint returns a list of the highest-rated TV series with related information such as title details, ratings, and rankings.
     /// </summary>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="Top250Data"/> object with top 250 TV shows or an error message.</returns>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="Top250Data"/> response containing the requested data or an error message.</returns>
     public async Task<Top250Data?> Top250TVsAsync(Language lang = Language.EN)
     {
         try

@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Searches keywords by the specified expression.
+    /// Search for keywords used to categorize movies, TV series, and episodes. This endpoint allows you to find available keywords by name.
     /// </summary>
-    /// <param name="expression">The search expression or keyword text.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="SearchKeywordData"/> object containing keyword search results or an error message.</returns>
+    /// <param name="expression">The search expression used to find keywords. You can search by keyword name or related terms. Examples: "gun", "battle", "love".</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="SearchKeywordData"/> response containing the requested data or an error message.</returns>
     public async Task<SearchKeywordData?> SearchKeywordAsync(string expression, Language lang = Language.EN)
     {
         try

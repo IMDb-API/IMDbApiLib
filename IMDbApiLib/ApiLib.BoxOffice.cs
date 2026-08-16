@@ -5,10 +5,10 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves box office weekend data.
+    /// Get weekend box office results. This endpoint returns movie box office performance data including rankings, earnings, and related movie information.
     /// </summary>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="BoxOfficeWeekendData"/> object with box office information or an error message.</returns>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="BoxOfficeWeekendData"/> response containing the requested data or an error message.</returns>
     public async Task<BoxOfficeWeekendData?> BoxOfficeAsync(Language lang = Language.EN)
     {
         try

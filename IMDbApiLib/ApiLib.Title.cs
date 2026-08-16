@@ -5,13 +5,12 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves detailed information for a title by its IMDb identifier.
-    /// Use the <paramref name="options"/> parameter to request additional related data such as cast, images, trailers, and ratings.
+    /// Get detailed information about a movie or TV series using its IMDb ID. The response includes basic title information, ratings, images, posters, trailers, actors, cast, and other available metadata based on selected options.
     /// </summary>
-    /// <param name="id">A valid IMDb identifier (starts with "tt").</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <param name="options">A comma-separated list of optional data to include: FullActor, FullCast, Wikipedia, Posters, Images, Trailer, Ratings.</param>
-    /// <returns>A <see cref="TitleData"/> object containing title details or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <param name="options">Options to include additional information in the response. You can select extra data sections such as "FullActor", "FullCast", "Posters", "Images", "Trailer", "Ratings", and "Wikipedia". Multiple options can be selected to customize the returned data.</param>
+    /// <returns>The <see cref="TitleData"/> response containing the requested data or an error message.</returns>
     public async Task<TitleData?> TitleAsync(string id, Language lang = Language.EN, string? options = null)
     {
         try
@@ -24,20 +23,19 @@ public partial class ApiLib
             return new TitleData() { ErrorMessage = ex.Message };
         }
     }
-
     /// <summary>
-    /// Retrieves detailed information for a title by its IMDb identifier using boolean flags to request optional data.
+    /// Get detailed information about a movie or TV series using its IMDb ID. The response includes basic title information, ratings, images, posters, trailers, actors, cast, and other available metadata based on selected options.
     /// </summary>
-    /// <param name="id">A valid IMDb identifier (starts with "tt").</param>
-    /// <param name="language">The language for returned data (default is English).</param>
-    /// <param name="FullActor">Include full actor details when true.</param>
-    /// <param name="FullCast">Include full cast details when true.</param>
-    /// <param name="Wikipedia">Include Wikipedia content when true.</param>
-    /// <param name="Posters">Include posters when true.</param>
-    /// <param name="Images">Include images when true.</param>
-    /// <param name="Trailer">Include trailer information when true.</param>
-    /// <param name="Ratings">Include ratings when true.</param>
-    /// <returns>A <see cref="TitleData"/> object containing title details or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="language">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <param name="FullActor">Whether to include the "FullActor" data section.</param>
+    /// <param name="FullCast">Whether to include the "FullCast" data section.</param>
+    /// <param name="Wikipedia">Whether to include the "Wikipedia" data section.</param>
+    /// <param name="Posters">Whether to include the "Posters" data section.</param>
+    /// <param name="Images">Whether to include the "Images" data section.</param>
+    /// <param name="Trailer">Whether to include the "Trailer" data section.</param>
+    /// <param name="Ratings">Whether to include the "Ratings" data section.</param>
+    /// <returns>The <see cref="TitleData"/> response containing the requested data or an error message.</returns>
     public async Task<TitleData?> TitleAsync(string id, Language language = Language.EN, bool FullActor = false, bool FullCast = false, bool Wikipedia = false, bool Posters = false, bool Images = false, bool Trailer = false, bool Ratings = false)
     {
         string options = Options.OptionsToString(FullActor, FullCast, Wikipedia, Posters, Images, Trailer, Ratings);

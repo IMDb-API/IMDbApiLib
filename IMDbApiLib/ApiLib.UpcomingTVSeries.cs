@@ -5,10 +5,10 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves upcoming TV series.
+    /// Get upcoming TV series that are scheduled for release. This endpoint returns a list of future TV series releases with related information such as title details, release dates, ratings, and other available metadata.
     /// </summary>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>An <see cref="UpcomingData"/> object containing upcoming TV series or an error message.</returns>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="UpcomingData"/> response containing the requested data or an error message.</returns>
     public async Task<UpcomingData?> UpcomingTVSeriesAsync(Language lang = Language.EN)
     {
         try

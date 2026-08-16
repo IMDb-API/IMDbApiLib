@@ -5,10 +5,10 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves information for a given IP address.
+    /// Get information about an IP address. This endpoint supports both IPv4 and IPv6 addresses and returns available details related to the provided IP.
     /// </summary>
-    /// <param name="ip">The IPv4 or IPv6 address to lookup.</param>
-    /// <returns>An <see cref="IPData"/> object containing IP information or an error message.</returns>
+    /// <param name="ip">The IPv4 or IPv6 address to retrieve information for.</param>
+    /// <returns>The <see cref="IPData"/> response containing the requested data or an error message.</returns>
     public async Task<IPData?> IPsAsync(string ip)
     {
         try

@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves user rating data for the specified title identifier.
+    /// Get user rating information for a movie or TV series using its IMDb ID. This endpoint provides rating distribution data based on user votes, including the number of votes for each rating level.
     /// </summary>
-    /// <param name="id">The IMDb identifier for the title.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="UserRatingData"/> object containing user rating details or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="UserRatingData"/> response containing the requested data or an error message.</returns>
     public async Task<UserRatingData?> UserRatingsAsync(string id, Language lang = Language.EN)
     {
         try

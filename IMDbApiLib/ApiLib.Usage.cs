@@ -5,9 +5,9 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves API usage information and limits for the current API key.
+    /// View API usage statistics. This endpoint returns the number of daily requests made to the available services.
     /// </summary>
-    /// <returns>A <see cref="UsageData"/> object containing usage statistics or an error message.</returns>
+    /// <returns>The <see cref="UsageData"/> response containing the requested data or an error message.</returns>
     public async Task<UsageData?> UsageAsync()
     {
         try

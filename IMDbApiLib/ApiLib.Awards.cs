@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves award information for the specified title identifier.
+    /// Get awards information for a movie or TV series using its IMDb ID. This endpoint returns available awards, nominations, wins, and related recognition details for the requested title.
     /// </summary>
-    /// <param name="id">The IMDb identifier for the title.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>An <see cref="AwardData"/> object containing award details or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="AwardData"/> response containing the requested data or an error message.</returns>
     public async Task<AwardData?> AwardsAsync(string id, Language lang = Language.EN)
     {
         try

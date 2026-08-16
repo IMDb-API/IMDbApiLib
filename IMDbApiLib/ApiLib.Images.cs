@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves images for the specified title or person identifier.
+    /// Get available images for a movie or TV series using its IMDb ID. This endpoint returns image collections and related information for the requested title.
     /// </summary>
-    /// <param name="id">The IMDb identifier for the title or person.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>An <see cref="ImageData"/> object containing images or an error message.</returns>
+    /// <param name="id">IMDb identifier. The ID can be a title ID starting with "tt" or a person ID starting with "nm". Examples: "tt1375666", "nm0000154"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="ImageData"/> response containing the requested data or an error message.</returns>
     public async Task<ImageData?> ImagesAsync(string id, Language lang = Language.EN)
     {
         try

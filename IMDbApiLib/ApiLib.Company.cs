@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves company information for the specified company identifier.
+    /// Get detailed information about a company and its associated movies. This endpoint returns company details along with related titles produced, distributed, or associated with the company.
     /// </summary>
-    /// <param name="coId">The company identifier.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="CompanyData"/> object with company details or an error message.</returns>
+    /// <param name="coId">IMDb company ID. The ID must be a valid IMDb company identifier. Example: "co0002663"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="CompanyData"/> response containing the requested data or an error message.</returns>
     public async Task<CompanyData?> CompanyAsync(string coId, Language lang = Language.EN)
     {
         try

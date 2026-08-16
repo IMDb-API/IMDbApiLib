@@ -5,10 +5,10 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves movies currently in theaters.
+    /// Get movies currently available in theaters. This endpoint returns a list of movies that are currently playing in cinemas with related information such as title details, release information, ratings, and other available metadata.
     /// </summary>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>An <see cref="InTheaterData"/> object with in-theater movies or an error message.</returns>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="InTheaterData"/> response containing the requested data or an error message.</returns>
     public async Task<InTheaterData?> InTheatersAsync(Language lang = Language.EN)
     {
         try

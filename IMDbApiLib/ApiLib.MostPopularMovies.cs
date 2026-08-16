@@ -5,10 +5,10 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves the most popular movies.
+    /// Get the top 100 most popular movies based on IMDb popularity rankings. This endpoint returns a list of currently popular movies with related information such as title details, ratings, and popularity data.
     /// </summary>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="MostPopularData"/> object with popular movies or an error message.</returns>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="MostPopularData"/> response containing the requested data or an error message.</returns>
     public async Task<MostPopularData?> MostPopularMoviesAsync(Language lang = Language.EN)
     {
         try

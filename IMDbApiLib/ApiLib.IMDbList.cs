@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves an IMDb list by identifier.
+    /// Get IMDb lists by list identifier. This endpoint returns titles and related information from predefined IMDb lists such as popular movies, top rated titles, trending items, and other available collections.
     /// </summary>
-    /// <param name="id">The IMDb list identifier.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>An <see cref="IMDbListData"/> object containing the list or an error message.</returns>
+    /// <param name="id">IMDb list identifier. The ID must be a valid IMDb list ID starting with "ls". Example: "ls123456789"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="IMDbListData"/> response containing the requested data or an error message.</returns>
     public async Task<IMDbListData?> IMDbListAsync(string id, Language lang = Language.EN)
     {
         try

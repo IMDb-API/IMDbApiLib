@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Searches companies by the specified expression.
+    /// Search for production companies, studios, and other entertainment-related companies. This endpoint allows you to find companies by name.
     /// </summary>
-    /// <param name="expression">The search expression or company name.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="SearchCompanyData"/> object containing company search results or an error message.</returns>
+    /// <param name="expression">The search expression used to find companies. You can search by company name or partial name. Examples: "Warner Bros", "Disney", "ABC Studios".</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="SearchCompanyData"/> response containing the requested data or an error message.</returns>
     public async Task<SearchCompanyData?> SearchCompanyAsync(string expression, Language lang = Language.EN)
     {
         try

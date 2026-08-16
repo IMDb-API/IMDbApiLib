@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Performs an advanced search using the supplied filters and returns matching results.
+    /// Advanced search across all IMDb items including Movies, TV Series, TV Episodes, Names, Companies, Keywords, and more. Supports multiple filters to narrow down results based on title type, rating, genres, release dates, credits, and additional metadata.
     /// </summary>
-    /// <param name="advancedSearchInput">The advanced search filters and options.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>An <see cref="AdvancedSearchData"/> object containing search results or an error message.</returns>
+    /// <param name="advancedSearchInput">Advanced search across all IMDb items including Movies, TV Series, TV Episodes, Names, Companies, Keywords, and more. Supports multiple filters to narrow down results based on title type, rating, genres, release dates, credits, and additional metadata.</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="AdvancedSearchData"/> response containing the requested data or an error message.</returns>
     public async Task<AdvancedSearchData?> AdvancedSearchAsync(AdvancedSearchInput advancedSearchInput, Language lang = Language.EN)
     {
         try

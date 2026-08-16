@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves YouTube trailer information for the specified title identifier.
+    /// Get the YouTube trailer URL of a movie or TV series using its IMDb ID. This endpoint returns the available trailer link from YouTube for the requested title.
     /// </summary>
-    /// <param name="id">The IMDb identifier for the title.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="YouTubeTrailerData"/> object containing YouTube trailer details or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="YouTubeTrailerData"/> response containing the requested data or an error message.</returns>
     public async Task<YouTubeTrailerData?> YouTubeTrailerAsync(string id, Language lang = Language.EN)
     {
         try

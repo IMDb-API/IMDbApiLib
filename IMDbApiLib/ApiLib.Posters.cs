@@ -5,11 +5,11 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves poster images for the specified title or person identifier.
+    /// Get available posters for a movie or TV series using its IMDb ID. This endpoint returns poster images and related information for the requested title.
     /// </summary>
-    /// <param name="id">The IMDb identifier for the title or person.</param>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="PosterData"/> object containing poster images or an error message.</returns>
+    /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="PosterData"/> response containing the requested data or an error message.</returns>
     public async Task<PosterData?> PostersAsync(string id, Language lang = Language.EN)
     {
         try

@@ -5,10 +5,10 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Retrieves the most popular TV shows.
+    /// Get Top 100 Most popular TVs.
     /// </summary>
-    /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="MostPopularData"/> object with popular TV shows or an error message.</returns>
+    /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>
+    /// <returns>The <see cref="MostPopularData"/> response containing the requested data or an error message.</returns>
     public async Task<MostPopularData?> MostPopularTVsAsync(Language lang = Language.EN)
     {
         try
