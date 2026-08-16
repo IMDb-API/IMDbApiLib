@@ -9,12 +9,13 @@ public partial class ApiLib
     /// </summary>
     /// <param name="id">The IMDb identifier of the title or resource to report on (for example, "tt0111161").</param>
     /// <param name="lang">The language for returned data (default is English).</param>
+    /// <param name="options">A comma-separated list of optional data sections to include.</param>
     /// <returns>A <see cref="ReportData"/> object containing report information or an error message.</returns>
-    public async Task<ReportData?> ReportAsync(string id, Language lang = Language.EN)
+    public async Task<ReportData?> ReportAsync(string id, Language lang = Language.EN, string? options = null)
     {
         try
         {
-            string url = $"{BaseUrl}/api/report?apiKey={Encode(_apiKey)}&id={Encode(id)}&lang={EnumValue(lang)}";
+            string url = $"{BaseUrl}/api/report?apiKey={Encode(_apiKey)}&id={Encode(id)}&options={Encode(options)}&lang={EnumValue(lang)}";
             return await GetObjectAsync<ReportData>(url);
         }
         catch (Exception ex)

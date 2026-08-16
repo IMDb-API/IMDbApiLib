@@ -10,7 +10,7 @@ public partial class ApiLib
     /// <param name="id">The IMDb identifier for the title.</param>
     /// <param name="lang">The language for returned data (default is English).</param>
     /// <returns>A <see cref="FullCastData"/> object containing cast and crew information or an error message.</returns>
-    public async Task<FullCastData?> FullCastDataAsync(string id, Language lang = Language.EN)
+    public async Task<FullCastData?> FullCastAsync(string id, Language lang = Language.EN)
     {
         try
         {

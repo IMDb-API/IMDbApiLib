@@ -1,115 +1,219 @@
 # IMDbApiLib
-The TV-API is a web service for receiving movie, serial and cast informations. APIs results is a JSON and includes items such as movie specifications, images, posters, trailers, ratings, Wikipedia page content and more. [see more »](https://tv-api.com)
 
-## Nuget
-Install from Nuget using the command: **Install-Package IMDbApiLib** View more about that here:  https://nuget.org/packages/IMDbApiLib
+`IMDbApiLib` is the official .NET client for [TV-API](https://tv-api.com), a movie and TV data service.
 
-## API Documentation
-[https://tv-api.com/api](https://tv-api.com/api)
+It provides strongly typed access to title details, cast and crew, images, posters, trailers, ratings, reviews, Wikipedia content, charts, search, people, companies, and more.
 
-## Usage
-Usage Examples
-```csharp
-var apiLib = new ApiLib("API-Key");
+> `IMDbApiLib` is the package name. TV-API is the service that provides the data.
 
-// Search
-var data = await apiLib.SearchMovieAsync("leon the professional 1994");
+## Requirements
 
-// Title Data
-var data = await apiLib.TitleAsync("tt0110413");
+- .NET Standard 2.0 or later
+- A TV-API key
 
-// Title Data (French Language)
-var data = await apiLib.TitleAsync("tt0110413", Language.fr);
+## Installation
 
-// Title Data - Get Full Data
-var data = await apiLib.TitleAsync("tt0110413", Language.en, "FullActor,FullCast,Posters,Images,Trailer,Ratings,Wikipedia");
+### .NET CLI
 
-// Report - As PNG File
-var data = await apiLib.ReportAsync("tt0110413", Language.en);
-
-// Images (From IMDb)
-var data = await apiLib.ImagesAsync("tt0110413");
-
-// Posters (From TheMovieDb)
-var data = await apiLib.PostersAsync("tt0110413");
-
-// Trailer
-var data = await apiLib.TrailerAsync("tt0110413");
-
-// ExternalSites (Get Movie or Series TV in all external sites with Identifier and URL)
-var data = await apiLib.ExternalSitesAsync("tt0110413");
-
-// Ratings (Get ratings of Movie or Series TV in: IMDb, Metacritic, RottenTommatoes, TheMovieDb and TV.com)
-var data = await apiLib.RatingsAsync("tt0110413");
-
-// Wikipedia (PlainText and Html)
-var data = await apiLib.WikipediaAsync("tt0110413", , IMDbApiLib.Models.Language.en);
-
-// AdvancedSearch
-var input = new AdvancedSearchInput();
-input.Genres = AdvancedSearchGenre.Action | AdvancedSearchGenre.Adventure;
-input.Sort = AdvancedSearchSort.User_Rating_Descending;
-input.ReleaseDateFrom = "2010-01-01";
-input.NumberOfVotesFrom = 5000;
-
-input.Languages = AdvancedSearchLanguage.English | AdvancedSearchLanguage.French;
-// OR - Multiple languages
-//input.LanguagesStr = $"{AdvancedSearchLanguage.English.GetDescription()},{AdvancedSearchLanguage.French.GetDescription()}";
-
-input.Countries = AdvancedSearchCountry.United_States;
-// OR - Multiple countries
-//input.CountriesStr = $"{AdvancedSearchCountry.United_States},{AdvancedSearchCountry.France},{AdvancedSearchCountry.United_Kingdom}";
-
-string queryString = input.ToString();
-var advancedSearchdata = await apiLib.AdvancedSearchAsync(input);
+```bash
+dotnet add package IMDbApiLib --version 3.0.0
 ```
 
-----
-## List of all APIs
-### Search APIs
-* **Search** (expression)
-* **SearchTitle** (expression)
-* **SearchMovie** (expression)
-* **SearchSeries** (expression)
-* **SearchName** (expression)
-* **SearchEpisode** (expression)
-* **SearchCompany** (expression)
-* **SearchKeyword** (expression)
-* **AdvancedSearch** (params)
+### Package Manager Console
 
-### Title APIs
-* **Title** (id, options?)
-* **Report** (id, options?)
-* **FullCast** (id)
-* **Posters** (id)
-* **Images** (id, options?)
-* **Trailer** (id)
-* **Ratings** (id)
-* **UserRatings** (id)
-* **SeasonEpisodes** (id, seasonNumber)
-* **ExternalSites** (id)
-* **Wikipedia** (id)
-* **Reviews** (id)
-* **MetacriticReviews** (id)
-* **FAQ** (id)
-* **Awards** (id)
+```powershell
+Install-Package IMDbApiLib -Version 3.0.0
+```
 
-### Other APIs
-* **Top250Movies** ()
-* **Top250TVs** ()
-* **MostPopularMovies** ()
-* **MostPopularTVs** ()
-* **InTheaters** ()
-* **ComingSoon** ()
-* **BoxOffice** ()
-* **BoxOfficeAllTime** ()
-* **Name** (nmId)
-* **NameAwards** (nmId)
-* **Company** (coId)
-* **Keyword** (kwId)
-* **YouTubeTrailer** (id)
+### PackageReference
 
-### Tools APIs
-* **Usage** ()
-* **ResizeImage** (WxH, url)
-* **ResizePoster** (WxH, url)
+```xml
+<PackageReference Include="IMDbApiLib" Version="3.0.0" />
+```
+
+## Documentation
+
+- [TV-API documentation](https://tv-api.com/api)
+- [TV-API website](https://tv-api.com)
+
+## Quick start
+
+```csharp
+using IMDbApiLib;
+using IMDbApiLib.Models;
+
+using var api = new ApiLib("YOUR_API_KEY");
+
+var title = await api.TitleAsync("tt0110413");
+
+if (title?.Success == true)
+{
+    Console.WriteLine(title.Title);
+}
+else
+{
+    Console.WriteLine(title?.ErrorMessage);
+}
+```
+
+## Authentication
+
+Keep your API key outside source code. For ASP.NET Core applications, use User Secrets, environment variables, or a secure configuration provider.
+
+```csharp
+using var api = new ApiLib(apiKey);
+```
+
+## Language
+
+All methods that support language default to English.
+
+```csharp
+var title = await api.TitleAsync("tt0110413", Language.FR);
+```
+
+## Title data
+
+```csharp
+var title = await api.TitleAsync("tt0110413");
+
+var titleWithOptions = await api.TitleAsync(
+    "tt0110413",
+    Language.EN,
+    options: "FullActor,FullCast,Wikipedia,Posters,Images,Trailer,Ratings");
+
+var titleWithFlags = await api.TitleAsync(
+    "tt0110413",
+    Language.EN,
+    FullActor: true,
+    FullCast: true,
+    Wikipedia: true,
+    Posters: true,
+    Images: true,
+    Trailer: true,
+    Ratings: true);
+
+var report = await api.ReportAsync("tt0110413", Language.EN, "FullActor,FullCast,Posters,Images,Trailer,Wikipedia");
+var cast = await api.FullCastAsync("tt0110413");
+var images = await api.ImagesAsync("tt0110413");
+var posters = await api.PostersAsync("tt0110413");
+var trailer = await api.TrailerAsync("tt0110413");
+var ratings = await api.RatingsAsync("tt0110413");
+var userRatings = await api.UserRatingsAsync("tt0110413");
+var externalSites = await api.ExternalSitesAsync("tt0110413");
+var wikipedia = await api.WikipediaAsync("tt0110413", Language.EN);
+var reviews = await api.ReviewsAsync("tt0110413");
+var metacriticReviews = await api.MetacriticReviewsAsync("tt0110413");
+var quotes = await api.QuotesAsync("tt0110413");
+var goofs = await api.GoofsAsync("tt0110413");
+var faq = await api.FAQAsync("tt0110413");
+var awards = await api.AwardsAsync("tt0110413");
+var episodes = await api.SeasonEpisodesAsync("tt0944947", 1);
+```
+
+## Search
+
+```csharp
+var movies = await api.SearchMovieAsync("leon the professional");
+var series = await api.SearchTVSeriesAsync("breaking bad");
+var episodes = await api.SearchTVEpisodeAsync("the last of us");
+var titles = await api.SearchTitleAsync("inception");
+var names = await api.SearchNameAsync("leonardo dicaprio");
+var companies = await api.SearchCompanyAsync("warner bros");
+var keywords = await api.SearchKeywordAsync("time travel");
+var all = await api.SearchAllAsync("matrix");
+```
+
+## Advanced search
+
+```csharp
+using IMDbApiLib.Models;
+
+var input = new AdvancedSearchInput
+{
+    Genres = AdvancedSearchGenre.Action | AdvancedSearchGenre.Adventure,
+    UserRatingFrom = 7,
+    NumberOfVotesFrom = 5000,
+    ReleaseDateFrom = "2010-01-01",
+    Languages = AdvancedSearchLanguage.English | AdvancedSearchLanguage.French,
+    Countries = AdvancedSearchCountry.United_States
+};
+
+var results = await api.AdvancedSearchAsync(input);
+```
+
+For multiple country or language values as text:
+
+```csharp
+input.CountriesStr = "US,FR,GB";
+input.LanguagesStr = "en,fr";
+```
+
+## Charts and upcoming releases
+
+```csharp
+var topMovies = await api.Top250MoviesAsync();
+var topTVs = await api.Top250TVsAsync();
+var popularMovies = await api.MostPopularMoviesAsync();
+var popularTVs = await api.MostPopularTVsAsync();
+var inTheaters = await api.InTheatersAsync();
+var upcomingMovies = await api.UpcomingMoviesAsync();
+var upcomingSeries = await api.UpcomingTVSeriesAsync();
+var upcomingEpisodes = await api.UpcomingTVEpisodesAsync();
+var weekendBoxOffice = await api.BoxOfficeAsync();
+var allTimeBoxOffice = await api.BoxOfficeAllTimeAsync();
+var releases = await api.ReleasesAsync("tt1375666");
+```
+
+## Names, companies, lists, and tools
+
+```csharp
+var name = await api.NameAsync("nm0000138");
+var nameAwards = await api.NameAwardsAsync("nm0000138");
+var company = await api.CompanyAsync("co0002663");
+var keyword = await api.KeywordAsync("time-travel");
+var imdbList = await api.IMDbListAsync("ls000000000");
+var countries = await api.CountriesAsync("US");
+var ip = await api.IPsAsync("8.8.8.8");
+var usage = await api.UsageAsync();
+```
+
+## Image resizing and downloads
+
+```csharp
+byte[]? image = await api.ResizeImageAsync("300x450", imageUrl);
+byte[]? poster = await api.ResizePosterAsync("300x450", posterUrl);
+
+await api.ResizeImageSaveFileAsync("300x450", imageUrl, "image.jpg");
+await api.ResizePosterSaveFileAsync("300x450", posterUrl, "poster.jpg");
+
+string resizeUrl = api.ResizeImageUrl("300x450", imageUrl);
+```
+
+## Proxy support
+
+```csharp
+using var api = new ApiLib(
+    apiKey: "YOUR_API_KEY",
+    proxyAddress: "http://127.0.0.1:8080",
+    proxyUsername: "username",
+    proxyPassword: "password");
+```
+
+## Error handling
+
+API result models inherit a common error contract. Check `Success` and `ErrorMessage` before using the returned data.
+
+```csharp
+var result = await api.TitleAsync("tt0110413");
+
+if (result?.Success != true)
+{
+    Console.WriteLine(result?.ErrorMessage);
+    return;
+}
+```
+
+## License
+
+MIT

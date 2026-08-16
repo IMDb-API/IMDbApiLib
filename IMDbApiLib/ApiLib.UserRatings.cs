@@ -10,7 +10,7 @@ public partial class ApiLib
     /// <param name="id">The IMDb identifier for the title.</param>
     /// <param name="lang">The language for returned data (default is English).</param>
     /// <returns>A <see cref="UserRatingData"/> object containing user rating details or an error message.</returns>
-    public async Task<UserRatingData?> UserRatingAsync(string id, Language lang = Language.EN)
+    public async Task<UserRatingData?> UserRatingsAsync(string id, Language lang = Language.EN)
     {
         try
         {

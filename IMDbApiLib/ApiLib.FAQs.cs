@@ -10,7 +10,7 @@ public partial class ApiLib
     /// <param name="id">The IMDb identifier for the title or person.</param>
     /// <param name="lang">The language for returned data (default is English).</param>
     /// <returns>An <see cref="FAQData"/> object containing FAQ items or an error message.</returns>
-    public async Task<FAQData?> FAQsAsync(string id, Language lang = Language.EN)
+    public async Task<FAQData?> FAQAsync(string id, Language lang = Language.EN)
     {
         try
         {

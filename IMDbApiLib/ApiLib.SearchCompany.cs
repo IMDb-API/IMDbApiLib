@@ -9,17 +9,17 @@ public partial class ApiLib
     /// </summary>
     /// <param name="expression">The search expression or company name.</param>
     /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="SearchData"/> object containing company search results or an error message.</returns>
-    public async Task<SearchData?> SearchCompanyAsync(string expression, Language lang = Language.EN)
+    /// <returns>A <see cref="SearchCompanyData"/> object containing company search results or an error message.</returns>
+    public async Task<SearchCompanyData?> SearchCompanyAsync(string expression, Language lang = Language.EN)
     {
         try
         {
             string url = $"{BaseUrl}/api/search-company?apiKey={Encode(_apiKey)}&expression={Encode(expression)}&lang={EnumValue(lang)}";
-            return await GetObjectAsync<SearchData>(url);
+            return await GetObjectAsync<SearchCompanyData>(url);
         }
         catch (Exception ex)
         {
-            return new SearchData() { ErrorMessage = ex.Message };
+            return new SearchCompanyData() { ErrorMessage = ex.Message };
         }
     }
 }

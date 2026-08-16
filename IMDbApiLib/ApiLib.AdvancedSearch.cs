@@ -20,7 +20,7 @@ public partial class ApiLib
                 throw new Exception("It is mandatory to enter at least one filter.");
             }
 
-            queryString += $"apiKey={Encode(_apiKey)}&lang={EnumValue(lang)}";
+            queryString += $"&apiKey={Encode(_apiKey)}&lang={EnumValue(lang)}";
             string url = $"{BaseUrl}/api/advanced-search{queryString}";
             return await GetObjectAsync<AdvancedSearchData>(url);
         }

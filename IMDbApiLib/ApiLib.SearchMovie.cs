@@ -9,17 +9,17 @@ public partial class ApiLib
     /// </summary>
     /// <param name="expression">The search expression or movie title.</param>
     /// <param name="lang">The language for returned data (default is English).</param>
-    /// <returns>A <see cref="SearchData"/> object containing movie search results or an error message.</returns>
-    public async Task<SearchData?> SearchMovieAsync(string expression, Language lang = Language.EN)
+    /// <returns>A <see cref="SearchTitleData"/> object containing movie search results or an error message.</returns>
+    public async Task<SearchTitleData?> SearchMovieAsync(string expression, Language lang = Language.EN)
     {
         try
         {
             string url = $"{BaseUrl}/api/search-movie?apiKey={Encode(_apiKey)}&expression={Encode(expression)}&lang={EnumValue(lang)}";
-            return await GetObjectAsync<SearchData>(url);
+            return await GetObjectAsync<SearchTitleData>(url);
         }
         catch (Exception ex)
         {
-            return new SearchData() { ErrorMessage = ex.Message };
+            return new SearchTitleData() { ErrorMessage = ex.Message };
         }
     }
 }

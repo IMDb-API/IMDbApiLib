@@ -42,7 +42,7 @@ Install-Package IMDbApiLib -Version 3.0.0
 using IMDbApiLib;
 using IMDbApiLib.Models;
 
-var api = new ApiLib("YOUR_API_KEY");
+using var api = new ApiLib("YOUR_API_KEY");
 
 var title = await api.TitleAsync("tt0110413");
 
@@ -61,7 +61,7 @@ else
 Keep your API key outside source code. For ASP.NET Core applications, use User Secrets, environment variables, or a secure configuration provider.
 
 ```csharp
-var api = new ApiLib(apiKey);
+using var api = new ApiLib(apiKey);
 ```
 
 ## Language
@@ -93,20 +93,20 @@ var titleWithFlags = await api.TitleAsync(
     Trailer: true,
     Ratings: true);
 
-var report = await api.ReportAsync("tt0110413");
-var cast = await api.FullCastDataAsync("tt0110413");
+var report = await api.ReportAsync("tt0110413", Language.EN, "FullActor,FullCast,Posters,Images,Trailer,Wikipedia");
+var cast = await api.FullCastAsync("tt0110413");
 var images = await api.ImagesAsync("tt0110413");
 var posters = await api.PostersAsync("tt0110413");
 var trailer = await api.TrailerAsync("tt0110413");
 var ratings = await api.RatingsAsync("tt0110413");
-var userRatings = await api.UserRatingAsync("tt0110413");
+var userRatings = await api.UserRatingsAsync("tt0110413");
 var externalSites = await api.ExternalSitesAsync("tt0110413");
 var wikipedia = await api.WikipediaAsync("tt0110413", Language.EN);
 var reviews = await api.ReviewsAsync("tt0110413");
 var metacriticReviews = await api.MetacriticReviewsAsync("tt0110413");
 var quotes = await api.QuotesAsync("tt0110413");
 var goofs = await api.GoofsAsync("tt0110413");
-var faqs = await api.FAQsAsync("tt0110413");
+var faq = await api.FAQAsync("tt0110413");
 var awards = await api.AwardsAsync("tt0110413");
 var episodes = await api.SeasonEpisodesAsync("tt0944947", 1);
 ```
@@ -162,7 +162,7 @@ var upcomingSeries = await api.UpcomingTVSeriesAsync();
 var upcomingEpisodes = await api.UpcomingTVEpisodesAsync();
 var weekendBoxOffice = await api.BoxOfficeAsync();
 var allTimeBoxOffice = await api.BoxOfficeAllTimeAsync();
-var releases = await api.ReleasesAsync();
+var releases = await api.ReleasesAsync("tt1375666");
 ```
 
 ## Names, companies, lists, and tools
@@ -193,7 +193,7 @@ string resizeUrl = api.ResizeImageUrl("300x450", imageUrl);
 ## Proxy support
 
 ```csharp
-var api = new ApiLib(
+using var api = new ApiLib(
     apiKey: "YOUR_API_KEY",
     proxyAddress: "http://127.0.0.1:8080",
     proxyUsername: "username",
