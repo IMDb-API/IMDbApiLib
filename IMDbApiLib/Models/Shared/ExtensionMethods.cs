@@ -1,66 +1,77 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Reflection;
 
-namespace IMDbApiLib
+namespace IMDbApiLib;
+
+public static class ExtensionMethods
 {
-    public static class ExtensionMethods
+    #region Enums
+
+    public static string GetDescription(this Enum enumValue)
     {
-        public static bool IsNull(this string str)
+        if (enumValue is null)
         {
-            return string.IsNullOrEmpty(str);
+            return string.Empty;
         }
 
-        public static string ToPascalCasting(this string str)
+        string? description = enumValue.GetType()
+            .GetMember(enumValue.ToString())
+            .FirstOrDefault()?
+            .GetCustomAttribute<DescriptionAttribute>()?
+            .Description;
+
+        if (string.IsNullOrEmpty(description))
         {
-            if (string.IsNullOrEmpty(str))
-                return str;
-
-            if (str.Length == 1)
-                return str.ToUpperInvariant();
-
-            return $"{str.Substring(0, 1).ToUpperInvariant()}{str.Substring(1)}";
-        }
-
-        public static string ToPascalCastingAll(this string str)
-        {
-            if (string.IsNullOrEmpty(str))
-                return str;
-
-            if (str.Length == 1)
-                return str.ToUpperInvariant();
-
-            string tmp = "";
-            foreach (string s in str.Split('-', '_'))
-                tmp += s.ToPascalCasting() + " ";
-
-            return tmp.Trim();
-        }
-
-        public static string GetDescription(this Enum enumValue)
-        {
-            if (enumValue is null)
-                return string.Empty;
-
-            return enumValue.GetType()
+            description = enumValue.GetType()
                 .GetMember(enumValue.ToString())
-                .First()
-                .GetCustomAttribute<DescriptionAttribute>()?
-                .Description ?? string.Empty;
+                .FirstOrDefault()?
+                .GetCustomAttribute<DisplayAttribute>()?
+                .Description;
         }
 
-        public static string GetDisplayName(this Enum enumValue)
-        {
-            if (enumValue is null)
-                return string.Empty;
+        return description ?? string.Empty;
+    }
 
-            return enumValue.GetType()
-                .GetMember(enumValue.ToString())
-                .First()
-                .GetCustomAttribute<DisplayAttribute>()
-                .GetName();
+    public static string GetDisplayName(this Enum enumValue, bool fillIfEmpty = true)
+    {
+        if (enumValue is null)
+        {
+            return string.Empty;
+        }
+
+        string displayName = fillIfEmpty ? enumValue.ToString() : string.Empty;
+
+        return enumValue.GetType()
+            .GetMember(enumValue.ToString())
+            .FirstOrDefault()?
+            .GetCustomAttribute<DisplayAttribute>()?
+            .GetName() ?? displayName;
+    }
+
+    public static string GetGroupName(this Enum enumValue)
+    {
+        if (enumValue is null)
+        {
+            return string.Empty;
+        }
+
+        return enumValue.GetType()
+            .GetMember(enumValue.ToString())
+            .FirstOrDefault()?
+            .GetCustomAttribute<DisplayAttribute>()?
+            .GroupName ?? string.Empty;
+    }
+
+    public static IEnumerable<T> GetEnumFlags<T>(this T flags) where T : Enum
+    {
+        foreach (Enum value in Enum.GetValues(flags.GetType()))
+        {
+            if (flags.HasFlag(value))
+            {
+                yield return (T)value;
+            }
         }
     }
+    #endregion
 }

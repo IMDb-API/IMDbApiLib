@@ -1,45 +1,30 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class SearchData : ApiBaseModel
 {
-    public class SearchData
+    public SearchData()
     {
-        public SearchData()
-        {
-            ErrorMessage = string.Empty;
-            Results = new List<SearchResult>();
-        }
-
-        public SearchData(string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            Results = null;
-        }
-
-        public string SearchType { get; set; }
-        public string Expression { get; set; }
-        public List<SearchResult> Results { get; set; }
-        public string ErrorMessage { get; set; }
     }
 
-    public class SearchResult
+    public SearchData(string errorMessage)
     {
-        public string Id { get; set; }
-        public string ResultType { get; set; }
-        public string Image { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        ErrorMessage = errorMessage;
     }
 
-    public enum SearchType
-    {
-        Title = 1,
-        Movie = 2,
-        Series = 4,
-        Name = 8,
-        Episode = 16,
-        Company = 32,
-        Keyword = 64,
-        All = 128
-    }
+    public string Expression { get; set; } = string.Empty;
+    public List<SearchTitleDataItem> Movies { get; set; } = [];
+    public List<SearchTitleDataItem> Series { get; set; } = [];
+    public List<SearchNameDataItem> Names { get; set; } = [];
+}
+
+public enum SearchType
+{
+    Title = 1,
+    Movie = 2,
+    Series = 4,
+    Name = 8,
+    Episode = 16,
+    Company = 32,
+    Keyword = 64,
+    All = 128
 }

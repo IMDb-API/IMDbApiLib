@@ -1,52 +1,39 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class NameAwardData : ApiBaseModel
 {
-    public class NameAwardData
+    public NameAwardData()
     {
-        public NameAwardData()
-        {
-            ErrorMessage = string.Empty;
-            Items = new List<NameAwardEvent>();
-        }
-
-        public NameAwardData(string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            Items = null;
-        }
-
-        public NameAwardData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-            Items = null;
-        }
-
-        public string IMDbId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public List<NameAwardEvent> Items { get; set; }
-        public string NameAwardsHtml { get; set; }
-        public string ErrorMessage { get; set; }
     }
 
-    public class NameAwardEvent
+    public NameAwardData(string errorMessage)
     {
-        public NameAwardEvent()
-        {
-            NameAwardEventDetails = new List<NameAwardEventDetail>();
-        }
-
-        public string EventTitle { get; set; }
-        public List<NameAwardEventDetail> NameAwardEventDetails { get; set; }
+        ErrorMessage = errorMessage;
     }
 
-    public class NameAwardEventDetail
+    public NameAwardData(string id, string errorMessage)
     {
-        public string Image { get; set; }
-        public string Title { get; set; }
-        public string For { get; set; }
-        public string Description { get; set; }
+        IMDbId = id;
+        ErrorMessage = errorMessage;
     }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public List<NameAwardEvent> Items { get; set; } = [];
+    public string NameAwardsHtml { get; set; } = string.Empty;
+}
+
+public class NameAwardEvent
+{
+    public string EventTitle { get; set; } = string.Empty;
+    public List<NameAwardEventItem> Items { get; set; } = [];
+}
+
+public class NameAwardEventItem
+{
+    public string Image { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string For { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }

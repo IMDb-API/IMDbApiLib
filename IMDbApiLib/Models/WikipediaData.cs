@@ -1,47 +1,29 @@
-﻿namespace IMDbApiLib.Models
+﻿namespace IMDbApiLib.Models;
+
+public class WikipediaData : ApiBaseModel
 {
-    public class WikipediaData
+    public WikipediaData()
     {
-        public WikipediaData()
-        {
-            ErrorMessage = string.Empty;
-            PlotShort = new WikipediaDataPlot();
-            PlotFull = new WikipediaDataPlot();
-        }
-
-        public WikipediaData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-            PlotShort = null;
-            PlotFull = null;
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { get; set; }
-        public string Year { get; set; }
-        public string Language { get; set; }
-        public string TitleInLanguage { get; set; }
-        public string Url { get; set; }
-        public WikipediaDataPlot PlotShort { get; set; }
-        public WikipediaDataPlot PlotFull { get; set; }
-        public string ErrorMessage { get; set; }
     }
 
-    public class WikipediaDataPlot
+    public WikipediaData(string errorMessage)
     {
-        public WikipediaDataPlot()
-        {
-            PlainText = Html = string.Empty;
-        }
-        public string PlainText { get; set; }
-
-        public string Html { get; set; }
+        ErrorMessage = errorMessage;
     }
 
+    public WikipediaData(string id, string errorMessage)
+    {
+        IMDbId = id;
+        ErrorMessage = errorMessage;
+    }
 
-
-
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public string Language { get; set; } = string.Empty;
+    public string TitleInLanguage { get; set; } = string.Empty;
+    public string Url { get; set; } = string.Empty;
+    public string HtmlBody { get; set; } = string.Empty;
 }

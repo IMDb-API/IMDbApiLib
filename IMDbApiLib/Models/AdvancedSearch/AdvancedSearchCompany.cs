@@ -1,35 +1,30 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace IMDbApiLib.Models
+namespace IMDbApiLib.Models;
+
+public enum AdvancedSearchCompany
 {
-    [Flags]
-    public enum AdvancedSearchCompany
-    {
-        [Display(Name = "20th Century Fox")]
-        [Description("fox")]
-        Twentieth_Century_Fox = 1,
-        [Display(Name = "Sony")]
-        [Description("sony")]
-        Sony = 2,
-        [Display(Name = "DreamWorks")]
-        [Description("dreamworks")]
-        DreamWorks = 4,
-        [Display(Name = "MGM")]
-        [Description("mgm")]
-        MGM = 8,
-        [Display(Name = "Paramount")]
-        [Description("paramount")]
-        Paramount = 16,
-        [Display(Name = "Universal")]
-        [Description("universal")]
-        Universal = 32,
-        [Display(Name = "Walt Disney")]
-        [Description("disney")]
-        Walt_Disney = 64,
-        [Display(Name = "Warner Bross.")]
-        [Description("warne")]
-        Warner_Bross = 128
-    }
+    [Display(Name = "20th Century Fox (US)", Description = "fox")]
+    TwentiethCenturyFox = 1,
+
+    [Display(Name = "DreamWorks (US)", Description = "dreamworks")]
+    DreamWorks = 2,
+
+    [Display(Name = "MGM (US)", Description = "mgm")]
+    MGM = 4,
+
+    [Display(Name = "Paramount (US)", Description = "paramount")]
+    Paramount = 8,
+
+    [Display(Name = "Sony (US)", Description = "sony")]
+    Sony = 16,
+
+    [Display(Name = "Universal (US)", Description = "universal")]
+    Universal = 32,
+
+    [Display(Name = "Walt Disney (US)", Description = "disney")]
+    WaltDisney = 64,
+
+    [Display(Name = "Warner Bros. (US)", Description = "warner")]
+    WarnerBros = 128,
 }

@@ -1,68 +1,50 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class FullCastData : ApiBaseModel
 {
-    public class FullCastData
+    public FullCastData()
     {
-        public FullCastData()
-        {
-            ErrorMessage = string.Empty;
-            Actors = new List<ActorShort>();
-            Directors = new CastShort("Director");
-            Writers = new CastShort("Writer");
-            Others = new List<CastShort>();
-        }
-
-        public FullCastData(string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            Actors = new List<ActorShort>();
-            Directors = new CastShort("Director");
-            Writers = new CastShort("Writer");
-            Others = new List<CastShort>();
-        }
-
-        public FullCastData(string id, string errorMessage) : this(errorMessage)
-        {
-            IMDbId = id;
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { set; get; }
-        public string FullTitle { set; get; }
-        public string Type { set; get; }
-        public string Year { get; set; }
-        public CastShort Directors { get; set; }
-        public CastShort Writers { get; set; }
-        public List<ActorShort> Actors { get; set; }
-        public List<CastShort> Others { get; set; }
-        public string ErrorMessage { get; set; }
     }
 
-    public class CastShort
+    public FullCastData(string errorMessage)
     {
-        public CastShort(string job)
-        {
-            Job = job;
-            Items = new List<CastShortItem>();
-        }
-
-        public string Job { get; set; }
-        public List<CastShortItem> Items { get; set; }
+        ErrorMessage = errorMessage;
     }
 
-    public class CastShortItem
+    public FullCastData(string id, string errorMessage)
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        IMDbId = id;
+        ErrorMessage = errorMessage;
     }
 
-    public class ActorShort
-    {
-        public string Id { get; set; }
-        public string Image { get; set; }
-        public string Name { get; set; }
-        public string AsCharacter { get; set; } = "";
-    }
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public CastShort Directors { get; set; } = new CastShort("Director");
+    public CastShort Writers { get; set; } = new CastShort("Writer");
+    public List<ActorShort> Actors { get; set; } = [];
+    public List<CastShort> Others { get; set; } = [];
+}
+
+public class CastShort(string job)
+{
+    public string Job { get; set; } = job;
+    public List<CastShortItem> Items { get; set; } = [];
+}
+
+public class CastShortItem
+{
+    public string IMDbId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+}
+
+public class ActorShort
+{
+    public string IMDbId { get; set; } = string.Empty;
+    public string Image { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string AsCharacter { get; set; } = string.Empty;
 }

@@ -1,36 +1,33 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class BoxOfficeAllTimeData : ApiBaseModel
 {
-    public class BoxOfficeAllTimeData
+    public BoxOfficeAllTimeData()
     {
-        public BoxOfficeAllTimeData()
-        {
-            ErrorMessage = string.Empty;
-            Items = new List<BoxOfficeAllTimeDataDetail>();
-        }
-
-        public BoxOfficeAllTimeData(string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            Items = new List<BoxOfficeAllTimeDataDetail>();
-        }
-
-        public List<BoxOfficeAllTimeDataDetail> Items { get; set; }
-
-        public string ErrorMessage { get; set; }
     }
 
-    public class BoxOfficeAllTimeDataDetail
+    public BoxOfficeAllTimeData(string errorMessage)
     {
-        public string Id { get; set; }
-        public string Rank { get; set; }
-        public string Title { get; set; }
-        public string WorldwideLifetimeGross { get; set; }
-        public string DomesticLifetimeGross { get; set; }
-        public string Domestic { get; set; }
-        public string ForeignLifetimeGross { get; set; }
-        public string Foreign { get; set; }
-        public string Year { get; set; }
+        ErrorMessage = errorMessage;
     }
+
+    public List<BoxOfficeAllTimeDataItem> Items { get; set; } = [];
+}
+
+public class BoxOfficeAllTimeDataItem
+{
+    public int Rank { get; set; }
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public string WorldwideLifetimeGross { get; set; } = string.Empty;
+    public long WorldwideLifetimeGrossUsd { get; set; }
+    public string DomesticLifetimeGross { get; set; } = string.Empty;
+    public long DomesticLifetimeGrossUsd { get; set; }
+    public string Domestic { get; set; } = string.Empty;
+    public string ForeignLifetimeGross { get; set; } = string.Empty;
+    public long ForeignLifetimeGrossUsd { get; set; }
+    public string Foreign { get; set; } = string.Empty;
 }

@@ -1,49 +1,33 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class FAQData : ApiBaseModel
 {
-    public class FAQData
+    public FAQData()
     {
-        public FAQData()
-        {
-            ErrorMessage = string.Empty;
-            Items = new List<FAQDetail>();
-            SpoilerItems = new List<FAQDetail>();
-        }
-
-        public FAQData(string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            Items = null;
-            SpoilerItems = null;
-        }
-
-        public FAQData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-            Items = null;
-            SpoilerItems = null;
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { get; set; }
-        public string Year { get; set; }
-        public List<FAQDetail> Items { get; set; }
-        public List<FAQDetail> SpoilerItems { get; set; }
-        public string ErrorMessage { get; set; }
     }
 
-    public class FAQDetail
+    public FAQData(string errorMessage)
     {
-        public FAQDetail()
-        {
-            Question = Answer = string.Empty;
-        }
-
-        public string Question { get; set; }
-        public string Answer { get; set; }
+        ErrorMessage = errorMessage;
     }
+
+    public FAQData(string id, string errorMessage)
+    {
+        IMDbId = id;
+        ErrorMessage = errorMessage;
+    }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public List<FAQDataItem> Items { get; set; } = [];
+    public List<FAQDataItem> SpoilerItems { get; set; } = [];
+}
+
+public class FAQDataItem
+{
+    public string Question { get; set; } = string.Empty;
+    public string Answer { get; set; } = string.Empty;
 }

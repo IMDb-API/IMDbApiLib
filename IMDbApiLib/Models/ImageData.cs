@@ -1,34 +1,32 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class ImageData : ApiBaseModel
 {
-    public class ImageData
+    public ImageData()
     {
-        public ImageData()
-        {
-            ErrorMessage = string.Empty;
-            Items = new List<ImageDataDetail>();
-        }
-
-        public ImageData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-            Items = null;
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { get; set; }
-        public string Year { get; set; }
-        public List<ImageDataDetail> Items { get; set; }
-        public string ErrorMessage { get; set; }
     }
 
-    public class ImageDataDetail
+    public ImageData(string errorMessage)
     {
-        public string Title { get; set; }
-        public string Image { get; set; }
+        ErrorMessage = errorMessage;
     }
+
+    public ImageData(string id, string errorMessage)
+    {
+        IMDbId = id;
+        ErrorMessage = errorMessage;
+    }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public List<ImageDataItem> Items { get; set; } = [];
+}
+
+public class ImageDataItem
+{
+    public string Title { get; set; } = string.Empty;
+    public string Image { get; set; } = string.Empty;
 }

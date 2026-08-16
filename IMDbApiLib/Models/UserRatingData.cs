@@ -1,38 +1,35 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class UserRatingData : ApiBaseModel
 {
-    public class UserRatingData
+    public UserRatingData()
     {
-        public UserRatingData()
-        {
-            ErrorMessage = string.Empty;
-            Ratings = new List<UserRatingDataDetail>();
-        }
-
-        public UserRatingData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-            Ratings = null;
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { get; set; }
-        public string Year { get; set; }
-        public string TotalRating { get; set; }
-        public string TotalRatingVotes { get; set; }
-        public List<UserRatingDataDetail> Ratings { get; set; }
-
-        public string ErrorMessage { get; set; }
     }
 
-    public class UserRatingDataDetail
+    public UserRatingData(string errorMessage)
     {
-        public string Rating { get; set; }
-        public string Percent { get; set; }
-        public string Votes { get; set; }
+        ErrorMessage = errorMessage;
     }
+
+    public UserRatingData(string id, string errorMessage)
+    {
+        IMDbId = id;
+        ErrorMessage = errorMessage;
+    }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public decimal IMDbRating { get; set; }
+    public int IMDbRatingVotes { get; set; }
+    public List<UserRatingDataItem> Ratings { get; set; } = [];
+}
+
+public class UserRatingDataItem
+{
+    public int Rating { get; set; }
+    public decimal Percent { get; set; }
+    public int Votes { get; set; }
 }

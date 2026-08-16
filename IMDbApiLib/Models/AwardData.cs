@@ -1,58 +1,42 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class AwardData : ApiBaseModel
 {
-    public class AwardData
+    public AwardData()
     {
-        public AwardData()
-        {
-            ErrorMessage = string.Empty;
-            Items = new List<AwardEvent>();
-        }
-
-        public AwardData(string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            Items = null;
-        }
-
-        public AwardData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-            Items = null;
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { get; set; }
-        public string Year { get; set; }
-
-        public string Description { get; set; }
-        public List<AwardEvent> Items { get; set; }
-        public string AwardsHtml { get; set; }
-
-        public string ErrorMessage { get; set; }
     }
 
-    public class AwardEvent
+    public AwardData(string errorMessage)
     {
-        public AwardEvent()
-        {
-            AwardEventDetails = new List<AwardEventDetail>();
-        }
-
-        public string EventTitle { get; set; }
-
-        public List<AwardEventDetail> AwardEventDetails { get; set; }
+        ErrorMessage = errorMessage;
     }
 
-    public class AwardEventDetail
+    public AwardData(string id, string errorMessage)
     {
-        public string Image { get; set; }
-        public string Title { get; set; }
-        public string For { get; set; }
-        public string Description { get; set; }
+        IMDbId = id;
+        ErrorMessage = errorMessage;
     }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public List<AwardDataEvent> Items { get; set; } = [];
+    public string AwardsHtml { get; set; } = string.Empty;
+}
+
+public class AwardDataEvent
+{
+    public string EventTitle { get; set; } = string.Empty;
+    public List<AwardDataEventItem> Items { get; set; } = [];
+}
+
+public class AwardDataEventItem
+{
+    public string Image { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string For { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }

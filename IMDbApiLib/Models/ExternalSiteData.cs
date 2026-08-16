@@ -1,123 +1,112 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class ExternalSiteData : ApiBaseModel
 {
-    public class ExternalSiteData
+    public ExternalSiteData()
     {
-        public ExternalSiteData()
-        {
-            ErrorMessage = string.Empty;
-            WikipediaUrls = new List<LanguageUrl>();
-        }
-
-        public ExternalSiteData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { get; set; }
-        public string Year { get; set; }
-
-        public string OfficialWebsite { get; set; }
-
-        public ExternalSiteItem IMDb { get; set; }
-        public ExternalSiteItem TheMovieDb { get; set; }
-        public ExternalSiteItem RottenTomatoes { get; set; }
-        public ExternalSiteItem Metacritic { get; set; }
-        public ExternalSiteItem Netflix { get; set; }
-        public ExternalSiteItem GooglePlay { get; set; }
-        public ExternalSiteItem FilmAffinity { get; set; }
-        public ExternalSiteItem Freebase { get; set; }
-        public ExternalSiteItem GND { get; set; }
-        public ExternalSiteItem VIAF { get; set; }
-        public ExternalSiteItem AlloCine { get; set; }
-        public ExternalSiteItem AllMovie { get; set; }
-        public ExternalSiteItem PORT { get; set; }
-        public ExternalSiteItem DNF { get; set; }
-        public ExternalSiteItem MovieMeter { get; set; }
-        public ExternalSiteItem BoxOfficeMojo { get; set; }
-        public ExternalSiteItem CSFD { get; set; }
-        public ExternalSiteItem KINENOTE { get; set; }
-        public ExternalSiteItem Allcinema { get; set; }
-        public ExternalSiteItem Kinopoisk { get; set; }
-        public ExternalSiteItem Elonet { get; set; }
-        public ExternalSiteItem LdiF { get; set; }
-        public ExternalSiteItem Cineplex { get; set; }
-        public ExternalSiteItem EDb { get; set; }
-        public ExternalSiteItem elCinema { get; set; }
-        public ExternalSiteItem Scope_dk { get; set; }
-        public ExternalSiteItem SwedishFilmDatabaseFilm { get; set; }
-        public ExternalSiteItem elFilm { get; set; }
-        public ExternalSiteItem OFDb { get; set; }
-        public ExternalSiteItem OpenMediaDatabase { get; set; }
-        public ExternalSiteItem QuoraTopic { get; set; }
-        public ExternalSiteItem Cinema_de { get; set; }
-        public ExternalSiteItem DeutscheSynchronkartei { get; set; }
-        public ExternalSiteItem MovieWalker { get; set; }
-        public ExternalSiteItem TVGuide { get; set; }
-        public ExternalSiteItem Filmweb_pl { get; set; }
-        public ExternalSiteItem ISAN { get; set; }
-        public ExternalSiteItem EIDR { get; set; }
-        public ExternalSiteItem AFICatalogOfFeature { get; set; }
-        public ExternalSiteItem TheNumbers { get; set; }
-        public ExternalSiteItem TCMMovieDatabase { get; set; }
-        public ExternalSiteItem Cine_gr { get; set; }
-        public ExternalSiteItem BFINationalArchive { get; set; }
-        public ExternalSiteItem ExploitationVisa { get; set; }
-        public ExternalSiteItem Sratim { get; set; }
-        public ExternalSiteItem CineRessources { get; set; }
-        public ExternalSiteItem CinemathequeQuebecoise { get; set; }
-        public ExternalSiteItem EncyclopaediaBritannicaOnline { get; set; }
-        public ExternalSiteItem BechdelTestMovieList { get; set; }
-        public ExternalSiteItem Movieplayer_it { get; set; }
-        public ExternalSiteItem MYmovies { get; set; }
-        public ExternalSiteItem Cinematografo { get; set; }
-        public ExternalSiteItem LUMIERE { get; set; }
-        public ExternalSiteItem BFI { get; set; }
-        public ExternalSiteItem Prisma { get; set; }
-        public ExternalSiteItem CineMagia { get; set; }
-        public ExternalSiteItem Daum { get; set; }
-        public ExternalSiteItem Douban { get; set; }
-        public ExternalSiteItem MuseumOfModernArt { get; set; }
-        public ExternalSiteItem IlMondoDeiDoppiatori { get; set; }
-        public ExternalSiteItem Fandango { get; set; }
-        public ExternalSiteItem Moviepilot_de { get; set; }
-        public ExternalSiteItem SUDOCAuthorities { get; set; }
-        public ExternalSiteItem BibliothequeNationaleDeFrance { get; set; }
-        public ExternalSiteItem Siamzone { get; set; }
-        public ExternalSiteItem AcademyAwardsDatabase { get; set; }
-        public ExternalSiteItem KnowYourMeme { get; set; }
-        public ExternalSiteItem TheEncyclopediaOfScienceFiction { get; set; }
-        public ExternalSiteItem Letterboxd { get; set; }
-        public ExternalSiteItem ComicVine { get; set; }
-        public ExternalSiteItem TheTVDB { get; set; }
-        public ExternalSiteItem TVSpielfilmSeries { get; set; }
-        public List<LanguageUrl> WikipediaUrls { set; get; }
-        public string ErrorMessage { get; set; }
     }
 
-    public class ExternalSiteItem
+    public ExternalSiteData(string errorMessage)
     {
-        public string Id { get; set; }
-
-        public string Url { get; set; }
+        ErrorMessage = errorMessage;
     }
 
-    public class LanguageUrl
+    public ExternalSiteData(string? id, string errorMessage)
     {
-        public LanguageUrl(string language, string title, string url)
-        {
-            Language = language;
-            Title = title;
-            Url = url;
-        }
-
-        public string Language { get; set; }
-        public string Title { get; set; }
-        public string Url { get; set; }
+        IMDbId = id ?? string.Empty;
+        ErrorMessage = errorMessage;
     }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public string OfficialWebsite { get; set; } = string.Empty;
+    public ExternalSiteDataItem? IMDb { get; set; }
+    public ExternalSiteDataItem? TheMovieDb { get; set; }
+    public ExternalSiteDataItem? RottenTomatoes { get; set; }
+    public ExternalSiteDataItem? Metacritic { get; set; }
+    public ExternalSiteDataItem? Netflix { get; set; }
+    public ExternalSiteDataItem? GooglePlay { get; set; }
+    public ExternalSiteDataItem? FilmAffinity { get; set; }
+    public ExternalSiteDataItem? Freebase { get; set; }
+    public ExternalSiteDataItem? GND { get; set; }
+    public ExternalSiteDataItem? VIAF { get; set; }
+    public ExternalSiteDataItem? AlloCine { get; set; }
+    public ExternalSiteDataItem? AllMovie { get; set; }
+    public ExternalSiteDataItem? PORT { get; set; }
+    public ExternalSiteDataItem? DNF { get; set; }
+    public ExternalSiteDataItem? MovieMeter { get; set; }
+    public ExternalSiteDataItem? BoxOfficeMojo { get; set; }
+    public ExternalSiteDataItem? CSFD { get; set; }
+    public ExternalSiteDataItem? KINENOTE { get; set; }
+    public ExternalSiteDataItem? Allcinema { get; set; }
+    public ExternalSiteDataItem? Kinopoisk { get; set; }
+    public ExternalSiteDataItem? Elonet { get; set; }
+    public ExternalSiteDataItem? LdiF { get; set; }
+    public ExternalSiteDataItem? Cineplex { get; set; }
+    public ExternalSiteDataItem? EDb { get; set; }
+    public ExternalSiteDataItem? ElCinema { get; set; }
+    public ExternalSiteDataItem? Scope_dk { get; set; }
+    public ExternalSiteDataItem? SwedishFilmDatabaseFilm { get; set; }
+    public ExternalSiteDataItem? ElFilm { get; set; }
+    public ExternalSiteDataItem? OFDb { get; set; }
+    public ExternalSiteDataItem? OpenMediaDatabase { get; set; }
+    public ExternalSiteDataItem? QuoraTopic { get; set; }
+    public ExternalSiteDataItem? Cinema_de { get; set; }
+    public ExternalSiteDataItem? DeutscheSynchronkartei { get; set; }
+    public ExternalSiteDataItem? MovieWalker { get; set; }
+    public ExternalSiteDataItem? TVGuide { get; set; }
+    public ExternalSiteDataItem? Filmweb_pl { get; set; }
+    public ExternalSiteDataItem? ISAN { get; set; }
+    public ExternalSiteDataItem? EIDR { get; set; }
+    public ExternalSiteDataItem? AFICatalogOfFeature { get; set; }
+    public ExternalSiteDataItem? TheNumbers { get; set; }
+    public ExternalSiteDataItem? TCMMovieDatabase { get; set; }
+    public ExternalSiteDataItem? Cine_gr { get; set; }
+    public ExternalSiteDataItem? BFINationalArchive { get; set; }
+    public ExternalSiteDataItem? ExploitationVisa { get; set; }
+    public ExternalSiteDataItem? Sratim { get; set; }
+    public ExternalSiteDataItem? CineRessources { get; set; }
+    public ExternalSiteDataItem? CinemathequeQuebecoise { get; set; }
+    public ExternalSiteDataItem? EncyclopaediaBritannicaOnline { get; set; }
+    public ExternalSiteDataItem? BechdelTestMovieList { get; set; }
+    public ExternalSiteDataItem? Movieplayer_it { get; set; }
+    public ExternalSiteDataItem? MYmovies { get; set; }
+    public ExternalSiteDataItem? Cinematografo { get; set; }
+    public ExternalSiteDataItem? LUMIERE { get; set; }
+    public ExternalSiteDataItem? BFI { get; set; }
+    public ExternalSiteDataItem? Prisma { get; set; }
+    public ExternalSiteDataItem? CineMagia { get; set; }
+    public ExternalSiteDataItem? Daum { get; set; }
+    public ExternalSiteDataItem? Douban { get; set; }
+    public ExternalSiteDataItem? MuseumOfModernArt { get; set; }
+    public ExternalSiteDataItem? IlMondoDeiDoppiatori { get; set; }
+    public ExternalSiteDataItem? Fandango { get; set; }
+    public ExternalSiteDataItem? Moviepilot_de { get; set; }
+    public ExternalSiteDataItem? SUDOCAuthorities { get; set; }
+    public ExternalSiteDataItem? BibliothequeNationaleDeFrance { get; set; }
+    public ExternalSiteDataItem? Siamzone { get; set; }
+    public ExternalSiteDataItem? AcademyAwardsDatabase { get; set; }
+    public ExternalSiteDataItem? KnowYourMeme { get; set; }
+    public ExternalSiteDataItem? TheEncyclopediaOfScienceFiction { get; set; }
+    public ExternalSiteDataItem? Letterboxd { get; set; }
+    public ExternalSiteDataItem? ComicVine { get; set; }
+    public ExternalSiteDataItem? TheTVDB { get; set; }
+    public ExternalSiteDataItem? TVSpielfilmSeries { get; set; }
+    public List<LanguageUrl> WikipediaUrls { get; set; } = [];
+}
+
+public class ExternalSiteDataItem
+{
+    public string Id { get; set; } = string.Empty;
+    public string Url { get; set; } = string.Empty;
+}
+
+public class LanguageUrl(string language, string title, string url)
+{
+    public string Language { get; set; } = language;
+    public string Title { get; set; } = title;
+    public string Url { get; set; } = url;
 }

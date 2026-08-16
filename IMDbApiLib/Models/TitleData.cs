@@ -1,174 +1,127 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class TitleData : ApiBaseModel, ICloneable
 {
-    public class TitleData : ICloneable
+    public TitleData()
     {
-        public TitleData()
-        {
-            ErrorMessage = string.Empty;
-            DirectorList = new List<StarShort>();
-            WriterList = new List<StarShort>();
-            StarList = new List<StarShort>();
-            ActorList = new List<ActorShort>();
-            FullCast = new FullCastData();
-
-            GenreList = new List<KeyValueItem>();
-            CompanyList = new List<CompanyShort>();
-            CountryList = new List<KeyValueItem>();
-            LanguageList = new List<KeyValueItem>();
-
-            Posters = new PosterData();
-            Images = new ImageData();
-
-            KeywordList = new List<string>();
-
-            BoxOffice = new BoxOfficeShort();
-            Similars = new List<SimilarShort>();
-
-            TvSeriesInfo = new TvSeriesInfo();
-            TvEpisodeInfo = new TvEpisodeInfo();
-
-            Ratings = new RatingData();
-            Wikipedia = new WikipediaData();
-
-            Writers = Directors = Stars = Companies = Countries = Genres = Keywords = Languages = string.Empty;
-        }
-
-        public TitleData(string id, string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            Id = id;
-        }
-
-        public string Id { get; set; }
-        public string Title { set; get; }
-        public string OriginalTitle { get; set; }
-        public string FullTitle { set; get; }
-        public string Type { set; get; }
-        public string Year { set; get; }
-        public string Image { get; set; }
-        public string ReleaseDate { set; get; }
-        public string RuntimeMins { set; get; }
-        public string RuntimeStr { set; get; }
-        public string Plot { set; get; }
-        public string PlotLocal { set; get; }
-        public bool PlotLocalIsRtl { set; get; }
-        public string Awards { set; get; }
-        public string Directors { set; get; }
-        public List<StarShort> DirectorList { get; set; }
-        public string Writers { set; get; }
-        public List<StarShort> WriterList { get; set; }
-        public string Stars { set; get; }
-        public List<StarShort> StarList { get; set; }
-        public List<ActorShort> ActorList { get; set; }
-        public FullCastData FullCast { get; set; }
-        public string Genres { set; get; }
-        public List<KeyValueItem> GenreList { get; set; }
-        public string Companies { get; set; }
-        public List<CompanyShort> CompanyList { get; set; }
-        public string Countries { set; get; }
-        public List<KeyValueItem> CountryList { set; get; }
-        public string Languages { set; get; }
-        public List<KeyValueItem> LanguageList { set; get; }
-        public string ContentRating { get; set; }
-        public string IMDbRating { get; set; }
-        public string IMDbRatingVotes { get; set; }
-        public string MetacriticRating { set; get; }
-        public RatingData Ratings { set; get; }
-        public WikipediaData Wikipedia { set; get; }
-        public PosterData Posters { get; set; }
-        public ImageData Images { get; set; }
-        public TrailerData Trailer { get; set; }
-        public BoxOfficeShort BoxOffice { get; set; }
-        public string Tagline { get; set; }
-        public string Keywords { get; set; }
-        public List<string> KeywordList { get; set; }
-        public List<SimilarShort> Similars { get; set; }
-        public TvSeriesInfo TvSeriesInfo { get; set; }
-        public TvEpisodeInfo TvEpisodeInfo { get; set; }
-        public string ErrorMessage { get; set; }
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
     }
 
-
-    public class PosterDataItem
+    public TitleData(string errorMessage)
     {
-        public string Id { get; set; }
-        public string Link { get; set; }
-        public double AspectRatio { get; set; }
-        public string Language { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
+        ErrorMessage = errorMessage;
     }
 
-    public class TvSeriesInfo
+    public TitleData(string id, string errorMessage)
     {
-        public TvSeriesInfo()
-        {
-            CreatorList = new List<StarShort>();
-            Seasons = new List<string>();
-            Creators = YearEnd = string.Empty;
-        }
-
-        public string YearEnd { set; get; }
-        public string Creators { set; get; }
-        public List<StarShort> CreatorList { get; set; }
-        public List<string> Seasons { get; set; }
+        IMDbId = id;
+        ErrorMessage = errorMessage;
     }
 
-    public class TvEpisodeInfo
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string OriginalTitle { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public string Image { get; set; } = string.Empty;
+    public string ReleaseDate { get; set; } = string.Empty;
+    public int RuntimeMins { get; set; }
+    public string RuntimeStr { get; set; } = string.Empty;
+    public string Plot { get; set; } = string.Empty;
+    public string PlotLocal { get; set; } = string.Empty;
+    public bool PlotLocalIsRtl { get; set; } = false;
+    public string Awards { get; set; } = string.Empty;
+    public string Directors { get; set; } = string.Empty;
+    public List<StarShort> DirectorList { get; set; } = [];
+    public string Writers { get; set; } = string.Empty;
+    public List<StarShort> WriterList { get; set; } = [];
+    public string Stars { get; set; } = string.Empty;
+    public List<StarShort> StarList { get; set; } = [];
+    public List<ActorShort> ActorList { get; set; } = [];
+    public FullCastData? FullCast { get; set; } = new();
+    public string Genres { get; set; } = string.Empty;
+    public List<KeyValueItem> GenreList { get; set; } = [];
+    public string Companies { get; set; } = string.Empty;
+    public List<CompanyShort> CompanyList { get; set; } = [];
+    public string Countries { get; set; } = string.Empty;
+    public List<KeyValueItem> CountryList { get; set; } = [];
+    public string Languages { get; set; } = string.Empty;
+    public List<KeyValueItem> LanguageList { get; set; } = [];
+    public string ContentRating { get; set; } = string.Empty;
+    public decimal IMDbRating { get; set; }
+    public int IMDbRatingVotes { get; set; }
+    public int MetacriticRating { get; set; }
+    public RatingData? Ratings { get; set; } = new();
+    public WikipediaData? Wikipedia { get; set; } = new();
+    public PosterData? Posters { get; set; } = new();
+    public ImageData? Images { get; set; } = new();
+    public TrailerData? Trailer { get; set; } = new();
+    public BoxOfficeShort? BoxOffice { get; set; } = new();
+    public string Keywords { get; set; } = string.Empty;
+    public List<KeyValueItem> KeywordList { get; set; } = [];
+    public List<MovieShort> Similars { get; set; } = [];
+    public TvSeriesInfo? TvSeriesInfo { get; set; } = new();
+    public TvEpisodeInfo? TvEpisodeInfo { get; set; } = new();
+
+    public object Clone()
     {
-        public string SeriesId { get; set; }
-        public string SeriesTitle { get; set; }
-        public string SeriesFullTitle { get; set; }
-        public string SeriesYear { get; set; }
-        public string SeriesYearEnd { get; set; }
-        public string SeasonNumber { get; set; }
-        public string EpisodeNumber { get; set; }
-        public string PreviousEpisodeId { get; set; }
-        public string NextEpisodeId { get; set; }
+        return MemberwiseClone();
     }
+}
 
-    public class SimilarShort
-    {
-        public SimilarShort()
-        {
-            Id = Title = Image = IMDbRating = string.Empty;
-        }
+public class TvSeriesInfo
+{
+    public int YearEnd { get; set; }
+    public string Creators { get; set; } = string.Empty;
+    public List<StarShort> CreatorList { get; set; } = [];
+    public List<string> Seasons { get; set; } = [];
+}
 
-        public string Id { get; set; }
-        public string Title { get; set; }
-        public string Image { get; set; }
-        public string IMDbRating { get; set; }
-    }
+public class TvEpisodeInfo
+{
+    public string SeriesId { get; set; } = string.Empty;
+    public string SeriesTitle { get; set; } = string.Empty;
+    public string SeriesFullTitle { get; set; } = string.Empty;
+    public int SeriesYear { get; set; }
+    public int SeriesYearEnd { get; set; }
+    public int SeasonNumber { get; set; }
+    public int EpisodeNumber { get; set; }
+    public string PreviousEpisodeId { get; set; } = string.Empty;
+    public string NextEpisodeId { get; set; } = string.Empty;
+}
 
-    public class StarShort
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-    }
+public class MovieShort
+{
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public string Image { get; set; } = string.Empty;
+    public decimal IMDbRating { get; set; }
+    public int IMDbRatingVotes { get; set; }
+}
 
-    public class BoxOfficeShort
-    {
-        public BoxOfficeShort()
-        {
-            Budget = OpeningWeekendUSA = GrossUSA = CumulativeWorldwideGross = string.Empty;
-        }
+public class StarShort
+{
+    public string IMDbId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+}
 
-        public string Budget { get; set; }
-        public string OpeningWeekendUSA { get; set; }
-        public string GrossUSA { get; set; }
-        public string CumulativeWorldwideGross { get; set; }
-    }
+public class BoxOfficeShort
+{
+    public string Budget { get; set; } = string.Empty;
+    public long BudgetUsd { get; set; }
+    public string OpeningWeekendUSA { get; set; } = string.Empty;
+    public long OpeningWeekendUSAUsd { get; set; }
+    public string GrossUSA { get; set; } = string.Empty;
+    public long GrossUSAUsd { get; set; }
+    public string CumulativeWorldwideGross { get; set; } = string.Empty;
+    public long CumulativeWorldwideGrossUsd { get; set; }
+}
 
-    public class CompanyShort
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-    }
+public class CompanyShort
+{
+    public string IMDbId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 }

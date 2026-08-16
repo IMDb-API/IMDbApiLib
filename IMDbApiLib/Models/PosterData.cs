@@ -1,38 +1,36 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class PosterData : ApiBaseModel
 {
-    public class PosterData
+    public PosterData()
     {
-        public PosterData()
-        {
-            ErrorMessage = string.Empty;
-            Posters = new List<PosterDataItem>();
-            Backdrops = new List<PosterDataItem>();
-        }
-
-        public PosterData(string id, string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            IMDbId = id;
-            Posters = new List<PosterDataItem>();
-            Backdrops = new List<PosterDataItem>();
-        }
-
-        public PosterData(string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            Posters = new List<PosterDataItem>();
-            Backdrops = new List<PosterDataItem>();
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { set; get; }
-        public string Year { set; get; }
-        public List<PosterDataItem> Posters { get; set; }
-        public List<PosterDataItem> Backdrops { get; set; }
-        public string ErrorMessage { get; set; }
     }
+
+    public PosterData(string errorMessage)
+    {
+        ErrorMessage = errorMessage;
+    }
+
+    public PosterData(string id, string errorMessage)
+    {
+        ErrorMessage = errorMessage;
+        IMDbId = id;
+    }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public List<PosterDataItem> Posters { get; set; } = [];
+    public List<PosterDataItem> Backdrops { get; set; } = [];
+}
+
+public class PosterDataItem
+{
+    public string Url { get; set; } = string.Empty;
+    public decimal AspectRatio { get; set; } = 0;
+    public string Language { get; set; } = string.Empty;
+    public int Width { get; set; } = 0;
+    public int Height { get; set; } = 0;
 }

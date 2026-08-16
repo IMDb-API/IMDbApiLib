@@ -1,29 +1,30 @@
-﻿namespace IMDbApiLib.Models
+﻿namespace IMDbApiLib.Models;
+
+public class RatingData : ApiBaseModel
 {
-    public class RatingData
+    public RatingData()
     {
-        public RatingData()
-        {
-            ErrorMessage = string.Empty;
-            IMDb = Metacritic = TheMovieDb = RottenTomatoes = FilmAffinity = string.Empty;
-        }
-
-        public RatingData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { get; set; }
-        public string Year { get; set; }
-        public string IMDb { get; set; }
-        public string Metacritic { get; set; }
-        public string TheMovieDb { get; set; }
-        public string RottenTomatoes { get; set; }
-        public string FilmAffinity { get; set; }
-        public string ErrorMessage { get; set; }
     }
+
+    public RatingData(string errorMessage)
+    {
+        ErrorMessage = errorMessage;
+    }
+
+    public RatingData(string id, string errorMessage)
+    {
+        IMDbId = id;
+        ErrorMessage = errorMessage;
+    }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public decimal IMDb { get; set; }
+    public int Metacritic { get; set; }
+    public int TheMovieDb { get; set; }
+    public int RottenTomatoes { get; set; }
+    public decimal FilmAffinity { get; set; }
 }

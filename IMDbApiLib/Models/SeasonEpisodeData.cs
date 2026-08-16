@@ -1,53 +1,52 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class SeasonEpisodeData : ApiBaseModel
 {
-    public class SeasonEpisodeData
+    public SeasonEpisodeData()
     {
-        public SeasonEpisodeData()
-        {
-            ErrorMessage = string.Empty;
-            Episodes = new List<EpisodeShortDetail>();
-        }
-
-        public SeasonEpisodeData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-            Episodes = null;
-        }
-
-        public SeasonEpisodeData(string id, string title, string originalTitle, string titleFull, string type, string errorMessage)
-        {
-            IMDbId = id;
-            Title = title;
-            FullTitle = titleFull;
-            Type = type;
-            ErrorMessage = errorMessage;
-
-            Episodes = new List<EpisodeShortDetail>();
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { get; set; }
-        public string Year { get; set; }
-        public List<EpisodeShortDetail> Episodes { get; set; }
-        public string ErrorMessage { get; set; }
     }
 
-    public class EpisodeShortDetail
+    public SeasonEpisodeData(string errorMessage)
     {
-        public string Id { get; set; }
-        public string SeasonNumber { get; set; }
-        public string EpisodeNumber { get; set; }
-        public string Title { get; set; }
-        public string Image { get; set; }
-        public string Year { set; get; }
-        public string Released { set; get; }
-        public string Plot { set; get; }
-        public string IMDbRating { get; set; }
-        public string IMDbRatingCount { get; set; }
+        ErrorMessage = errorMessage;
     }
+
+    public SeasonEpisodeData(string id, string errorMessage)
+    {
+        IMDbId = id;
+        ErrorMessage = errorMessage;
+    }
+
+    public SeasonEpisodeData(string id, string title, string titleFull, string type, string errorMessage)
+    {
+        IMDbId = id;
+        Title = title;
+        FullTitle = titleFull;
+        Type = type;
+        ErrorMessage = errorMessage;
+    }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public int TotalEpisodes { get; set; }
+    public List<SeasonEpisodeDataItem> Episodes { get; set; } = [];
+}
+
+public class SeasonEpisodeDataItem
+{
+    public string IMDbId { get; set; } = string.Empty;
+    public int SeasonNumber { get; set; }
+    public int EpisodeNumber { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public string Image { get; set; } = string.Empty;
+    public string Released { get; set; } = string.Empty;
+    public string Plot { get; set; } = string.Empty;
+    public decimal IMDbRating { get; set; }
+    public int IMDbRatingVotes { get; set; }
 }

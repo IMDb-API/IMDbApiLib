@@ -1,30 +1,32 @@
-﻿namespace IMDbApiLib.Models
+﻿namespace IMDbApiLib.Models;
+
+public class TrailerData : ApiBaseModel
 {
-    public class TrailerData
+    public TrailerData()
     {
-        public TrailerData()
-        {
-            ErrorMessage = string.Empty;
-        }
-
-        public TrailerData(string id, string errorMessage)
-        {
-            IMDbId = id;
-            ErrorMessage = errorMessage;
-        }
-
-        public string IMDbId { get; set; }
-        public string Title { get; set; }
-        public string FullTitle { get; set; }
-        public string Type { get; set; }
-        public string Year { get; set; }
-        public string VideoId { get; set; }
-        public string VideoTitle { get; set; }
-        public string VideoDescription { get; set; }
-        public string ThumbnailUrl { get; set; }
-        public string UploadDate { get; set; }
-        public string Link { get; set; }
-        public string LinkEmbed { get; set; }
-        public string ErrorMessage { get; set; }
     }
+
+    public TrailerData(string errorMessage)
+    {
+        ErrorMessage = errorMessage;
+    }
+
+    public TrailerData(string id, string errorMessage)
+    {
+        IMDbId = id;
+        ErrorMessage = errorMessage;
+    }
+
+    public string IMDbId { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string FullTitle { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public string VideoId { get; set; } = string.Empty;
+    public string VideoTitle { get; set; } = string.Empty;
+    public string VideoDescription { get; set; } = string.Empty;
+    public string ThumbnailUrl { get; set; } = string.Empty;
+    public string UploadDate { get; set; } = string.Empty;
+    public string Link { get; set; } = string.Empty;
+    public string LinkEmbed { get; set; } = string.Empty;
 }

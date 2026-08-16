@@ -1,23 +1,22 @@
-﻿using System.Collections.Generic;
+﻿namespace IMDbApiLib.Models;
 
-namespace IMDbApiLib.Models
+public class KeywordData : ApiBaseModel
 {
-    public class KeywordData
+    public KeywordData()
     {
-        public KeywordData()
-        {
-            ErrorMessage = string.Empty;
-            Items = new List<MovieShort>();
-        }
-
-        public KeywordData(string keyword, string errorMessage)
-        {
-            ErrorMessage = errorMessage;
-            Items = null;
-        }
-
-        public string Keyword { get; set; }
-        public List<MovieShort> Items { get; set; }
-        public string ErrorMessage { get; set; }
     }
+
+    public KeywordData(string errorMessage)
+    {
+        ErrorMessage = errorMessage;
+    }
+
+    public KeywordData(string keyword, string errorMessage)
+    {
+        Keyword = keyword;
+        ErrorMessage = errorMessage;
+    }
+
+    public string Keyword { get; set; } = string.Empty;
+    public List<MovieShort> Items { get; set; } = [];
 }
