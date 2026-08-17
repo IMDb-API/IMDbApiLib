@@ -5,7 +5,7 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Get Wikipedia information for a movie, or TV seriesusing its IMDb ID. This endpoint returns available Wikipedia details including summaries and related information in the selected language.
+    /// Get Wikipedia information for a movie or TV series using its IMDb ID. This endpoint returns available Wikipedia details, including summaries and related information, in the selected language.
     /// </summary>
     /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
     /// <param name="lang">Language of the response. Default value is "en" (English).</param>

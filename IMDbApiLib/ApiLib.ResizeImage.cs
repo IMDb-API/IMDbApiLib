@@ -13,11 +13,24 @@ public partial class ApiLib
         return await GetBytesAsync(ResizeImageUrl(size, url)).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Resizes the specified image and saves the result asynchronously to a file.
+    /// </summary>
+    /// <param name="size">The requested image size.</param>
+    /// <param name="url">The source image URL.</param>
+    /// <param name="filePath">The destination file path.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task ResizeImageSaveFileAsync(string size, string url, string filePath)
     {
         await SaveFileAsync(ResizeImageUrl(size, url), filePath).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Creates the TV-API URL used to resize the specified image.
+    /// </summary>
+    /// <param name="size">The requested image size.</param>
+    /// <param name="url">The source image URL.</param>
+    /// <returns>The encoded resize endpoint URL.</returns>
     public string ResizeImageUrl(string size, string url)
     {
         EnsureNotNullOrWhiteSpace(size, nameof(size));

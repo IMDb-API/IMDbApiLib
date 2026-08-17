@@ -163,12 +163,10 @@ public class AdvancedSearchInput
             return string.Empty;
         }
 
-        if (DateTime.TryParse(date, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dt))
-        {
-            return dt.ToString("yyyy-MM-dd");
-        }
-
-        return string.Empty;
+        string[] acceptedFormats = ["yyyy", "yyyy-MM", "yyyy-MM-dd"];
+        return DateTime.TryParseExact(date, acceptedFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out _)
+            ? date!
+            : string.Empty;
     }
 
     private void SingleValueToQueryString(List<string> queries, string fieldName, string? fieldValue)

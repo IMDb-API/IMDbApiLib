@@ -5,7 +5,7 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Get frequently asked questions and answers related to the API. This endpoint provides FAQ information and allows searching through available questions and answers.
+    /// Get frequently asked questions and answers for a movie or TV series using its IMDb ID. This endpoint returns available title-related questions and answers, including details about the story, characters, production, and other movie or TV series information.
     /// </summary>
     /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
     /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>

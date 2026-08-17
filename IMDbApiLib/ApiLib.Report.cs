@@ -5,7 +5,7 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Generate report from Movie or Series TV as "HTML" file.
+    /// Generate a detailed "HTML" report for a movie or TV series using its IMDb ID. The report can include title information, actors, cast, posters, images, trailers, ratings, and Wikipedia content based on the selected options.
     /// </summary>
     /// <param name="id">IMDb title ID. The ID must be a valid IMDb identifier starting with "tt". Example: "tt1375666"</param>
     /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>

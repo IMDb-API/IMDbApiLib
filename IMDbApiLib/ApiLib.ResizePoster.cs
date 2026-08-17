@@ -13,11 +13,24 @@ public partial class ApiLib
         return await GetBytesAsync(ResizePosterUrl(size, url)).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Resizes the specified poster and saves the result asynchronously to a file.
+    /// </summary>
+    /// <param name="size">The requested poster size.</param>
+    /// <param name="url">The source poster URL.</param>
+    /// <param name="filePath">The destination file path.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task ResizePosterSaveFileAsync(string size, string url, string filePath)
     {
         await SaveFileAsync(ResizePosterUrl(size, url), filePath).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Creates the TV-API URL used to resize the specified poster.
+    /// </summary>
+    /// <param name="size">The requested poster size.</param>
+    /// <param name="url">The source poster URL.</param>
+    /// <returns>The encoded resize endpoint URL.</returns>
     public string ResizePosterUrl(string size, string url)
     {
         EnsureNotNullOrWhiteSpace(size, nameof(size));
