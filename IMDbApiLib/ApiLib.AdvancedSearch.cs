@@ -17,7 +17,10 @@ public partial class ApiLib
             string queryString = advancedSearchInput.ToString();
             if (string.IsNullOrEmpty(queryString))
             {
-                throw new Exception("It is mandatory to enter at least one filter.");
+                return new AdvancedSearchData()
+                {
+                    ErrorMessage = "It is mandatory to enter at least one filter."
+                };
             }
 
             queryString += $"&apiKey={Encode(_apiKey)}&lang={EnumValue(lang)}";
