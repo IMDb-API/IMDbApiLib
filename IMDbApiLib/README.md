@@ -149,6 +149,23 @@ input.CountriesStr = "US,FR,GB";
 input.LanguagesStr = "en,fr";
 ```
 
+
+## Advanced name search
+
+```csharp
+using IMDbApiLib.Models;
+
+var input = new AdvancedNameSearchInput
+{
+    Name = "Leonardo DiCaprio",
+    BirthDateFrom = "1970",
+    BirthDateTo = "1980",
+    Gender = AdvancedNameSearchGender.Male,
+    Awards = AdvancedNameSearchAward.OscarWinning
+};
+
+var results = await api.AdvancedNameSearchAsync(input);
+```
 ## Charts and upcoming releases
 
 ```csharp

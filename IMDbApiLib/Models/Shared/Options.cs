@@ -9,7 +9,7 @@ public class Options
         string originalOptions = options ?? string.Empty;
         options ??= string.Empty;
 
-        if (!options.StartsWith('/'))
+        if (!options.StartsWith("/"))
         {
             options = $"/{options}";
         }
