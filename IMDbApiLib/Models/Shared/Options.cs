@@ -8,11 +8,13 @@ public class Options
     {
         string originalOptions = options ?? string.Empty;
         options ??= string.Empty;
-        if (!options.StartsWith(""))
+
+        if (!options.StartsWith('/'))
         {
             options = $"/{options}";
         }
-        options = options.ToLower();
+
+        options = options.ToLowerInvariant();
 
         FullCast = options.Contains("fullcast");
         FullActor = options.Contains("fullactor") || options.Contains("fullcast");
@@ -22,7 +24,7 @@ public class Options
         Trailer = options.Contains("trailers") || options.Contains("trailer");
         Ratings = options.Contains("ratings") || options.Contains("rating");
 
-        string[] optionItems = originalOptions.Split(new[] { '/', ',', '{', '}', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] optionItems = originalOptions.Split(['/', ',', '{', '}', ' '], StringSplitOptions.RemoveEmptyEntries);
         foreach (string item in optionItems)
         {
             bool isRegularKey = item.Length == 20;

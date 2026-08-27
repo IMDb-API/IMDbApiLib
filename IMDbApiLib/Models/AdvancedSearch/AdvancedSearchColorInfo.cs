@@ -13,6 +13,6 @@ public enum AdvancedSearchColorInfo
     [Display(Name = "Colorized", Description = "colorized")]
     Colorized = 4,
 
-    [Display(Name = "Aces", Description = "aces")]
+    [Display(Name = "ACES", Description = "aces")]
     Aces = 8,
 }

@@ -40,24 +40,24 @@ public enum AdvancedSearchAward
     [Display(Name = "Razzie-Winner", Description = "razzie_winner")]
     RazzieWinner = 2048,
 
-    [Display(Name = "Razzie-Nominee", Description = "razzie_nomine")]
-    RazzieNominee = 4196,
+    [Display(Name = "Razzie-Nominee", Description = "razzie_nominee")]
+    RazzieNominee = 4096,
 
-    [Display(Name = "Top 100", Description = "top_100")]
+    [Display(Name = "IMDb Top 100 Movies", Description = "top_100")]
     Top100 = 8192,
 
-    [Display(Name = "Top 250", Description = "top_250")]
+    [Display(Name = "IMDb Top 250 Movies", Description = "top_250")]
     Top250 = 16384,
 
-    [Display(Name = "Top 1000", Description = "top_1000")]
+    [Display(Name = "IMDb Top 1000 Movies", Description = "top_1000")]
     Top1000 = 32768,
 
-    [Display(Name = "Bottom 100", Description = "bottom_100")]
+    [Display(Name = "IMDb Bottom 100 Movies", Description = "bottom_100")]
     Bottom100 = 65536,
 
-    [Display(Name = "Bottom 250", Description = "bottom_250")]
+    [Display(Name = "IMDb Bottom 250 Movies", Description = "bottom_250")]
     Bottom250 = 131072,
 
-    [Display(Name = "Bottom 1000", Description = "bottom_1000")]
+    [Display(Name = "IMDb Bottom 1000 Movies", Description = "bottom_1000")]
     Bottom1000 = 262144,
 }

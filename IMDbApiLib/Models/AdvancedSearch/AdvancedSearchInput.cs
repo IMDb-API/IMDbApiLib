@@ -1,11 +1,11 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
 namespace IMDbApiLib.Models;
 
 public class AdvancedSearchInput
 {
-    [Display(Name = "Title", Description = "title")]
+    [Display(Name = "Title name", Description = "title")]
     public string? Title { get; set; }
 
     [Display(Name = "Title type", Description = "title_type")]
@@ -20,7 +20,7 @@ public class AdvancedSearchInput
     [Display(Name = "IMDb ratings from", Description = "user_rating")]
     public decimal? UserRatingFrom { get; set; }
 
-    [Display(Name = "IMDb rating to", Description = "user_rating")]
+    [Display(Name = "IMDb ratings to", Description = "user_rating")]
     public decimal? UserRatingTo { get; set; }
 
     [Display(Name = "Number of votes from", Description = "num_votes")]
@@ -32,14 +32,47 @@ public class AdvancedSearchInput
     [Display(Name = "Genre", Description = "genres")]
     public AdvancedSearchGenre? Genres { get; set; }
 
+    [Display(Name = "Exclude", Description = "genres")]
+    public AdvancedSearchExcludeGenre? ExcludedGenres { get; set; }
+
     [Display(Name = "Awards & recognition", Description = "groups")]
     public AdvancedSearchAward? Awards { get; set; }
 
-    [Display(Name = "Page topic", Description = "has")]
+    [Display(Name = "Page topics", Description = "has")]
     public AdvancedSearchPageTopic? PageTopics { get; set; }
+
+    [Display(Name = "Alternate Versions", Description = "versions")]
+    public string? AlternateVersions { get; set; }
+
+    [Display(Name = "Awards", Description = "awards")]
+    public string? AwardsTopic { get; set; }
+
+    [Display(Name = "Business Info", Description = "business")]
+    public string? BusinessInfo { get; set; }
+
+    [Display(Name = "Crazy Credits", Description = "crazy_credits")]
+    public string? CrazyCredits { get; set; }
+
+    [Display(Name = "Goofs", Description = "goofs")]
+    public string? Goofs { get; set; }
+
+    [Display(Name = "Locations", Description = "locations")]
+    public string? Locations { get; set; }
 
     [Display(Name = "Plot", Description = "plot")]
     public string? Plot { get; set; }
+
+    [Display(Name = "Quotes", Description = "quotes")]
+    public string? Quotes { get; set; }
+
+    [Display(Name = "Soundtracks", Description = "soundtracks")]
+    public string? Soundtracks { get; set; }
+
+    [Display(Name = "Tech specs", Description = "technical")]
+    public string? TechSpecs { get; set; }
+
+    [Display(Name = "Trivia", Description = "trivia")]
+    public string? Trivia { get; set; }
 
     [Display(Name = "Companies", Description = "companies")]
     public AdvancedSearchCompany? Companies { get; set; }
@@ -53,10 +86,10 @@ public class AdvancedSearchInput
     [Display(Name = "Color info", Description = "colors")]
     public AdvancedSearchColorInfo? ColorInfo { get; set; }
 
-    [Display(Name = "Countries", Description = "countries")]
+    [Display(Name = "Country", Description = "countries")]
     public AdvancedSearchCountry? Countries { get; set; }
 
-    [Display(Name = "Countries", Description = "countries")]
+    [Display(Name = "Country", Description = "countries")]
     public string? CountriesStr { get; set; }
 
     [Display(Name = "Keywords", Description = "keywords")]
@@ -89,6 +122,9 @@ public class AdvancedSearchInput
     [Display(Name = "Sound mix", Description = "sound_mixes")]
     public AdvancedSearchSoundMix? SoundMix { get; set; }
 
+    [Display(Name = "Sort by", Description = "sort")]
+    public AdvancedSearchSort? Sort { get; set; }
+
     public override string ToString()
     {
         var queries = new List<string>();
@@ -99,9 +135,20 @@ public class AdvancedSearchInput
         TwoValuesToQueryString(queries, "release_date", releaseDateFrom, releaseDateTo);
         TwoValuesToQueryString(queries, "user_rating", UserRatingFrom, UserRatingTo);
         TwoValuesToQueryString(queries, "num_votes", NumberOfVotesFrom, NumberOfVotesTo);
-        EnumToQueryString(queries, "genres", Genres);
+        EnumWithExclusionsToQueryString(queries, "genres", Genres, ExcludedGenres);
         EnumToQueryString(queries, "groups", Awards);
         EnumToQueryString(queries, "has", PageTopics);
+        SingleValueToQueryString(queries, "versions", AlternateVersions);
+        SingleValueToQueryString(queries, "awards", AwardsTopic);
+        SingleValueToQueryString(queries, "business", BusinessInfo);
+        SingleValueToQueryString(queries, "crazy_credits", CrazyCredits);
+        SingleValueToQueryString(queries, "goofs", Goofs);
+        SingleValueToQueryString(queries, "locations", Locations);
+        SingleValueToQueryString(queries, "plot", Plot);
+        SingleValueToQueryString(queries, "quotes", Quotes);
+        SingleValueToQueryString(queries, "soundtracks", Soundtracks);
+        SingleValueToQueryString(queries, "technical", TechSpecs);
+        SingleValueToQueryString(queries, "trivia", Trivia);
         EnumToQueryString(queries, "companies", Companies);
         EnumToQueryString(queries, "online_availability", InstantWatchOptions);
         EnumToQueryString(queries, "certificates", USCertificates);
@@ -126,9 +173,9 @@ public class AdvancedSearchInput
         TwoValuesToQueryString(queries, "moviemeter", IMDbPopularityRankFrom, IMDbPopularityRankTo);
         SingleValueToQueryString(queries, "role", CastOrCrew);
         SingleValueToQueryString(queries, "characters", Characters);
-        SingleValueToQueryString(queries, "plot", Plot);
         TwoValuesToQueryString(queries, "runtime", RuntimeFrom, RuntimeTo);
         EnumToQueryString(queries, "sound_mixes", SoundMix);
+        EnumSingleValueToQueryString(queries, "sort", Sort);
 
         if (queries.Count > 0)
         {
@@ -199,6 +246,25 @@ public class AdvancedSearchInput
         if (qs.Any())
         {
             queries.Add($"{fieldName}={EncodeQueryValue(string.Join(",", qs))}");
+        }
+    }
+
+    private void EnumWithExclusionsToQueryString(List<string> queries, string fieldName, Enum? includedValues, Enum? excludedValues)
+    {
+        var values = new List<string>();
+        if (includedValues is not null)
+        {
+            values.AddRange(GetFlags(includedValues));
+        }
+
+        if (excludedValues is not null)
+        {
+            values.AddRange(GetFlags(excludedValues).Select(ex => $"!{ex}"));
+        }
+
+        if (values.Count > 0)
+        {
+            queries.Add($"{fieldName}={EncodeQueryValue(string.Join(",", values))}");
         }
     }
 

@@ -100,7 +100,7 @@ public enum Language
     [Display(Name = "Gujarati", Description = "GU (Gujarati)")]
     GU,
 
-    [Display(Name = "Haitian reole)", Description = "HT (Haitian Creole)")]
+    [Display(Name = "Haitian Creole", Description = "HT (Haitian Creole)")]
     HT,
 
     [Display(Name = "Hausa", Description = "HA (Hausa)")]
@@ -202,7 +202,7 @@ public enum Language
     [Display(Name = "Mongolian", Description = "MN (Mongolian)")]
     MN,
 
-    [Display(Name = "Myanmar Burmese))", Description = "MY (Myanmar (Burmese))")]
+    [Display(Name = "Myanmar (Burmese)", Description = "MY (Myanmar (Burmese))")]
     MY,
 
     [Display(Name = "Nepali", Description = "NE (Nepali)")]
@@ -211,7 +211,7 @@ public enum Language
     [Display(Name = "Norwegian", Description = "NO (Norwegian)")]
     NO,
 
-    [Display(Name = "Odia Oriya))", Description = "OR (Odia (Oriya))")]
+    [Display(Name = "Odia (Oriya)", Description = "OR (Odia (Oriya))")]
     OR,
 
     [Display(Name = "Pashto", Description = "PS (Pashto)")]
@@ -238,7 +238,7 @@ public enum Language
     [Display(Name = "Samoan", Description = "SM (Samoan)")]
     SM,
 
-    [Display(Name = "Scots aelic)", Description = "GD (Scots Gaelic)")]
+    [Display(Name = "Scots Gaelic", Description = "GD (Scots Gaelic)")]
     GD,
 
     [Display(Name = "Serbian", Description = "SR (Serbian)")]

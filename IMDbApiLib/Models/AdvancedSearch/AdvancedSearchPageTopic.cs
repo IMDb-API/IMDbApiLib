@@ -31,7 +31,7 @@ public enum AdvancedSearchPageTopic
     [Display(Name = "Soundtracks", Description = "soundtracks")]
     Soundtracks = 256,
 
-    [Display(Name = "Technical", Description = "technical")]
+    [Display(Name = "Tech specs", Description = "technical")]
     Technical = 512,
 
     [Display(Name = "Trivia", Description = "trivia")]

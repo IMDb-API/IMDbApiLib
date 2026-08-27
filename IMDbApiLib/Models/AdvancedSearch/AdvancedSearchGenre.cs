@@ -67,18 +67,21 @@ public enum AdvancedSearchGenre
     [Display(Name = "Sci-Fi", Description = "sci-fi")]
     SciFi = 1048576,
 
+    [Display(Name = "Short", Description = "short")]
+    Short = 2097152,
+
     [Display(Name = "Sport", Description = "sport")]
-    Sport = 2097152,
+    Sport = 4194304,
 
     [Display(Name = "Talk-Show", Description = "talk-show")]
-    TalkShow = 4194304,
+    TalkShow = 8388608,
 
     [Display(Name = "Thriller", Description = "thriller")]
-    Thriller = 8388608,
+    Thriller = 16777216,
 
     [Display(Name = "War", Description = "war")]
-    War = 16777216,
+    War = 33554432,
 
-    [Display(Name = "Western", Description = "wester")]
-    Western = 33554432,
+    [Display(Name = "Western", Description = "western")]
+    Western = 67108864,
 }
