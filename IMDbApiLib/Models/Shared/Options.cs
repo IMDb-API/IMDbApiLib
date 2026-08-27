@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 
 namespace IMDbApiLib.Models;
 
@@ -6,7 +6,7 @@ public class Options
 {
     public Options(ref string? options)
     {
-        string? originalOptions = new(options?.ToCharArray());
+        string originalOptions = options ?? string.Empty;
         options ??= string.Empty;
         if (!options.StartsWith(""))
         {
@@ -22,25 +22,15 @@ public class Options
         Trailer = options.Contains("trailers") || options.Contains("trailer");
         Ratings = options.Contains("ratings") || options.Contains("rating");
 
-        int indexOf = originalOptions.IndexOf("pk_");
-        if (indexOf != -1)
+        string[] optionItems = originalOptions.Split(new[] { '/', ',', '{', '}', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (string item in optionItems)
         {
-            string key = originalOptions.Substring(indexOf, 20); // 20 chars
-            if (!string.IsNullOrEmpty(key) && key.Length == 20)
+            bool isRegularKey = item.Length == 20;
+            bool isPublicKey = item.Length == 30 && item.StartsWith("pk_", StringComparison.Ordinal);
+            if (isRegularKey || isPublicKey)
             {
-                ApiKey = key;
-            }
-        }
-        else
-        {
-            indexOf = originalOptions.IndexOf("k_");
-            if (indexOf != -1)
-            {
-                string key = originalOptions.Substring(indexOf, 10); // 10 chars
-                if (!string.IsNullOrEmpty(key) && key.Length == 10)
-                {
-                    ApiKey = key;
-                }
+                ApiKey = item;
+                break;
             }
         }
     }

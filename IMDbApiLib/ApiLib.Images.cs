@@ -5,7 +5,7 @@ namespace IMDbApiLib;
 public partial class ApiLib
 {
     /// <summary>
-    /// Get available images for a movie or TV series using its IMDb ID. This endpoint returns image collections and related information for the requested title.
+    /// Get available images for a movie, TV series, or person using an IMDb ID. This endpoint returns image collections and related information for the requested item.
     /// </summary>
     /// <param name="id">IMDb identifier. The ID can be a title ID starting with "tt" or a person ID starting with "nm". Examples: "tt1375666", "nm0000154"</param>
     /// <param name="lang">Language of the response. Default value is "en" (English). Some fields will be returned in the selected language.</param>

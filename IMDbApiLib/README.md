@@ -33,7 +33,7 @@ Install-Package IMDbApiLib -Version 3.0.0
 
 ## Documentation
 
-- [TV-API documentation](https://tv-api.com/api)
+- [TV-API documentation](https://tv-api.com/docs)
 - [TV-API website](https://tv-api.com)
 
 ## Quick start
