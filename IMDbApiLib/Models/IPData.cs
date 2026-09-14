@@ -56,7 +56,6 @@ public class IPData : ApiBaseModel
     public double Lat { get; set; }
     public double Lon { get; set; }
     public string Timezone { get; set; } = string.Empty;
-    public int Offset { get; set; }
     public string Currency { get; set; } = string.Empty;
     public string Isp { get; set; } = string.Empty;
     public string Org { get; set; } = string.Empty;

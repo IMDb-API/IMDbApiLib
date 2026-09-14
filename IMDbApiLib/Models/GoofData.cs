@@ -36,6 +36,6 @@ public class GoofDataItemDetail
 {
     public int HelpfulUp { get; set; }
     public int HelpfulDown { get; set; }
-    public string PlaidHtml { get; set; } = string.Empty;
-    public string PlaidText { get; set; } = string.Empty;
+    public string PlainHtml { get; set; } = string.Empty;
+    public string PlainText { get; set; } = string.Empty;
 }

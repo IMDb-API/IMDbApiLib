@@ -21,11 +21,12 @@
 	<Nullable>enable</Nullable>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<NoWarn>$(NoWarn);1591</NoWarn>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    <PackageReference Include="System.Text.Json" Version="10.0.11" />
+    <PackageReference Include="System.Text.Json" Version="10.0.12" />
 	<None Update="README.md" Pack="true" PackagePath="\" />
 	<None Update="IMDbApiLib_Icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
